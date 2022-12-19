@@ -10,6 +10,7 @@ import Firebase
 
 struct PhotoPost {
     var id: String
+    var userID: String
     var title: String
     var content: String
     var createdDate: Timestamp

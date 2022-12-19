@@ -28,25 +28,27 @@ class PhotoPostStore: ObservableObject {
                     for document in snapshot.documents {
                         let id: String = document.documentID
                         let docData = document.data()
+                        let userID: String = docData["userID"] as? String ?? ""
                         let title: String = docData["title"] as? String ?? ""
                         let content: String = docData["content"] as? String ?? ""
-//                        let createdDate: Timestamp = docData["createdDate"] as? Timestamp ?? Timestamp(date: Date())
+                        //                        let createdDate: Timestamp = docData["createdDate"] as? Timestamp ?? Timestamp(date: Date())
                         let createdDate: Timestamp = docData["createdDate"] as? Timestamp ?? Timestamp(date: Date())
                         let photos: [String] = docData["photos"] as? [String] ?? []
                         
-                        let photoPost: PhotoPost = PhotoPost(id: id, title: title, content: content, createdDate: createdDate, photos: photos)
+                        let photoPost: PhotoPost = PhotoPost(id: id, userID: userID, title: title, content: content, createdDate: createdDate, photos: photos)
                         
                         self.photoPost.append(photoPost)
                     }
                 }
             }
     }
-
+    
     
     func addPhotoPost(_ photoPost: PhotoPost) {
         database.collection("PhotoPost")
             .document(photoPost.id)
-            .setData(["title": photoPost.title,
+            .setData(["userID": photoPost.userID,
+                      "title": photoPost.title,
                       "content": photoPost.content,
                       "createdDate": photoPost.createdDate,
                       "photos": photoPost.photos,

@@ -29,7 +29,7 @@ struct WriteView: View {
             TextField("Content", text: $content)
             
             Button {
-                photoPostStore.addPhotoPost(PhotoPost(id: String(Auth.auth().currentUser?.uid ?? ""), title: title, content: content, createdDate: Timestamp(), photos: []))
+                photoPostStore.addPhotoPost(PhotoPost(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.uid ?? ""), title: title, content: content, createdDate: Timestamp(), photos: []))
             } label: {
                 Text("add")
             }

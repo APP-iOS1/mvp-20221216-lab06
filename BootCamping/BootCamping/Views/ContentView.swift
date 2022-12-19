@@ -11,11 +11,20 @@ import FirebaseAuth
 struct ContentView: View {
     
     @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
+    @EnvironmentObject var authStore: AuthStore
     
     
     var body: some View {
         List {
-            ForEach(photoPostStore.photoPost, id: \.id) { post in
+            Button {
+                Task {
+                    try await authStore.signOut
+                }
+            } label: {
+                Text("signout")
+            }
+            ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { post in
+//                        ForEach(photoPostStore.photoPost, id: \.id) { post in
                 Text("\(post.title)")
             }
         }
@@ -39,5 +48,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(AuthStore())
     }
 }
