@@ -6,16 +6,33 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
+    
+    @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        List {
+            ForEach(photoPostStore.photoPost, id: \.id) { post in
+                Text("\(post.title)")
+            }
         }
-        .padding()
+        .navigationTitle("List")
+        .toolbar {
+            NavigationLink {
+                WriteView(photoPostStore: photoPostStore)
+            } label: {
+                Text("Add")
+            }
+        }
+        .onAppear {
+            print(Auth.auth().currentUser?.uid)
+            
+            photoPostStore.fetchPhotoPost()
+            
+        }
     }
 }
 
