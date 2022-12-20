@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import Firebase
 
 struct Comment: Identifiable {
     var id: String
-    var userId: String
+    var userID: String
     var content: String
+    var createdDate: Timestamp
 }

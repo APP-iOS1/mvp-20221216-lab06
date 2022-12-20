@@ -11,6 +11,7 @@ import FirebaseAuth
 struct ContentView: View {
     
     @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
+
     @EnvironmentObject var authStore: AuthStore
     
     
@@ -24,9 +25,13 @@ struct ContentView: View {
                 Text("signout")
             }
             ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { post in
-//                        ForEach(photoPostStore.photoPost, id: \.id) { post in
-                Text("\(post.title)")
+//                NavigationLink {
+//                    PhotoPostView(photoPost: post)
+//                } label: {
+                    Text("\(post.title)")
+//                }
             }
+            
         }
         .navigationTitle("List")
         .toolbar {
