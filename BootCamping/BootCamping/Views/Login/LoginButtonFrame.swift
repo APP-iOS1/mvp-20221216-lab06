@@ -11,13 +11,26 @@ import SwiftUI
 @ViewBuilder
 func loginButtonFrame(title: String) -> some View{
     RoundedRectangle(cornerRadius: 10)
-        .frame(width: 360, height: 60)
+        .frame(width: 280, height: 60)
+        .foregroundColor(.red)
         .overlay{
             Text("\(title)")
-                .foregroundColor(.black)
+                .foregroundColor(.white)
                 .font(.headline)
 //                .bold()
                 
         }
 }
 
+@ViewBuilder
+func signupButtonFrame(title: String) -> some View{
+    RoundedRectangle(cornerRadius: 10)
+        .frame(width: 320, height: 55)
+        .overlay{
+            Text("\(title)")
+                .foregroundColor(.white)
+                .font(.headline)
+//                .bold()
+                
+        }
+}

@@ -9,7 +9,16 @@ import SwiftUI
 
 
 var TextFieldFrame: some View {
-    RoundedRectangle(cornerRadius: 10)
+    Rectangle()
         .stroke(.gray)
-        .frame(width: 360, height: 50)
+        .frame(width: 270, height: 1)
+        .padding(.top, 40)
+}
+
+
+var TextFieldFrameSignUp: some View {
+    Rectangle()
+        .stroke(.gray)
+        .frame(width: 300, height: 1)
+        .padding(.top, 40)
 }

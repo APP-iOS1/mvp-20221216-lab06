@@ -20,25 +20,25 @@ struct LoginView: View {
     
     var body: some View {
         VStack{
-            AsyncImage(url: URL(string: "http://firebasestorage.googleapis.com/v0/b/bucket%20object/o/images/12C307D4-F153-421C-90B7-C518D1637777.jpg?alt=media"))
+//            AsyncImage(url: URL(string: "http://firebasestorage.googleapis.com/v0/b/bucket%20object/o/images/12C307D4-F153-421C-90B7-C518D1637777.jpg?alt=media"))
                 
             
             Spacer()
-            Image("LoginLogo")
+            Image(systemName:"apple.logo")
                 .resizable()
-                .frame(width: 300, height: 100)
+                .frame(width: 100, height: 100)
                 .padding(50)
             
             
             VStack {
                 TextFieldFrame
                     .overlay{
-                        TextField(" 이메일을 입력하세요.", text: $authStore.email)
+                        TextField(" 이메일", text: $authStore.email)
                     }
                 
                 TextFieldFrame
                     .overlay{
-                        SecureField(" 비밀번호를 입력하세요.", text: $authStore.password)
+                        SecureField(" 비밀번호", text: $authStore.password)
                     }
                     .padding(5)
                 
@@ -59,6 +59,7 @@ struct LoginView: View {
                     
                     LoginButton
                         .padding(.top, 60)
+                        .padding(.bottom)
                 }.task {
                     Task {
                         await authStore.signIn()
@@ -67,25 +68,34 @@ struct LoginView: View {
                 }
                 
                 
-                Button(action: {
-                    isSignUp.toggle()
-                }) {
-                    Text("함께하다")
-                        .foregroundColor(.gray)
-                        .underline()
+                HStack {
+                    Button(action: {
+                        isSignUp.toggle()
+                    }) {
+                        Text("회원가입하기")
+                            .foregroundColor(.gray)
+                            .underline()
+                    }
+                    .padding(.horizontal)
+                    Button(action: {
+                        isSignUp.toggle()
+                    }) {
+                        Text("아이디 / 비밀번호 찾기")
+                            .foregroundColor(.gray)
+                            .underline()
+                    }
                 }
-                .padding(5)
             }
             Spacer()
         }
         .sheet(isPresented: $isSignUp) {
-            SignUpView()
+            TermsView()
         }
     }
     
     //MARK: - Button Frame
     private var LoginButton: some View {
-        loginButtonFrame(title: "들어가다")
+        loginButtonFrame(title: "로그인")
     }
 }
 
