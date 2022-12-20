@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+//enum tapInfo : String, CaseIterable {
+//    case top = "오늘의 캠핑"
+//    case follow = "팔로우중인 캠퍼"
+//}
+
 struct ContentView: View {
     var body: some View {
         VStack {
@@ -19,8 +24,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
