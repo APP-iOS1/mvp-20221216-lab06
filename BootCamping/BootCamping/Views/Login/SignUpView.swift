@@ -7,12 +7,20 @@
 
 import SwiftUI
 
-//전체동의는 되는데 개별동의 안됨.
+// 약관동의 뷰
 struct TermsView: View {
+    // 약관동의 체크박스를 위한
     @State var isAllCheck: Bool = false
-    @State var isCheck: Bool = false
+    @State var isCheck1 = false
+    @State var isCheck2 = false
+    @State var isCheck3 = false
+    @State var isCheck4 = false
+    @State var isCheck5 = false
+    @State var isCheck6 = false
+    
+    // 회원가입 완료버튼으로 화면 내리기 위한
     @Binding var isSignUp: Bool
-
+    
     var body: some View {
         NavigationStack {
             Group {
@@ -28,6 +36,12 @@ struct TermsView: View {
                     HStack{
                         Button {
                             isAllCheck.toggle()
+                            isCheck1.toggle()
+                            isCheck2.toggle()
+                            isCheck3.toggle()
+                            isCheck4.toggle()
+                            isCheck5.toggle()
+                            isCheck6.toggle()
                         } label: {
                             Image(systemName: isAllCheck ? "checkmark.square.fill" : "checkmark.square.fill")
                                 .foregroundColor(isAllCheck ? .red : .gray)
@@ -38,10 +52,11 @@ struct TermsView: View {
                     Group{
                         HStack{
                             Button {
-                                isCheck.toggle()
+                                isCheck1.toggle()
                             } label: {
-                                Image(systemName: isAllCheck ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isAllCheck ? .red : .gray)
+                                Image(systemName: isCheck1 ? "checkmark.square.fill" : "checkmark.square.fill")
+                                    .foregroundColor(isCheck1 ? .red : .gray)
+                                
                             }
                             HStack {
                                 Text("서비스 이용 약관")
@@ -52,10 +67,10 @@ struct TermsView: View {
                         .padding(.bottom)
                         HStack{
                             Button {
-                                isCheck.toggle()
+                                isCheck2.toggle()
                             } label: {
-                                Image(systemName: isAllCheck ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isAllCheck ? .red : .gray)
+                                Image(systemName: isCheck2 ? "checkmark.square.fill" : "checkmark.square.fill")
+                                    .foregroundColor(isCheck2 ? .red : .gray)
                             }
                             HStack {
                                 Text("개인 정보 수집 및 이용 동의")
@@ -67,10 +82,10 @@ struct TermsView: View {
                         
                         HStack{
                             Button {
-                                isCheck.toggle()
+                                isCheck3.toggle()
                             } label: {
-                                Image(systemName: isAllCheck ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isAllCheck ? .red : .gray)
+                                Image(systemName: isCheck3 ? "checkmark.square.fill" : "checkmark.square.fill")
+                                    .foregroundColor(isCheck3 ? .red : .gray)
                             }
                             HStack {
                                 Text("개인정보 제 3자 제공 동의")
@@ -82,10 +97,10 @@ struct TermsView: View {
                         
                         HStack{
                             Button {
-                                isCheck.toggle()
+                                isCheck4.toggle()
                             } label: {
-                                Image(systemName: isAllCheck ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isAllCheck ? .red : .gray)
+                                Image(systemName: isCheck4 ? "checkmark.square.fill" : "checkmark.square.fill")
+                                    .foregroundColor(isCheck4 ? .red : .gray)
                             }
                             VStack {
                                 HStack {
@@ -96,17 +111,17 @@ struct TermsView: View {
                                 Text("*미성년자는 서비스 이용이 불가합니다.")
                                     .font(.caption)
                                     .foregroundColor(.red)
-
+                                
                             }
                         }
                         .padding(.bottom)
                         
                         HStack{
                             Button {
-                                isCheck.toggle()
+                                isCheck5.toggle()
                             } label: {
-                                Image(systemName: isAllCheck ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isAllCheck ? .red : .gray)
+                                Image(systemName: isCheck5 ? "checkmark.square.fill" : "checkmark.square.fill")
+                                    .foregroundColor(isCheck5 ? .red : .gray)
                             }
                             Text("개인정보 수집 및 이용 동의 (선택)")
                         }
@@ -114,28 +129,32 @@ struct TermsView: View {
                         
                         HStack{
                             Button {
-                                isCheck.toggle()
+                                isCheck6.toggle()
                             } label: {
-                                Image(systemName: isAllCheck ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isAllCheck ? .red : .gray)
+                                Image(systemName: isCheck6 ? "checkmark.square.fill" : "checkmark.square.fill")
+                                    .foregroundColor(isCheck6 ? .red : .gray)
                             }
                             Text("이벤트/마케팅 수신 동의(선택)")
                         }
                     }
                     
                 }
-                .padding()
+                .padding([.horizontal, .bottom], 40)
+                
+                
+                // 버튼, 필수 약관 체크 되어있어야지 활성화
                 VStack(alignment: .center){
-                    signupButtonFrame(title: "다음")
-                        .foregroundColor(.gray)
-                    NavigationLink(destination: SignUpView( isSignUp: $isSignUp)){
-                        
+                    if isCheck1 && isCheck2 && isCheck3 && isCheck4 {
+                        NavigationLink(destination: SignUpView( isSignUp: $isSignUp)){
+                            signupButtonFrame(title: "다음")
+                                .foregroundColor(.red)
+                        }
+                    }else{
                         signupButtonFrame(title: "다음")
-                            .foregroundColor(.red)
+                            .foregroundColor(.gray)
                     }
                 }
                 .padding(.top, 30)
-                
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -147,60 +166,14 @@ struct TermsView: View {
     }
 }
 
+// 회원가입 뷰
 struct SignUpView: View {
-//    @State private var phoneNumber: String = ""
-//    @State private var AuthNumber: String = ""
-    @State private var isCompleteSignUP: Bool = false
     @EnvironmentObject var authStore: AuthStore
-    
-//    @State var showImagePicker = false
-//    @State var image: Image?
-//    @State var isPickerShowing: Bool = false
-//    @State private var selectedImage: UIImage?
-    
-//    func loadImage() {
-//        guard let selectedImage = selectedImage else { return }
-//        image = Image(uiImage: selectedImage)
-//    }
     @Binding var isSignUp: Bool
-
+    
     var body: some View {
         Group{
-            
             VStack(alignment: .center) {
-                //                HStack {
-                //                    RoundedRectangle(cornerRadius: 10)
-                //                        .stroke(.gray)
-                //                        .frame(width: 281,height: 50)
-                //                        .overlay{
-                //                            TextField(" 전화번호를 입력하세요.", text: $phoneNumber)
-                //                        }
-                //
-                //                    Button(action: {}){
-                //                        RoundedRectangle(cornerRadius: 10)
-                //                            .frame(width: 70, height: 50)
-                //                            .overlay{
-                //                                Text("발송")
-                //                                    .foregroundColor(.black)
-                //                                    .font(.headline)
-                //
-                //                            }
-                //                    }
-                //                }
-                //                .frame(width: 360)
-                //                .padding(5)
-                //                TextFieldFrame
-                //                    .overlay{
-                //                        TextField(" 인증번호를 입력하세요.", text: $AuthNumber)
-                //                            .overlay{
-                //                                HStack {
-                //                                    Spacer()
-                //                                    Text("3:00    ")
-                //                                        .foregroundColor(.red)
-                //                                }
-                //                            }
-                //
-                //                    }
                 
                 VStack(alignment: .leading){
                     Text("회원정보를\n입력해주세요.")
@@ -215,9 +188,10 @@ struct SignUpView: View {
                     TextFieldFrameSignUp
                         .overlay{
                             TextField("이름", text: $authStore.email)
+                            //이거 일단 email로 해뒀는데 음,,, 이름 필요한가요??
                         }
                         .padding(.bottom ,5)
-
+                    
                     HStack {
                         Text("이메일")
                         Text("*")
@@ -229,7 +203,7 @@ struct SignUpView: View {
                             TextField("이메일", text: $authStore.email)
                         }
                         .padding(.bottom ,5)
-
+                    
                     HStack {
                         Text("비밀번호")
                         Text("*")
@@ -247,62 +221,27 @@ struct SignUpView: View {
                         .padding(.bottom ,5)
                     
                     Text("프로필 사진 (선택)")
-//                    Button {
-//                        showImagePicker.toggle()
-//
-//                    } label: {
-//                        if let image = image {
-//                                        image
-//                                            .resizable()
-//                                            .clipShape(Circle())
-//                                            .frame(width: 70, height: 70)
-//                                    } else {
-//                                        Image(systemName: "square")
-//                                            .resizable()
-//                                            .foregroundColor(.blue)
-//                                            .frame(width: 70, height: 70)
-//                                    }
-//                    }
-//                    .sheet(isPresented: $showImagePicker, onDismiss: {
-//                                    loadImage()
-//                                }) {
-//                                    ImagePicker(selectedImage: $selectedImage, isPickerShowing: $isPickerShowing)
-//                            }
+                    Image(systemName: "square.fill")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                    //일단 네모로 자리만 잡아둘게용
                     
-                    
-
                     
                 }
-                
-                
-                //                    NavigationLink(destination: {SignUpDetailView()} ){
-                //                        SignUpButtonFrame
-                //                            .padding(.top, 40)
-                //
-                //                    }
+                // 버튼, 내용이 전부 채워져있어야 활성화.
                 VStack(alignment: .center){
-                    signupButtonFrame(title: "이건 무슨 버튼인가욤? 둘중택1?")
-                        .foregroundColor(.gray)
-                    NavigationLink(destination: SignUpCompleteView(isSignUp: $isSignUp)){
+                    if !authStore.email.isEmpty && !authStore.password.isEmpty && !authStore.confirmPassword.isEmpty {
+                        NavigationLink(destination: SignUpCompleteView(isSignUp: $isSignUp)){
+                            signupButtonFrame(title: "다음")
+                                .foregroundColor(.red)
+                        }
+                    }else {
                         signupButtonFrame(title: "다음")
-                            .foregroundColor(.red)
+                            .foregroundColor(.gray)
                     }
                 }
                 .padding(.top, 60)
-                //                Button {
-                //                    Task{
-                //                        await authStore.signUp()
-                //                    }
-                //                } label: {
-                //                    signupButtonFrame(title: "다음")
-                //
-                //                }
-                //                .padding(.top, 40)
-                
-                
-                //                }
             }
-
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -310,24 +249,23 @@ struct SignUpView: View {
                     .font(.headline)
             }
         }
-
     }
 }
-//
-//    private var SignUpButtonFrame: some View{
-//        loginButtonFrame(title: "함께하다")
-//    }
 
+
+// 회원가입 완료 뷰
 struct SignUpCompleteView: View {
-    @Environment(\.presentationMode) var postingRemove
-    //한 개만 나가짐
     @Binding var isSignUp: Bool
+    
     var body: some View {
         VStack{
             VStack(alignment: .leading) {
-                Image("") // 프로필사진
+                Image("_chasomin") // 프로필사진
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .padding(.bottom)
                 Text("회원가입 완료!")
-                    .font(.largeTitle.bold())
+                    .font(.title.bold())
                 Text("부트캠핑에 오신 것을 환영합니다!")
                     .font(.title2)
             }
@@ -335,7 +273,6 @@ struct SignUpCompleteView: View {
             
             Button {
                 isSignUp = false
-//                postingRemove.wrappedValue.dismiss()
             } label: {
                 signupButtonFrame(title: "시작하기")
                     .foregroundColor(.red)
@@ -348,56 +285,17 @@ struct SignUpCompleteView: View {
                     .font(.headline)
             }
         }
-
+        
     }
 }
 
-struct SignUpDetailView: View{
-    @State var name: String = ""
-    @State var password: String = ""
-    @EnvironmentObject var authStore: AuthStore
-    
-    var body: some View{
-        VStack{
-            TextFieldFrame
-                .overlay(alignment: .leading){
-                    Text(" 010-1234-1234")
-                        .foregroundColor(.gray)
-                }
-            
-            TextFieldFrame
-                .overlay{
-                    TextField(" 이름을 입력하세요", text: $name)
-                }
-            TextFieldFrame
-                .overlay{
-                    SecureField(" 비밀번호를 입력하세요.", text: $password)
-                }
-            
-            TextFieldFrame
-                .overlay{
-                    SecureField(" 비밀번호를 한 번 더 입력하세요.", text: $password)
-                }
-            Button(action: {}) {
-                SignUpButtonFrame
-                    .padding(.top, 40)
-            }
-            
-        }
-        .navigationTitle("당신의 정보 입력")
-    }
-    
-    private var SignUpButtonFrame: some View{
-        loginButtonFrame(title: "입력하다")
-    }
-}
 
 
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            TermsView(isSignUp:.constant(false))
+            SignUpCompleteView(isSignUp:.constant(false))
                 .environmentObject(AuthStore())
         }
     }
