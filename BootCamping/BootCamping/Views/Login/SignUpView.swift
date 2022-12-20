@@ -11,6 +11,7 @@ import SwiftUI
 struct TermsView: View {
     @State var isAllCheck: Bool = false
     @State var isCheck: Bool = false
+    @Binding var isSignUp: Bool
 
     var body: some View {
         NavigationStack {
@@ -127,7 +128,7 @@ struct TermsView: View {
                 VStack(alignment: .center){
                     signupButtonFrame(title: "다음")
                         .foregroundColor(.gray)
-                    NavigationLink(destination: SignUpView()){
+                    NavigationLink(destination: SignUpView( isSignUp: $isSignUp)){
                         
                         signupButtonFrame(title: "다음")
                             .foregroundColor(.red)
@@ -147,11 +148,22 @@ struct TermsView: View {
 }
 
 struct SignUpView: View {
-    @State private var phoneNumber: String = ""
-    @State private var AuthNumber: String = ""
+//    @State private var phoneNumber: String = ""
+//    @State private var AuthNumber: String = ""
     @State private var isCompleteSignUP: Bool = false
     @EnvironmentObject var authStore: AuthStore
     
+//    @State var showImagePicker = false
+//    @State var image: Image?
+//    @State var isPickerShowing: Bool = false
+//    @State private var selectedImage: UIImage?
+    
+//    func loadImage() {
+//        guard let selectedImage = selectedImage else { return }
+//        image = Image(uiImage: selectedImage)
+//    }
+    @Binding var isSignUp: Bool
+
     var body: some View {
         Group{
             
@@ -235,11 +247,29 @@ struct SignUpView: View {
                         .padding(.bottom ,5)
                     
                     Text("프로필 사진 (선택)")
-                    Button {
-                        
-                    } label: {
-                        
-                    }
+//                    Button {
+//                        showImagePicker.toggle()
+//
+//                    } label: {
+//                        if let image = image {
+//                                        image
+//                                            .resizable()
+//                                            .clipShape(Circle())
+//                                            .frame(width: 70, height: 70)
+//                                    } else {
+//                                        Image(systemName: "square")
+//                                            .resizable()
+//                                            .foregroundColor(.blue)
+//                                            .frame(width: 70, height: 70)
+//                                    }
+//                    }
+//                    .sheet(isPresented: $showImagePicker, onDismiss: {
+//                                    loadImage()
+//                                }) {
+//                                    ImagePicker(selectedImage: $selectedImage, isPickerShowing: $isPickerShowing)
+//                            }
+                    
+                    
 
                     
                 }
@@ -253,7 +283,7 @@ struct SignUpView: View {
                 VStack(alignment: .center){
                     signupButtonFrame(title: "이건 무슨 버튼인가욤? 둘중택1?")
                         .foregroundColor(.gray)
-                    NavigationLink(destination: SignUpCompleteView()){
+                    NavigationLink(destination: SignUpCompleteView(isSignUp: $isSignUp)){
                         signupButtonFrame(title: "다음")
                             .foregroundColor(.red)
                     }
@@ -291,6 +321,7 @@ struct SignUpView: View {
 struct SignUpCompleteView: View {
     @Environment(\.presentationMode) var postingRemove
     //한 개만 나가짐
+    @Binding var isSignUp: Bool
     var body: some View {
         VStack{
             VStack(alignment: .leading) {
@@ -303,7 +334,8 @@ struct SignUpCompleteView: View {
             .padding(.bottom,100)
             
             Button {
-                postingRemove.wrappedValue.dismiss()
+                isSignUp = false
+//                postingRemove.wrappedValue.dismiss()
             } label: {
                 signupButtonFrame(title: "시작하기")
                     .foregroundColor(.red)
@@ -365,7 +397,7 @@ struct SignUpDetailView: View{
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            TermsView()
+            TermsView(isSignUp:.constant(false))
                 .environmentObject(AuthStore())
         }
     }

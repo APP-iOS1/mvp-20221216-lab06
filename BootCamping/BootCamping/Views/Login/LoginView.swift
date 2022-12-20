@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct LoginView: View {
     @State private var isAlert: Bool = false
     @State private var isSignUp: Bool = false
@@ -89,7 +90,7 @@ struct LoginView: View {
             Spacer()
         }
         .sheet(isPresented: $isSignUp) {
-            TermsView()
+            TermsView(isSignUp: $isSignUp)
         }
     }
     
