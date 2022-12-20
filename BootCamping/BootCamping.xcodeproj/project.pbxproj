@@ -29,6 +29,11 @@
 		63361B5D294C5EDD00D3AFF5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63361B5C294C5EDD00D3AFF5 /* Preview Assets.xcassets */; };
 		7C00CE1029514AA800A38560 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C00CE0F29514AA800A38560 /* ImagePicker.swift */; };
 		7C00CE1329514B5900A38560 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 7C00CE1229514B5900A38560 /* FirebaseStorage */; };
+		7C03FC212951F1B7006BEC2E /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C03FC202951F1B7006BEC2E /* PlaceView.swift */; };
+		7C03FC232951F4AB006BEC2E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C03FC222951F4AB006BEC2E /* SearchView.swift */; };
+		7C03FC252951FC9C006BEC2E /* SelectPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C03FC242951FC9C006BEC2E /* SelectPlaceView.swift */; };
+		7C03FC2729520476006BEC2E /* HashTagPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C03FC2629520476006BEC2E /* HashTagPlaceView.swift */; };
+		7C03FC2929520A25006BEC2E /* PlaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C03FC2829520A25006BEC2E /* PlaceListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +56,11 @@
 		63361B59294C5EDD00D3AFF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63361B5C294C5EDD00D3AFF5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7C00CE0F29514AA800A38560 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		7C03FC202951F1B7006BEC2E /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
+		7C03FC222951F4AB006BEC2E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		7C03FC242951FC9C006BEC2E /* SelectPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceView.swift; sourceTree = "<group>"; };
+		7C03FC2629520476006BEC2E /* HashTagPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagPlaceView.swift; sourceTree = "<group>"; };
+		7C03FC2829520A25006BEC2E /* PlaceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +134,7 @@
 				632BF00529503E120074719A /* Stores */,
 				632BF00429503E0B0074719A /* Models */,
 				63361B63294C5EE900D3AFF5 /* Views */,
+				7C03FC1F2951F0EF006BEC2E /* PlaceView */,
 				63361B59294C5EDD00D3AFF5 /* Assets.xcassets */,
 				63361B5B294C5EDD00D3AFF5 /* Preview Content */,
 			);
@@ -141,6 +152,7 @@
 		63361B63294C5EE900D3AFF5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7C03FC222951F4AB006BEC2E /* SearchView.swift */,
 				63361B57294C5EDC00D3AFF5 /* ContentView.swift */,
 				631C09C629516CF200A0B692 /* PhotoPostView.swift */,
 				7C00CE0F29514AA800A38560 /* ImagePicker.swift */,
@@ -155,6 +167,17 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7C03FC1F2951F0EF006BEC2E /* PlaceView */ = {
+			isa = PBXGroup;
+			children = (
+				7C03FC202951F1B7006BEC2E /* PlaceView.swift */,
+				7C03FC242951FC9C006BEC2E /* SelectPlaceView.swift */,
+				7C03FC2629520476006BEC2E /* HashTagPlaceView.swift */,
+				7C03FC2829520A25006BEC2E /* PlaceListView.swift */,
+			);
+			path = PlaceView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,14 +262,19 @@
 			files = (
 				7C00CE1029514AA800A38560 /* ImagePicker.swift in Sources */,
 				631C09C729516CF200A0B692 /* PhotoPostView.swift in Sources */,
+				7C03FC2929520A25006BEC2E /* PlaceListView.swift in Sources */,
 				63361B58294C5EDC00D3AFF5 /* ContentView.swift in Sources */,
+				7C03FC2729520476006BEC2E /* HashTagPlaceView.swift in Sources */,
 				631C09C929516E8D00A0B692 /* CommentStore.swift in Sources */,
 				632BF01829503E920074719A /* LoginButtonFrame.swift in Sources */,
 				632BF00729503E1C0074719A /* AuthStore.swift in Sources */,
+				7C03FC252951FC9C006BEC2E /* SelectPlaceView.swift in Sources */,
+				7C03FC232951F4AB006BEC2E /* SearchView.swift in Sources */,
 				632BF01929503E920074719A /* TextFieldFrame.swift in Sources */,
 				63361B56294C5EDC00D3AFF5 /* BootCampingApp.swift in Sources */,
 				632BF01729503E920074719A /* LoginView.swift in Sources */,
 				632BF00D29503E510074719A /* PhotoPostStore.swift in Sources */,
+				7C03FC212951F1B7006BEC2E /* PlaceView.swift in Sources */,
 				632BF01629503E920074719A /* SignUpView.swift in Sources */,
 				632BF01C29504D710074719A /* WriteView.swift in Sources */,
 				632BF00F29503E570074719A /* PhotoPost.swift in Sources */,
