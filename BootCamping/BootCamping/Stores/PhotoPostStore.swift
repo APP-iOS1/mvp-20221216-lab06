@@ -86,10 +86,11 @@ class PhotoPostStore: ObservableObject {
             }
             
             //파일 경로, 이름 지정, image 폴더에 접근
-            let path = "image/\(UUID().uuidString).jpg"
+            let uuid = UUID().uuidString
+            let path = "image/\(uuid).jpg"
             
             let fileRef = storageRef.child(path)
-            photos.append("https://firebasestorage.googleapis.com/v0/b/todokoonsapp.appspot.com/o/images%2F\(path)?alt=media&token=e229c906-64b7-47fd-a073-271f1debcb46")
+            photos.append("https://firebasestorage.googleapis.com/v0/b/todokoonsapp.appspot.com/o/image%2F\(uuid).jpg?alt=media")
             
             //데이터 업로드
             let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
