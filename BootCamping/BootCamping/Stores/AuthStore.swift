@@ -54,7 +54,7 @@ class AuthStore: ObservableObject {
             return true
         }
         catch {
-            print(error)
+            print(#function, error)
             return false
         }
     }

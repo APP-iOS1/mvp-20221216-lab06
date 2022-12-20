@@ -18,7 +18,7 @@ struct ContentView: View {
         List {
             Button {
                 Task {
-                    try await authStore.signOut
+                    try await authStore.signOut()
                 }
             } label: {
                 Text("signout")
