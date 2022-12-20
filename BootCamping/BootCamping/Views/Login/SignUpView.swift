@@ -36,12 +36,21 @@ struct TermsView: View {
                     HStack{
                         Button {
                             isAllCheck.toggle()
-                            isCheck1.toggle()
-                            isCheck2.toggle()
-                            isCheck3.toggle()
-                            isCheck4.toggle()
-                            isCheck5.toggle()
-                            isCheck6.toggle()
+                            if isAllCheck {
+                                isCheck1 = true
+                                isCheck2 = true
+                                isCheck3 = true
+                                isCheck4 = true
+                                isCheck5 = true
+                                isCheck6 = true
+                            } else {
+                                isCheck1 = false
+                                isCheck2 = false
+                                isCheck3 = false
+                                isCheck4 = false
+                                isCheck5 = false
+                                isCheck6 = false
+                            }
                         } label: {
                             Image(systemName: isAllCheck ? "checkmark.square.fill" : "checkmark.square.fill")
                                 .foregroundColor(isAllCheck ? .red : .gray)

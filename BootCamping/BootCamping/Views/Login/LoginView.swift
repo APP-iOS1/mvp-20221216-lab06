@@ -25,9 +25,9 @@ struct LoginView: View {
                 
             
             Spacer()
-            Image(systemName:"apple.logo")
+            Image(systemName:"apple.logo")          //앱 로고
                 .resizable()
-                .frame(width: 100, height: 100)
+                .frame(width: 100, height: 110)
                 .padding(50)
             
             
@@ -43,12 +43,6 @@ struct LoginView: View {
                     }
                     .padding(5)
                 
-                //                TextFieldFrame
-                //                    .overlay{
-                //                        SecureField(" 비밀번호를 다시 입력하세요.", text: $authStore.confirmPassword)
-                //                    }
-                //                    .padding(5)
-                
                 Text("\(alertMesasge)")
                     .foregroundColor(.red)
                     .font(.callout)
@@ -57,7 +51,6 @@ struct LoginView: View {
                 NavigationLink {
                     ContentView()
                 } label: {
-                    
                     LoginButton
                         .padding(.top, 60)
                         .padding(.bottom)
@@ -79,7 +72,7 @@ struct LoginView: View {
                     }
                     .padding(.horizontal)
                     Button(action: {
-                        isSignUp.toggle()
+                        //이건 어떡하징
                     }) {
                         Text("아이디 / 비밀번호 찾기")
                             .foregroundColor(.gray)
