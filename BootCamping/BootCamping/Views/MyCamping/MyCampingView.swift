@@ -165,7 +165,7 @@ struct myPageTapView : View {
             case .myCamping:
                 EmptyPostView()
                     .padding(.bottom, 250)
-           //       TodaysCamping()
+//                  TodaysCamping()
 
             case .likeFeed:
                 FollowerPhotoList()
