@@ -14,7 +14,7 @@ struct SelectPlaceView: View {
         var image = Array(repeating: "circle", count: 5)
         var placeName = ["경기/인천권", "충청권", "경상/부산권", "전라/제주권", "강원권"]
     }
-    
+    //수정중
     var local = Local()
     
     var body: some View {
