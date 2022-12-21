@@ -10,7 +10,7 @@ import SwiftUI
 struct CommunityView: View {
     var body: some View {
         
-        NavigationView{
+        NavigationStack{
             
             VStack{
                 
@@ -25,7 +25,12 @@ struct CommunityView: View {
                     
                     
                 } //타이틀
-      
+
+                
+                Rectangle()
+                    .frame(height: 1.0, alignment: .bottom)
+                    .foregroundColor(Color("lightGray")) //타이틀 구분선
+
                 ScrollView(){
                     
                     VStack{
@@ -35,9 +40,11 @@ struct CommunityView: View {
                             SearchView()
                             
                             Rectangle()
-                                .frame(height: 5.0, alignment: .bottom)
+
+                                .frame(height: 7.0, alignment: .bottom)
                                 .foregroundColor(Color("lightGray"))
-                                .padding(.top,15)
+                                .padding(.top,20)
+
                             
                         } .padding(.top,20)//검색창
 
@@ -53,7 +60,9 @@ struct CommunityView: View {
                                                 .padding(.trailing,-3)
                                             Text("글 종류")
                                         }
-                                        .font(.footnote)
+
+                                        .font(.caption2)
+
                                         .foregroundColor(.gray)
                                         .padding(.vertical,5)
                                         .padding(.horizontal,8)
@@ -62,6 +71,7 @@ struct CommunityView: View {
                                                 .stroke(Color.gray, lineWidth: 0.5)
                                             )
                                     } //글 종류 버튼
+
                                     NavigationLink(
                                                 destination: CommunityCategoryView(),
                                                 label: {
@@ -104,16 +114,12 @@ struct CommunityView: View {
 
                             
                         }
-                       
+
                         
                         
                         
                     }
-                    
-                    
-                    
-                
-                    
+
                 }
                 
                 

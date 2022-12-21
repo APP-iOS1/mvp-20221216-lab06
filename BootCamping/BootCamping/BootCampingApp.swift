@@ -19,14 +19,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct BootCampingApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                LoginView()
-                    .environmentObject(AuthStore())
-                
+                MyCampingView()
             }
+//            BootcampingTabView()
+//                .fullScreenCover(isPresented: $isFirstLaunching) {
+//                    LoginView(isFirstLaunching: $isFirstLaunching)
+//                }
+//                .environmentObject(AuthStore())
         }
     }
 }
