@@ -22,9 +22,9 @@ struct LoginView: View {
     var body: some View {
         VStack{
             Spacer()
-            Image(systemName:"apple.logo")          //앱 로고
+            Image("logo1")          //앱 로고
                 .resizable()
-                .frame(width: 100, height: 110)
+                .frame(width: 100, height: 100)
                 .padding(50)
             
             

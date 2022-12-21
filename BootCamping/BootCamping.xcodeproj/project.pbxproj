@@ -45,7 +45,6 @@
 		7C03FC2929520A25006BEC2E /* PlaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C03FC2829520A25006BEC2E /* PlaceListView.swift */; };
 		7C9E2F742952CC6300527E14 /* PlaceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9E2F6F2952CC6200527E14 /* PlaceCardView.swift */; };
 		7C9E2F752952CC6300527E14 /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9E2F702952CC6200527E14 /* PlaceDetailView.swift */; };
-		7C9E2F762952CC6300527E14 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9E2F712952CC6300527E14 /* PlaceView.swift */; };
 		7C9E2F772952CC6300527E14 /* FullMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9E2F722952CC6300527E14 /* FullMapView.swift */; };
 		7C9E2F782952CC6300527E14 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9E2F732952CC6300527E14 /* SafariView.swift */; };
 		7C9E2F7B2952CC6D00527E14 /* FetchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9E2F792952CC6D00527E14 /* FetchData.swift */; };
@@ -104,7 +103,6 @@
 		7C9E2F6C2952CBCD00527E14 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C9E2F6F2952CC6200527E14 /* PlaceCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceCardView.swift; sourceTree = "<group>"; };
 		7C9E2F702952CC6200527E14 /* PlaceDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
-		7C9E2F712952CC6300527E14 /* PlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
 		7C9E2F722952CC6300527E14 /* FullMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullMapView.swift; sourceTree = "<group>"; };
 		7C9E2F732952CC6300527E14 /* SafariView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		7C9E2F792952CC6D00527E14 /* FetchData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchData.swift; sourceTree = "<group>"; };
@@ -283,25 +281,16 @@
 		7C03FC1F2951F0EF006BEC2E /* PlaceView */ = {
 			isa = PBXGroup;
 			children = (
-				7C9E2F712952CC6300527E14 /* PlaceView.swift */,
-				7C9E2F6E2952CC5500527E14 /* OldPlaceView */,
-			);
-			path = PlaceView;
-			sourceTree = "<group>";
-		};
-		7C9E2F6E2952CC5500527E14 /* OldPlaceView */ = {
-			isa = PBXGroup;
-			children = (
+				636D852329530E2E00A579E2 /* NewPlaceView.swift */,
+				636D852429530E2E00A579E2 /* HashTagPlaceView.swift */,
+				636D852529530E2E00A579E2 /* SelectPlaceView.swift */,
 				7C03FC2829520A25006BEC2E /* PlaceListView.swift */,
 				7C9E2F6F2952CC6200527E14 /* PlaceCardView.swift */,
-				636D852429530E2E00A579E2 /* HashTagPlaceView.swift */,
-				636D852329530E2E00A579E2 /* NewPlaceView.swift */,
-				636D852529530E2E00A579E2 /* SelectPlaceView.swift */,
 				7C9E2F702952CC6200527E14 /* PlaceDetailView.swift */,
 				7C9E2F722952CC6300527E14 /* FullMapView.swift */,
 				7C9E2F732952CC6300527E14 /* SafariView.swift */,
 			);
-			path = OldPlaceView;
+			path = PlaceView;
 			sourceTree = "<group>";
 		};
 		7CA57C7E29528B1800560DEA /* MyCamping */ = {
@@ -414,7 +403,6 @@
 				79BF1CE42952F8C800EC8E8E /* PrivacyPolicyView.swift in Sources */,
 				7C00CE1029514AA800A38560 /* ImagePicker.swift in Sources */,
 				7CA57C8C29528B3C00560DEA /* FollowersPhoto.swift in Sources */,
-				7C9E2F762952CC6300527E14 /* PlaceView.swift in Sources */,
 				7C9E2F772952CC6300527E14 /* FullMapView.swift in Sources */,
 				636D852829530E2E00A579E2 /* SelectPlaceView.swift in Sources */,
 				7CA57C8E29528B3C00560DEA /* FollowerPhotoList.swift in Sources */,
