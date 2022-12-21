@@ -33,12 +33,14 @@ struct SelectPlaceView: View {
                         NavigationLink {
                             PlaceListView().environmentObject(PlaceStore())
                         } label: {
-                            Image(systemName: "\(local.image[i])")
-                                .resizable()
-                                .frame(width: 90, height: 90)
-                                .aspectRatio(contentMode: .fit)
-                            Text("\(local.placeName[i])")
-                                .font(.subheadline)
+                            VStack {
+                                Image(systemName: "\(local.image[i])")
+                                    .resizable()
+                                    .frame(width: 90, height: 90)
+                                    .aspectRatio(contentMode: .fit)
+                                Text("\(local.placeName[i])")
+                                    .font(.subheadline)
+                            }
                         }
                     }
                 }
