@@ -17,6 +17,7 @@ struct ArticleDetailView: View {
     @State private var commentText: String = ""
     var photoPost: PhotoPost
     @StateObject var photoCommentStore: PhotoCommentStore
+    @Environment(\.presentationMode) var postingRemove
 
     
 
@@ -199,6 +200,16 @@ struct ArticleDetailView: View {
         .onAppear{
             photoCommentStore.postId = photoPost.id
             photoCommentStore.fetchPhotoComment()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    PhotoPostStore().removePhotoPost(photoPost.id)
+                    postingRemove.wrappedValue.dismiss()
+                } label: {
+                    Text("삭제")
+                }
+            }
         }
     }
 }

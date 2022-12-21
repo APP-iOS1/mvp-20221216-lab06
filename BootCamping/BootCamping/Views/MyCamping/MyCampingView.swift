@@ -17,25 +17,38 @@ enum tapMypage : String, CaseIterable {
 struct MyCampingView: View {
     
     @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
-
+    
     @EnvironmentObject var authStore: AuthStore
     
     @StateObject var photoCommentStore = PhotoCommentStore()
     
     @State private var selectedPicker2: tapMypage = .myCamping
     @Namespace private var animation
-
     
-
+    
+    
     
     var body: some View {
-        VStack{
+        ScrollView {
             animate()
             myPageTapView(myTap: selectedPicker2)
         }
         .onAppear{
             photoPostStore.fetchPhotoPost()
             photoPostStore.retrievePhotos()
+        }
+        .refreshable {
+            photoPostStore.fetchPhotoPost()
+            photoPostStore.retrievePhotos()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                    SettingView()
+                } label: {
+                    Image(systemName: "gearshape").foregroundColor(.black)
+                }
+            }
         }
     }
     
@@ -57,7 +70,7 @@ struct MyCampingView: View {
                     
                     HStack {
                         Button {
-                           // FollowListView()
+                            // FollowListView()
                         } label: {
                             Text("팔로워 4")
                                 .font(.subheadline)
@@ -116,21 +129,21 @@ struct MyCampingView: View {
             Divider()
             
             ViewChangeButton(photoPostStore: photoPostStore)
-
-
+            
+            
         }
         
         Spacer()
-        }
     }
+}
 
 
 
 
 struct ViewChangeButton: View {
-    @State private var isSquare: Bool = false
+    @State private var isSquare: Bool = true
     @State private var isRectangle: Bool = false
-    @State private var isPhotoCard: Bool = true
+    @State private var isPhotoCard: Bool = false
     @State private var isList: Bool = false
     @StateObject var photoPostStore: PhotoPostStore
     
@@ -183,7 +196,7 @@ struct ViewChangeButton: View {
                         .foregroundColor(isList ? .accentColor : .gray)
                         .font(.headline).bold()
                 }
-
+                
             }.padding(.trailing)
             // 버튼인데???
             if isSquare {
@@ -207,18 +220,18 @@ struct myPageTapView : View {
         VStack {
             switch myTap {
             case .myCamping:
-//                EmptyPostView()
-//                    .padding(.bottom, 250)
-//                  SquareView()
+                //                EmptyPostView()
+                //                    .padding(.bottom, 250)
+                //                  SquareView()
                 EmptyView()
-
+                
             case .likeFeed:
                 EmptyView()
-
-//                FollowerPhotoList()
+                
+                //                FollowerPhotoList()
             case .bookmarkPlace:
                 EmptyView()
-
+                
                 
             }
         }

@@ -15,7 +15,7 @@ struct SquareView: View {
 
     
     var body: some View {
-        ScrollView {
+        VStack {
             LazyVGrid(columns: columns) {
 
                    ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { photo in
@@ -26,13 +26,18 @@ struct SquareView: View {
                             AsyncImage(url: URL(string: photo.photos.first ?? "")) { image in
                                 image
                                     .resizable()
-                                    .frame(width: 198, height: 198)
                             } placeholder: {
                                 ProgressView()
-                        }.padding(.bottom, -9)
+                        }
+                                .frame(width: 198, height: 198)
+                                .padding(.bottom, -9)
                         }
                     }
                 }
+            }
+            .onAppear{
+                photoPostStore.fetchPhotoPost()
+                photoPostStore.retrievePhotos()
             }
         }
         .padding(.bottom)

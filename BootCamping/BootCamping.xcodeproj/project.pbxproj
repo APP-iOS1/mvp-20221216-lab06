@@ -234,7 +234,6 @@
 				7C03FC222951F4AB006BEC2E /* SearchView.swift */,
 				63361B57294C5EDC00D3AFF5 /* ContentView.swift */,
 				631C09C629516CF200A0B692 /* PhotoPostView.swift */,
-				7C00CE0F29514AA800A38560 /* ImagePicker.swift */,
 				632BF01B29504D710074719A /* WriteView.swift */,
 				79BF1CDD2952F8AD00EC8E8E /* Setting */,
 				632BF01A29503E950074719A /* Login */,
@@ -248,6 +247,7 @@
 		634FD3A729529D00005E9862 /* AddViews */ = {
 			isa = PBXGroup;
 			children = (
+				7C00CE0F29514AA800A38560 /* ImagePicker.swift */,
 				7CA57C9229528C8100560DEA /* AddView.swift */,
 				634FD3AA2952AB53005E9862 /* AddCommunityView.swift */,
 			);

@@ -25,23 +25,6 @@ struct AddView: View {
     
     var body: some View {
         VStack {
-//            HStack {
-//                Button {
-//
-//                } label: {
-//                    Text("X").font(.title3).bold().foregroundColor(.black)
-//                }
-//                Spacer()
-//                Text("글쓰기").font(.title3).bold()
-//                Spacer()
-//                Button {
-//
-//                } label: {
-//                    Text("미리보기")
-//                        .foregroundColor(.black)
-//                }
-//            }
-//            Divider()
             ScrollView(.horizontal) {
                 //검색된 이미지들 UI에 보여줌
                 HStack {
@@ -138,7 +121,9 @@ struct AddView: View {
             
             Button {
                 Task {
-//                    try await photoPostStore.addPhotoPost(PhotoPost(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.uid ?? ""), title: title, content: content, createdDate: Timestamp(),  photos: []), selectedImages: selectedImages)
+                    try await photoPostStore.addPhotoPost(PhotoPost(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.uid ?? ""), title: title, content: content, createdDate: Timestamp(),  photos: []), selectedImages: selectedImages)
+                    selectedImages = []
+                    content = ""
                     tabSelection = 5
                 }
             } label: {
@@ -149,22 +134,22 @@ struct AddView: View {
         }.padding()
             .navigationTitle("글쓰기")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        
-                    } label: {
-                        Text("X").foregroundColor(.black)
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Text("미리보기").foregroundColor(.black)
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    Button {
+//                        
+//                    } label: {
+//                        Text("X").foregroundColor(.black)
+//                    }
+//                }
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button {
+//                        
+//                    } label: {
+//                        Text("미리보기").foregroundColor(.black)
+//                    }
+//                }
+//            }
     }
     
     private var AddButton: some View {

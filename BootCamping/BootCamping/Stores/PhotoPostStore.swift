@@ -25,7 +25,7 @@ class PhotoPostStore: ObservableObject {
     
     func fetchPhotoPost() {
         database.collection("PhotoPost")
-            .order(by: "createdDate")
+            .order(by: "createdDate", descending: true)
             .getDocuments { (snapshot, error) in
                 self.photoPost.removeAll()
                 
@@ -79,7 +79,7 @@ class PhotoPostStore: ObservableObject {
             //storage ref 만듬
             let storageRef = Storage.storage().reference()
             //이미지를 데이터로 전활할 수 있는지 확인
-            let imageData = selectedImage!.jpegData(compressionQuality: 0.8) //압축품질 0.8로
+            let imageData = selectedImage!.jpegData(compressionQuality: 0.5) //압축품질 0.8로
             
             //이미지를 데이터로 전환할수 있는지 확인, 확인했으므로 밑에 putData는 !로 간편하게 언래핑
             guard imageData != nil else {
@@ -159,9 +159,9 @@ class PhotoPostStore: ObservableObject {
         }
     }
     
-    func removePhotoPost(_ photoPost : PhotoPost) {
+    func removePhotoPost(_ photoPostID : String) {
         database.collection("PhotoPost")
-            .document(photoPost.id).delete()
+            .document(photoPostID).delete()
         fetchPhotoPost()
     }
 }
