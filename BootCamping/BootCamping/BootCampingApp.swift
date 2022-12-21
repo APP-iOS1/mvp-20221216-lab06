@@ -24,7 +24,12 @@ struct BootCampingApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                MyCampingView()
+
+                LoginView()
+                    .environmentObject(AuthStore())
+                    .environmentObject(PlaceStore())
+                
+
             }
 //            BootcampingTabView()
 //                .fullScreenCover(isPresented: $isFirstLaunching) {
