@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 //enum tapInfo : String, CaseIterable {
 //    case top = "오늘의 캠핑"
@@ -13,19 +14,52 @@ import SwiftUI
 //}
 
 struct ContentView: View {
+    
+    @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
+
+    @EnvironmentObject var authStore: AuthStore
+    
+    @StateObject var commentStore = CommentStore()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        List {
+            Button {
+                Task {
+                    try await authStore.signOut()
+                }
+            } label: {
+                Text("signout")
+            }
+            
+            ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { post in
+                NavigationLink {
+                    PhotoPostView(commentStore: commentStore, photoPost: post)
+                } label: {
+                    Text("\(post.title)")
+                }
+            }
+            
         }
-        .padding()
+        .navigationTitle("List")
+        .toolbar {
+            NavigationLink {
+                WriteView(photoPostStore: photoPostStore)
+            } label: {
+                Text("Add")
+            }
+        }
+        .onAppear {
+            print(Auth.auth().currentUser?.uid)
+            
+            photoPostStore.fetchPhotoPost()
+            
+        }
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(AuthStore())
+    }
+}
