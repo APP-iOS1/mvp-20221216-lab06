@@ -9,18 +9,16 @@ import SwiftUI
 
 enum tapMypage : String, CaseIterable {
     case myCamping = "나의 캠핑 이야기"
-    case likeFeed = "좋아요한 피드"
+    case likeFeed = "저장한 게시글"
     case bookmarkPlace = "북마크 플레이스"
 }
 
 struct MyCampingView: View {
     @State private var selectedPicker2: tapMypage = .myCamping
     @Namespace private var animation
+
     
-    @State private var isSquare: Bool = false
-    @State private var isRectangle: Bool = false
-    @State private var isPhotoCard: Bool = true
-    @State private var isList: Bool = false
+
     
     var body: some View {
         VStack{
@@ -93,6 +91,26 @@ struct MyCampingView: View {
             }
             Divider()
             
+            ViewChangeButton()
+
+
+        }
+        
+        Spacer()
+        }
+    }
+
+
+
+
+struct ViewChangeButton: View {
+    @State private var isSquare: Bool = false
+    @State private var isRectangle: Bool = false
+    @State private var isPhotoCard: Bool = true
+    @State private var isList: Bool = false
+    
+    var body: some View {
+        VStack {
             // 뷰 체인지 버튼
             HStack{
                 Spacer()
@@ -123,6 +141,7 @@ struct MyCampingView: View {
                     isRectangle = false
                     isPhotoCard = true
                     isList = false
+                    
                 } label: {
                     Image(systemName: "rectangle.portrait.on.rectangle.portrait.fill")
                         .foregroundColor(isPhotoCard ? .accentColor : .gray)
@@ -139,8 +158,8 @@ struct MyCampingView: View {
                         .foregroundColor(isList ? .accentColor : .gray)
                         .font(.headline).bold()
                 }
+
             }.padding(.trailing)
-            
             // 버튼인데???
             if isSquare {
                 SquareView()
@@ -151,13 +170,9 @@ struct MyCampingView: View {
             } else if isList {
                 EmptyView() // 리스트 아직 없음
             }
-            
-        }
-        
-        Spacer()
         }
     }
-
+}
 
 
 // 여긴 탭뷰
@@ -181,6 +196,8 @@ struct myPageTapView : View {
         }
     }
 }
+
+
 
 struct MyCampingView_Previews: PreviewProvider {
     static var previews: some View {
