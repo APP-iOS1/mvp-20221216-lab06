@@ -44,7 +44,7 @@ struct MyCampingView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    SettingView()
+                    SettingView().environmentObject(AuthStore())
                 } label: {
                     Image(systemName: "gearshape").foregroundColor(.black)
                 }
