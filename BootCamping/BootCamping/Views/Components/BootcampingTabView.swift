@@ -8,33 +8,39 @@
 import SwiftUI
 
 struct BootcampingTabView: View {
-    @State private var tabSelection = 1
+    @State var tabSelection = 1
+    @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
 
     var body: some View {
         TabView(selection: $tabSelection) {
             NavigationStack {
                 HomeView()
             }.tabItem {
-                Text("홈")
+                Image(systemName: "flame.fill")
+                Text("메인")
             }.tag(1)
             NavigationStack {
-                PlaceView()
+                NewPlaceView().environmentObject(PlaceStore())
             }.tabItem {
+                Image(systemName: "mappin.and.ellipse")
                 Text("플레이스")
             }.tag(2)
             NavigationStack {
-                AddView()
+                AddView(photoPostStore: photoPostStore, tabSelection: $tabSelection)
             }.tabItem {
+                Image(systemName: "plus")
                 Text("글쓰기")
             }.tag(3)
             NavigationStack {
              CommunityView()
             }.tabItem {
-                Text("커뮤니티")
+                Image(systemName: "person.3")
+                Text("캠핑생활")
             }.tag(4)
             NavigationStack {
                 MyCampingView()
             }.tabItem {
+                Image(systemName: "person")
                 Text("마이캠핑")
             }.tag(5)
             

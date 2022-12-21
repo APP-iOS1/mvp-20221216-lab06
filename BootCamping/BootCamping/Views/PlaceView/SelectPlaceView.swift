@@ -13,8 +13,10 @@ struct SelectPlaceView: View {
     struct Local {
         var image = Array(repeating: "circle", count: 5)
         var placeName = ["경기/인천권", "충청권", "경상/부산권", "전라/제주권", "강원권"]
+        var regionImage = ["8","9","10","11","12"]
+        
     }
-    
+    //수정중
     var local = Local()
     
     var body: some View {
@@ -28,14 +30,23 @@ struct SelectPlaceView: View {
             }
             
             LazyVGrid(columns: columns) {
-                ForEach(0..<5) { i in
+                ForEach(0..<local.placeName.count) { i in
                     VStack {
-                        Image(systemName: "\(local.image[i])")
-                            .resizable()
-                            .frame(width: 90, height: 90)
-                            .aspectRatio(contentMode: .fit)
-                        Text("\(local.placeName[i])")
-                            .font(.subheadline)
+                        NavigationLink {
+                            PlaceListView().environmentObject(PlaceStore())
+                        } label: {
+                            VStack {
+                                Image("\(local.regionImage[i])")
+                                    .resizable()
+                                    .cornerRadius(50)
+                                    .frame(width: 90, height: 90)
+                                    .aspectRatio(contentMode: .fit)
+                                
+                                Text("\(local.placeName[i])")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
+                            }
+                        }
                     }
                 }
                 

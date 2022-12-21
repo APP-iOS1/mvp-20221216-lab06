@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlaceView: View {
+struct NewPlaceView: View {
 
     var body: some View {
         
@@ -15,18 +15,20 @@ struct PlaceView: View {
             
             VStack{
                 ScrollView {
-                    Image(systemName: "rectangle")
+                    Image("camp")
                         .resizable()
-                        .frame(height: 60)
-                        .padding()
+                        .frame(width: 393, height: 100)
+                        .padding(.top, -40)
                     SearchView()
+                        .padding(.top, 10)
                     SelectPlaceView()
                     HashTagPlaceView()
                 }
+                Spacer()
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("커뮤니티")
+                    Text("플레이스")
                         .font(.title).bold()
                         .accessibilityAddTraits(.isHeader)
                 }
@@ -43,8 +45,8 @@ struct PlaceView: View {
     }
 }
 
-struct PlaceView_Previews: PreviewProvider {
+struct NewPlaceView_Previews: PreviewProvider {
     static var previews: some View {
-        PlaceView()
+        NewPlaceView()
     }
 }

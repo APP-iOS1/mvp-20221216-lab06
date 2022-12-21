@@ -16,15 +16,15 @@ struct LoginView: View {
             return isAlert ? "아이디 또는 비밀번호가 잘못되었습니다!" : ""
         }
     }
-    
+    @Binding var isFirstLaunching: Bool
     @EnvironmentObject var authStore: AuthStore
     
     var body: some View {
         VStack{
             Spacer()
-            Image(systemName:"apple.logo")          //앱 로고
+            Image("logo1")          //앱 로고
                 .resizable()
-                .frame(width: 100, height: 110)
+                .frame(width: 100, height: 100)
                 .padding(50)
             
             
@@ -45,17 +45,17 @@ struct LoginView: View {
                     .font(.callout)
                 
                 
-                NavigationLink {
-                    BootcampingTabView()
+                Button {
+                    Task {
+                        if await authStore.signIn() {
+                            isFirstLaunching = false
+                        }
+//                        await authStore.signIn()
+                    }
                 } label: {
                     LoginButton
                         .padding(.top, 60)
                         .padding(.bottom)
-                }.task {
-                    Task {
-                        await authStore.signIn()
-                    }
-                        
                 }
                 
                 
@@ -93,7 +93,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(isFirstLaunching: .constant(false))
             .environmentObject(AuthStore())
     }
 }

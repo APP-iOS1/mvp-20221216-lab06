@@ -1,20 +1,20 @@
 //
-//  Addview.swift
+//  ListView.swift
 //  BootCamping
 //
-//  Created by Deokhun KIM on 2022/12/21.
+//  Created by 이소영 on 2022/12/21.
 //
 
 import SwiftUI
 
-struct AddView: View {
+struct ListView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
-struct AddView_Previews: PreviewProvider {
+struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        AddView()
+        ListView()
     }
 }

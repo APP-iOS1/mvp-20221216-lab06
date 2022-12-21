@@ -6,26 +6,49 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 enum tapMypage : String, CaseIterable {
     case myCamping = "나의 캠핑 이야기"
-    case likeFeed = "좋아요한 피드"
+    case likeFeed = "저장한 게시글"
     case bookmarkPlace = "북마크 플레이스"
 }
 
 struct MyCampingView: View {
+    
+    @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
+    
+    @EnvironmentObject var authStore: AuthStore
+    
+    @StateObject var photoCommentStore = PhotoCommentStore()
+    
     @State private var selectedPicker2: tapMypage = .myCamping
     @Namespace private var animation
     
-    @State private var isSquare: Bool = false
-    @State private var isRectangle: Bool = false
-    @State private var isPhotoCard: Bool = true
-    @State private var isList: Bool = false
+    
+    
     
     var body: some View {
-        VStack{
+        ScrollView {
             animate()
             myPageTapView(myTap: selectedPicker2)
+        }
+        .onAppear{
+            photoPostStore.fetchPhotoPost()
+            photoPostStore.retrievePhotos()
+        }
+        .refreshable {
+            photoPostStore.fetchPhotoPost()
+            photoPostStore.retrievePhotos()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                    SettingView()
+                } label: {
+                    Image(systemName: "gearshape").foregroundColor(.black)
+                }
+            }
         }
     }
     
@@ -47,19 +70,33 @@ struct MyCampingView: View {
                     
                     HStack {
                         Button {
-                           // FollowListView()
+                            // FollowListView()
                         } label: {
                             Text("팔로워 4")
                                 .font(.subheadline)
+                                .foregroundColor(.black)
                         }
                         
                         Button {
                         } label: {
                             Text("팔로잉 2")
                                 .font(.subheadline)
+                                .foregroundColor(.black)
                         }
                     }
                 }
+                Button {
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(.brown)
+                            .frame(width: 80, height: 30)
+                        Text("팔로우")
+                            .font(.footnote)
+                            .foregroundColor(.white)
+                    }
+                }
+                .padding(.trailing, 10)
                 Spacer()
             }
             .padding()
@@ -91,6 +128,27 @@ struct MyCampingView: View {
             }
             Divider()
             
+            ViewChangeButton(photoPostStore: photoPostStore)
+            
+            
+        }
+        
+        Spacer()
+    }
+}
+
+
+
+
+struct ViewChangeButton: View {
+    @State private var isSquare: Bool = true
+    @State private var isRectangle: Bool = false
+    @State private var isPhotoCard: Bool = false
+    @State private var isList: Bool = false
+    @StateObject var photoPostStore: PhotoPostStore
+    
+    var body: some View {
+        VStack {
             // 뷰 체인지 버튼
             HStack{
                 Spacer()
@@ -121,6 +179,7 @@ struct MyCampingView: View {
                     isRectangle = false
                     isPhotoCard = true
                     isList = false
+                    
                 } label: {
                     Image(systemName: "rectangle.portrait.on.rectangle.portrait.fill")
                         .foregroundColor(isPhotoCard ? .accentColor : .gray)
@@ -137,49 +196,55 @@ struct MyCampingView: View {
                         .foregroundColor(isList ? .accentColor : .gray)
                         .font(.headline).bold()
                 }
+                
             }.padding(.trailing)
-            
+            // 버튼인데???
             if isSquare {
-                EmptyView()
+                SquareView(photoPostStore: photoPostStore)
             } else if isRectangle {
-                EmptyView()
+                FollowerPhotoList()
             } else if isPhotoCard {
-                EmptyView()
+                PhotoCardView()
             } else if isList {
-                EmptyView()
+                EmptyView() // 리스트 아직 없음
             }
-            
-        }
-        
-        Spacer()
         }
     }
+}
 
 
-
+// 여긴 탭뷰
 struct myPageTapView : View {
     var myTap : tapMypage
     var body: some View {
         VStack {
             switch myTap {
             case .myCamping:
-                EmptyPostView()
-                    .padding(.bottom, 250)
-           //       TodaysCamping()
-
+                //                EmptyPostView()
+                //                    .padding(.bottom, 250)
+                //                  SquareView()
+                EmptyView()
+                
             case .likeFeed:
-                FollowerPhotoList()
+                EmptyView()
+                
+                //                FollowerPhotoList()
             case .bookmarkPlace:
                 EmptyView()
-
+                
                 
             }
         }
     }
 }
 
+
+
 struct MyCampingView_Previews: PreviewProvider {
     static var previews: some View {
-        MyCampingView()
+        NavigationStack {
+            MyCampingView()
+                .environmentObject(AuthStore())
+        }
     }
 }
