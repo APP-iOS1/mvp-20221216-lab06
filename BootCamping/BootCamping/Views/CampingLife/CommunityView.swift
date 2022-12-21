@@ -22,8 +22,6 @@ struct CommunityView: View {
                             .fontWeight(.bold)
                     }.padding(.top,20)
                     
-                    
-                    
                 } //타이틀
 
                 
