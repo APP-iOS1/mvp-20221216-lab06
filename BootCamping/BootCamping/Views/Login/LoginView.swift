@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct LoginView: View {
     @State private var isAlert: Bool = false
     @State private var isSignUp: Bool = false
@@ -20,33 +21,27 @@ struct LoginView: View {
     
     var body: some View {
         VStack{
-            AsyncImage(url: URL(string: "http://firebasestorage.googleapis.com/v0/b/bucket%20object/o/images/12C307D4-F153-421C-90B7-C518D1637777.jpg?alt=media"))
+//            AsyncImage(url: URL(string: "http://firebasestorage.googleapis.com/v0/b/bucket%20object/o/images/12C307D4-F153-421C-90B7-C518D1637777.jpg?alt=media"))
                 
             
             Spacer()
-            Image("LoginLogo")
+            Image(systemName:"apple.logo")          //앱 로고
                 .resizable()
-                .frame(width: 300, height: 100)
+                .frame(width: 100, height: 110)
                 .padding(50)
             
             
             VStack {
                 TextFieldFrame
                     .overlay{
-                        TextField(" 이메일을 입력하세요.", text: $authStore.email)
+                        TextField(" 이메일", text: $authStore.email)
                     }
                 
                 TextFieldFrame
                     .overlay{
-                        SecureField(" 비밀번호를 입력하세요.", text: $authStore.password)
+                        SecureField(" 비밀번호", text: $authStore.password)
                     }
                     .padding(5)
-                
-                //                TextFieldFrame
-                //                    .overlay{
-                //                        SecureField(" 비밀번호를 다시 입력하세요.", text: $authStore.confirmPassword)
-                //                    }
-                //                    .padding(5)
                 
                 Text("\(alertMesasge)")
                     .foregroundColor(.red)
@@ -56,9 +51,9 @@ struct LoginView: View {
                 NavigationLink {
                     ContentView()
                 } label: {
-                    
                     LoginButton
                         .padding(.top, 60)
+                        .padding(.bottom)
                 }.task {
                     Task {
                         await authStore.signIn()
@@ -67,25 +62,34 @@ struct LoginView: View {
                 }
                 
                 
-                Button(action: {
-                    isSignUp.toggle()
-                }) {
-                    Text("함께하다")
-                        .foregroundColor(.gray)
-                        .underline()
+                HStack {
+                    Button(action: {
+                        isSignUp.toggle()
+                    }) {
+                        Text("회원가입하기")
+                            .foregroundColor(.gray)
+                            .underline()
+                    }
+                    .padding(.horizontal)
+                    Button(action: {
+                        //이건 어떡하징
+                    }) {
+                        Text("아이디 / 비밀번호 찾기")
+                            .foregroundColor(.gray)
+                            .underline()
+                    }
                 }
-                .padding(5)
             }
             Spacer()
         }
         .sheet(isPresented: $isSignUp) {
-            SignUpView()
+            TermsView(isSignUp: $isSignUp)
         }
     }
     
     //MARK: - Button Frame
     private var LoginButton: some View {
-        loginButtonFrame(title: "들어가다")
+        loginButtonFrame(title: "로그인")
     }
 }
 
