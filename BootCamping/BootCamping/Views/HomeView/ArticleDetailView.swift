@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import Firebase
 
 struct ArticleDetailView: View {
     
@@ -14,7 +15,12 @@ struct ArticleDetailView: View {
     @State private var favoriteMark: Bool = false
     
     @State private var commentText: String = ""
-    var listStruct: ListStruct
+    var photoPost: PhotoPost
+    @StateObject var photoCommentStore: PhotoCommentStore
+
+    
+
+    
     // 작성시간
     //        var createdDate: String {
     //        let dateFormatter = DateFormatter()
@@ -32,25 +38,39 @@ struct ArticleDetailView: View {
                     Text("#불멍 #추워 #더포레")
                         .font(.title2)
                         .fontWeight(.bold)
-                    Text("짱 재밌는 당일 불멍치기. 경기도 광주 카페 더 포레")
+                    Text(photoPost.title) // 제목
                         .font(.headline)
                         .kerning(-1)
-                    Text("2022년 12월 20일") // 작성시간
+                    Text("\(TimestampToString.dateString(photoPost.createdDate)) 전") // 작성시간
                         .font(.footnote)
                         .foregroundColor(.gray)
-                    
                 }
                 .padding(.vertical, 2)
                 
-                Image("5")
-                    .resizable()
-                    .frame(width: 360, height: 360)
-                    .aspectRatio(contentMode: .fit)
-                    .padding(.vertical, 5)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach (photoPost.photos, id: \.self) { photo in
+                            AsyncImage(url: URL(string: photo)) { image in
+                                image
+                                    .resizable()
+                                    .frame(width: 360, height: 360)
+                                    .aspectRatio(contentMode: .fit)
+                                    .padding(.vertical, 5)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        }
+                    }
+                }
+//                Image(photoPost.photos)
+//                    .resizable()
+//                    .frame(width: 360, height: 360)
+//                    .aspectRatio(contentMode: .fit)
+//                    .padding(.vertical, 5)
                 
                 // 본문내용, 위치, 예약버튼
                 Group {
-                    Text("경기도 광주에 위치한 대형 카페 더포레를 다녀왔다.  불멍했는데 짱 조앗다. 붕어빵 틀 가져갈걸..  오로라불멍도 가져갓는데 생각보다 별루였다.가격은 2시간 반 이용에 기본 자리값 2만5천원. 잡다한거 추가하니 7만 오천원이였다. 행복했당. ")
+                    Text(photoPost.content)
                         .kerning(-0.5)
                         .lineSpacing(5)
                         .font(.callout)
@@ -79,7 +99,7 @@ struct ArticleDetailView: View {
                                 .resizable()
                                 .frame(width: 30,height: 30)
                                 .cornerRadius(50)
-                            Text("thekoon_")
+                            Text(photoPost.userID)
                         }
                         
                         Spacer()
@@ -112,7 +132,7 @@ struct ArticleDetailView: View {
                     }
                     Image(systemName: "ellipsis.message")
                         .padding(.leading, 10)
-                    Text("3") // 댓글 개수
+                    Text("\(photoCommentStore.photocomments.count)") // 댓글 개수
                     
                     Spacer()
                     // 게시글 북마크
@@ -126,8 +146,14 @@ struct ArticleDetailView: View {
                 
                 Divider()
                 
+                Text("댓글")
+                    .font(.headline)
+                    .padding(10)
+                
                 // 댓글
-                Comments()
+                ForEach(photoCommentStore.photocomments, id: \.id){ comment in
+                    Comments(photoComments: comment)
+                }
             }
             .padding()
             
@@ -156,7 +182,12 @@ struct ArticleDetailView: View {
                     .frame(width: 270, height: 40)
 
                 Button {
+                    let photoComment: PhotoComments = PhotoComments(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.email ?? ""), photoCommentContent: commentText, photoCommentCreatedDate: Timestamp())
+                    
+                    photoCommentStore.addPhotoComment(photoComment)
+                    
                     commentText = ""
+                    
                 } label: {
                     Image(systemName: "arrow.forward.circle.fill")
                         .font(.title)
@@ -165,35 +196,39 @@ struct ArticleDetailView: View {
                 }
             }
         }
+        .onAppear{
+            photoCommentStore.postId = photoPost.id
+            photoCommentStore.fetchPhotoComment()
+        }
     }
 }
 
 // 댓글
 
 struct Comments: View {
+    var photoComments: PhotoComments
+
+    
     var body: some View {
         // ScrollView(.vertical) {
         VStack(alignment: .leading) {
-            Text("댓글")
-                .font(.headline)
-                .padding(10)
-            
+           
             HStack {
                 Image("thekoon_")
                     .resizable()
                     .frame(width: 30,height: 30)
                     .cornerRadius(50)
-                Text("CampingUser1")
+                Text(photoComments.userID)
                     .font(.subheadline)
             }
             .padding(.bottom, -5)
             VStack(alignment: .leading) {
-                Text("재밌으셨나요ㅠㅠ 저도 가고싶어여... 다음주에 가는데 너무 시간이 많이 남아서 킹받는다!!!! 시간이 안가요 ㅠㅠㅠㅠㅠ")
+                Text(photoComments.photoCommentContent)
                     .font(.subheadline)
                     .kerning(-0.5)
                     .padding(.bottom, 1)
                 
-                Text("2022-12-20")
+                Text("\(TimestampToString.dateString(photoComments.photoCommentCreatedDate)) 전")
                     .font(.footnote)
                     .foregroundColor(.gray)
                     .frame(width: 80)
@@ -221,6 +256,6 @@ struct OvalTextFieldStyle: TextFieldStyle {
 
 struct ArticleDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleDetailView(listStruct: ListStore().listData.first!)
+        ArticleDetailView(photoPost: PhotoPostStore().photoPost.first!, photoCommentStore: PhotoCommentStore())
     }
 }

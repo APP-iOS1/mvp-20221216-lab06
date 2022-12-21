@@ -25,6 +25,7 @@ class PhotoPostStore: ObservableObject {
     
     func fetchPhotoPost() {
         database.collection("PhotoPost")
+            .order(by: "createdDate")
             .getDocuments { (snapshot, error) in
                 self.photoPost.removeAll()
                 

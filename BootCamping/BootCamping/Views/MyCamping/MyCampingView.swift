@@ -20,7 +20,7 @@ struct MyCampingView: View {
 
     @EnvironmentObject var authStore: AuthStore
     
-    @StateObject var commentStore = CommentStore()
+    @StateObject var photoCommentStore = PhotoCommentStore()
     
     @State private var selectedPicker2: tapMypage = .myCamping
     @Namespace private var animation
@@ -34,6 +34,10 @@ struct MyCampingView: View {
         VStack{
             animate()
             myPageTapView(myTap: selectedPicker2)
+        }
+        .onAppear{
+            photoPostStore.fetchPhotoPost()
+            photoPostStore.retrievePhotos()
         }
     }
     
@@ -193,7 +197,9 @@ struct myPageTapView : View {
                 EmptyView()
 
             case .likeFeed:
-                FollowerPhotoList()
+                EmptyView()
+
+//                FollowerPhotoList()
             case .bookmarkPlace:
                 EmptyView()
 

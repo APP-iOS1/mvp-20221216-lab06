@@ -9,7 +9,7 @@ import SwiftUI
 import Firebase
 
 struct PhotoPostView: View {
-    @StateObject var commentStore: CommentStore
+    @StateObject var photoCommentStore: PhotoCommentStore
     
     var photoPost: PhotoPost
     @State var content: String = ""
@@ -35,23 +35,23 @@ struct PhotoPostView: View {
             
             Divider()
             
-            ForEach(commentStore.comments) { comment in
-                Text(comment.content)
+            ForEach(photoCommentStore.photocomments, id: \.id) { comment in
+                Text(comment.photoCommentContent)
             }
             
             HStack {
                 TextField("comment", text: $content)
                 Button {
-                    let comment: Comment = Comment(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.uid ?? ""), content: content, createdDate: Timestamp())
-                    commentStore.addComment(comment)
+                    let photoComments: PhotoComments = PhotoComments(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.uid ?? ""), photoCommentContent: content, photoCommentCreatedDate: Timestamp())
+                    photoCommentStore.addPhotoComment(photoComments)
                     content = ""
                 } label: {
                     Text("add")
                 }
             }
         }.onAppear {
-            commentStore.postId = photoPost.id
-            commentStore.fetchComment()
+            photoCommentStore.postId = photoPost.id
+            photoCommentStore.fetchPhotoComment()
         }
         
     }
