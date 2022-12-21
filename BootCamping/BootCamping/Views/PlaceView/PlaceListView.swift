@@ -6,6 +6,7 @@
 
 
 import SwiftUI
+import Foundation
 
 struct PlaceListView: View {
     @State private var selectedPicker: PlaceTapInfo = .all
@@ -17,11 +18,11 @@ struct PlaceListView: View {
     
     @State var page: Int = 1
     @State private var isLoading: Bool = false
+    @State private var isFavorite: Bool = false
     
     var body: some View {
             VStack{
                 animate()
-                PlaceTapView(placeTap: selectedPicker)
                 
                 ScrollView {
                     LazyVStack(alignment: .leading) {
@@ -45,6 +46,7 @@ struct PlaceListView: View {
                         ProgressView().frame(height: 100)
                     }
                 }
+                .padding(.bottom, 10)
                 .onAppear {
                     Task {
                         isLoading = true
@@ -54,15 +56,14 @@ struct PlaceListView: View {
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         Text("플레이스")
-                            .font(.title).bold()
-                            .accessibilityAddTraits(.isHeader)
+                            .font(.title2).bold()
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            //TODO: 북마크 구현
+                            isFavorite.toggle()
                         } label: {
-                            Text("북마크")
+                            Text("북마크").font(.caption).bold()
                         }
                     }
                 }
@@ -70,10 +71,7 @@ struct PlaceListView: View {
 
     }
 
-
-    @State private var isSheeting: Bool = false
     @ViewBuilder
-    
     private func animate() -> some View {
         VStack {
             HStack {
@@ -127,7 +125,7 @@ struct PlaceListView: View {
                 Spacer()
             }
             .padding(.horizontal, 15)
-            .padding(.vertical, 10)
+            .padding(.top, -30)
         }
     }
 }

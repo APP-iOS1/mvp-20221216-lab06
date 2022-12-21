@@ -10,7 +10,7 @@ import SwiftUI
 struct BootcampingTabView: View {
     @State var tabSelection = 1
     @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
-
+    
     var body: some View {
         TabView(selection: $tabSelection) {
             NavigationStack {
@@ -32,7 +32,7 @@ struct BootcampingTabView: View {
                 Text("글쓰기")
             }.tag(3)
             NavigationStack {
-             CommunityView()
+                CommunityView()
             }.tabItem {
                 Image(systemName: "person.3")
                 Text("캠핑생활")
@@ -43,8 +43,6 @@ struct BootcampingTabView: View {
                 Image(systemName: "person")
                 Text("마이캠핑")
             }.tag(5)
-            
-            
         }
     }
 }

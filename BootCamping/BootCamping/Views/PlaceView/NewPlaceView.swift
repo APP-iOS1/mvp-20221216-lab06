@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewPlaceView: View {
 
+    @State private var isFavorite: Bool = false
     var body: some View {
         
         NavigationStack {
@@ -29,15 +30,15 @@ struct NewPlaceView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("플레이스")
-                        .font(.title).bold()
+                        .font(.title2).bold()
                         .accessibilityAddTraits(.isHeader)
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        //TODO: 북마크 구현
+                        isFavorite.toggle()
                     } label: {
-                        Text("북마크")
+                        Text("북마크").font(.caption).bold()
                     }
                 }
             }
