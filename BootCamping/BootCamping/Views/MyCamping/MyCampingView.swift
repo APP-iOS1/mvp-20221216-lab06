@@ -115,7 +115,7 @@ struct MyCampingView: View {
             }
             Divider()
             
-            ViewChangeButton()
+            ViewChangeButton(photoPostStore: photoPostStore)
 
 
         }
@@ -132,6 +132,7 @@ struct ViewChangeButton: View {
     @State private var isRectangle: Bool = false
     @State private var isPhotoCard: Bool = true
     @State private var isList: Bool = false
+    @StateObject var photoPostStore: PhotoPostStore
     
     var body: some View {
         VStack {

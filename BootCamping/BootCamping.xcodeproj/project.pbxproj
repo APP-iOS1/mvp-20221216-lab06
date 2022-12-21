@@ -143,13 +143,10 @@
 				632BF00829503E300074719A /* Comment.swift */,
 				632BF00E29503E570074719A /* PhotoPost.swift */,
 				632BF00929503E300074719A /* Users.swift */,
-
 				7C9E2F792952CC6D00527E14 /* FetchData.swift */,
 				7C9E2F7A2952CC6D00527E14 /* Places.swift */,
 				7C9E2F7D2952CC7700527E14 /* Theme.swift */,
-
 				6EB6835A2952A7C0003A8BE9 /* ListStruct.swift */,
-
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -423,11 +420,8 @@
 				7CA57C9329528C8100560DEA /* AddView.swift in Sources */,
 				956E9D952952C1250067B30A /* CommunityCategoryView.swift in Sources */,
 				632BF00D29503E510074719A /* PhotoPostStore.swift in Sources */,
-
 				7C03FC212951F1B7006BEC2E /* NewPlaceView.swift in Sources */,
-
 				634FD3AB2952AB53005E9862 /* AddCommunityView.swift in Sources */,
-				
 				632BF01629503E920074719A /* SignUpView.swift in Sources */,
 				7CA57C8329528B2A00560DEA /* EmptyPostView.swift in Sources */,
 				7C9E2F752952CC6300527E14 /* PlaceDetailView.swift in Sources */,
@@ -567,7 +561,7 @@
 				DEVELOPMENT_TEAM = QJ9LBR5S7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "/Users/deokhunkim/Documents/GitHub/mvp-20221216-lab06/BootCamping/BootCamping/Info.plist";
+				INFOPLIST_FILE = BootCamping/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -598,7 +592,7 @@
 				DEVELOPMENT_TEAM = QJ9LBR5S7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "/Users/deokhunkim/Documents/GitHub/mvp-20221216-lab06/BootCamping/BootCamping/Info.plist";
+				INFOPLIST_FILE = BootCamping/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
