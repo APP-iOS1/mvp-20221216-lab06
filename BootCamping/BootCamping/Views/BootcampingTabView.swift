@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct BootcampingTabView: View {
-    @State private var tabSelection = 1
+    @State var tabSelection = 1
+    @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
 
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -18,12 +19,12 @@ struct BootcampingTabView: View {
                 Text("홈")
             }.tag(1)
             NavigationStack {
-                PlaceView()
+                NewPlaceView().environmentObject(PlaceStore())
             }.tabItem {
                 Text("플레이스")
             }.tag(2)
             NavigationStack {
-                AddView()
+                AddView(photoPostStore: photoPostStore, tabSelection: $tabSelection)
             }.tabItem {
                 Text("글쓰기")
             }.tag(3)
