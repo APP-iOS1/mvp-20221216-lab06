@@ -22,10 +22,12 @@ struct BootCampingApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
-               
+            NavigationStack {
+//                LoginView()
+//                    .environmentObject(AuthStore())
+                PlaceView()
+                
             }
-
         }
     }
 }
