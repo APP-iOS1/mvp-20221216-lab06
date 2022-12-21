@@ -51,7 +51,6 @@ struct PlaceListView: View {
                         placeStore.places.append(contentsOf: try await fecthData.fetchData(page: page))
                     }
                 }
-                .navigationBarBackButtonHidden(true)
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         Text("플레이스")
