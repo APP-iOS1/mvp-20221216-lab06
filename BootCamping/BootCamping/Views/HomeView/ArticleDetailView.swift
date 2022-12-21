@@ -14,6 +14,7 @@ struct ArticleDetailView: View {
     @State private var favoriteMark: Bool = false
     
     @State private var commentText: String = ""
+    var listStruct: ListStruct
     // 작성시간
     //        var createdDate: String {
     //        let dateFormatter = DateFormatter()
@@ -220,6 +221,6 @@ struct OvalTextFieldStyle: TextFieldStyle {
 
 struct ArticleDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleDetailView()
+        ArticleDetailView(listStruct: ListStore().listData.first!)
     }
 }

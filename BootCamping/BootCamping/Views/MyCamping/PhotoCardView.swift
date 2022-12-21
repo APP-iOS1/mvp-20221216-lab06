@@ -11,13 +11,14 @@ struct PhotoCardView: View {
     var homePhotoCards = ["photoCard1", "photoCard2", "photoCard3", "photoCard3"]
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
+    @ObservedObject var listStore: ListStore = ListStore()
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack {
                 ForEach(listStore.listData, id: \.id) { item in
-                    
                     NavigationLink {
-                        PhotoDetailView(listStruct: item)
+                        ArticleDetailView(listStruct: item)
                     } label: {
                         ZStack(alignment: .leading) {
                             item.image.first?.image
@@ -28,6 +29,7 @@ struct PhotoCardView: View {
                             PhotoMainStory(listStruct: item)
                                 .offset(y: -150)
                         }
+                       
                         .shadow(radius: 3)
                         .padding()
                     }
@@ -70,6 +72,8 @@ struct PhotoMainStory: View {
 
 struct PhotoCardView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoCardView()
+        NavigationStack {
+            PhotoCardView(listStore: ListStore())
+        }
     }
 }

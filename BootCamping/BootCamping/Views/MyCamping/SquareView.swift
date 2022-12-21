@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SquareView: View {
-    var photoCards = ["1", "2", "3","4","5","6","7","8","9","10","11","12","13","14"]
+    var homeImage = ["photoCard1", "photoCard2", "photoCard3", "1", "2", "3", "4", "5", "6", "7"]
+    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
         ScrollView {
