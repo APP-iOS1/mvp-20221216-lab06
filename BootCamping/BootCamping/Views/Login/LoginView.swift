@@ -46,7 +46,7 @@ struct LoginView: View {
                 
                 
                 NavigationLink {
-                    ContentView()
+                    BootcampingTabView()
                 } label: {
                     LoginButton
                         .padding(.top, 60)
