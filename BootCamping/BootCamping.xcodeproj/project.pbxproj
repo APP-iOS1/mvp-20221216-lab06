@@ -192,13 +192,13 @@
 		63361B54294C5EDC00D3AFF5 /* BootCamping */ = {
 			isa = PBXGroup;
 			children = (
-				632BF050295144780074719A /* GoogleService-Info.plist */,
 				63361B55294C5EDC00D3AFF5 /* BootCampingApp.swift */,
 				632BF00529503E120074719A /* Stores */,
 				632BF00429503E0B0074719A /* Models */,
 				63361B63294C5EE900D3AFF5 /* Views */,
 				63361B59294C5EDD00D3AFF5 /* Assets.xcassets */,
 				7C9E2F6C2952CBCD00527E14 /* Info.plist */,
+				632BF050295144780074719A /* GoogleService-Info.plist */,
 				63361B5B294C5EDD00D3AFF5 /* Preview Content */,
 			);
 			path = BootCamping;
@@ -580,10 +580,10 @@
 				INFOPLIST_FILE = BootCamping/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -612,10 +612,10 @@
 				INFOPLIST_FILE = BootCamping/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
