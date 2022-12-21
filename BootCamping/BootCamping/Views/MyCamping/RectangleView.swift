@@ -18,5 +18,4 @@ struct RectangleView_Previews: PreviewProvider {
         RectangleView()
     }
 }
-//
-//
+

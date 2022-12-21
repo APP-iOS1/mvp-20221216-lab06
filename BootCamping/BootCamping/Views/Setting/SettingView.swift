@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingView: View {
+    @EnvironmentObject var authStore: AuthStore
+    
     var body: some View {
         List{
             NavigationLink(destination: MyPageView()) {
@@ -24,7 +26,14 @@ struct SettingView: View {
             }
             Text("회원탈퇴")
             Text("앱 관리")
-            Text("로그아웃")
+            Button {
+                Task {
+                    await authStore.signOut()
+                }
+            } label: {
+                Text("로그아웃")
+            }
+
         }
         .listStyle(.plain)
         .toolbar {
@@ -40,7 +49,7 @@ struct SettingView: View {
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            SettingView()
+            SettingView().environmentObject(AuthStore())
         }
     }
 }
