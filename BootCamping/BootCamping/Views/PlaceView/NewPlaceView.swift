@@ -33,7 +33,6 @@ struct NewPlaceView: View {
                         .font(.title2).bold()
                         .accessibilityAddTraits(.isHeader)
                 }
-                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         isFavorite.toggle()

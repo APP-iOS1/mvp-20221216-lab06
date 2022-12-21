@@ -25,6 +25,7 @@ struct BootCampingApp: App {
         WindowGroup {
             BootcampingTabView()
                 .environmentObject(PlaceStore())
+                .environmentObject(PhotoPostStore())
                 .fullScreenCover(isPresented: $isFirstLaunching) {
                     LoginView(isFirstLaunching: $isFirstLaunching)
                         .environmentObject(AuthStore())
