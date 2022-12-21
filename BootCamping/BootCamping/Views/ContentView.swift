@@ -8,6 +8,11 @@
 import SwiftUI
 import FirebaseAuth
 
+//enum tapInfo : String, CaseIterable {
+//    case top = "오늘의 캠핑"
+//    case follow = "팔로우중인 캠퍼"
+//}
+
 struct ContentView: View {
     
     @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
