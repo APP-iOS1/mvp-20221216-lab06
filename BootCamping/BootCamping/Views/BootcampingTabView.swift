@@ -18,7 +18,7 @@ struct BootcampingTabView: View {
                 Text("홈")
             }.tag(1)
             NavigationStack {
-                PlaceView()
+                NewPlaceView().environmentObject(PlaceStore())
             }.tabItem {
                 Text("플레이스")
             }.tag(2)

@@ -32,7 +32,7 @@ struct SearchView: View {
             }
             
             NavigationLink {
-                PlaceView()
+                NewPlaceView()
             } label: {
                 Image(systemName: "arrow.right.circle")
                     .font(.title3)

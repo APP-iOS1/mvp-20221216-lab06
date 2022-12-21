@@ -28,14 +28,18 @@ struct SelectPlaceView: View {
             }
             
             LazyVGrid(columns: columns) {
-                ForEach(0..<5) { i in
+                ForEach(0..<local.placeName.count) { i in
                     VStack {
-                        Image(systemName: "\(local.image[i])")
-                            .resizable()
-                            .frame(width: 90, height: 90)
-                            .aspectRatio(contentMode: .fit)
-                        Text("\(local.placeName[i])")
-                            .font(.subheadline)
+                        NavigationLink {
+                            PlaceListView().environmentObject(PlaceStore())
+                        } label: {
+                            Image(systemName: "\(local.image[i])")
+                                .resizable()
+                                .frame(width: 90, height: 90)
+                                .aspectRatio(contentMode: .fit)
+                            Text("\(local.placeName[i])")
+                                .font(.subheadline)
+                        }
                     }
                 }
                 

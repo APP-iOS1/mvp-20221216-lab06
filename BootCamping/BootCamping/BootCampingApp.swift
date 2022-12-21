@@ -25,6 +25,7 @@ struct BootCampingApp: App {
             NavigationStack {
                 LoginView()
                     .environmentObject(AuthStore())
+                    .environmentObject(PlaceStore())
                 
             }
         }
