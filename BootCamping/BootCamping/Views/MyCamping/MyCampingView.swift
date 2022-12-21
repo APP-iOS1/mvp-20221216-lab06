@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 enum tapMypage : String, CaseIterable {
     case myCamping = "나의 캠핑 이야기"
@@ -14,6 +15,13 @@ enum tapMypage : String, CaseIterable {
 }
 
 struct MyCampingView: View {
+    
+    @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
+
+    @EnvironmentObject var authStore: AuthStore
+    
+    @StateObject var commentStore = CommentStore()
+    
     @State private var selectedPicker2: tapMypage = .myCamping
     @Namespace private var animation
     
@@ -62,6 +70,18 @@ struct MyCampingView: View {
                         }
                     }
                 }
+                Button {
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(.brown)
+                            .frame(width: 80, height: 30)
+                        Text("팔로우")
+                            .font(.footnote)
+                            .foregroundColor(.white)
+                    }
+                }
+                .padding(.trailing, 10)
                 Spacer()
             }
             .padding()
@@ -143,7 +163,7 @@ struct MyCampingView: View {
             
             // 버튼인데???
             if isSquare {
-                SquareView()
+                SquareView(photoPostStore: photoPostStore)
             } else if isRectangle {
                 FollowerPhotoList()
             } else if isPhotoCard {
@@ -169,7 +189,8 @@ struct myPageTapView : View {
             case .myCamping:
 //                EmptyPostView()
 //                    .padding(.bottom, 250)
-                  SquareView()
+//                  SquareView()
+                EmptyView()
 
             case .likeFeed:
                 FollowerPhotoList()
@@ -186,6 +207,7 @@ struct MyCampingView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             MyCampingView()
+                .environmentObject(AuthStore())
         }
     }
 }
