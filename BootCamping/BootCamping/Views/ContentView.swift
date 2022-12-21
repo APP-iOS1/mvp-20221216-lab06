@@ -14,7 +14,7 @@ struct ContentView: View {
 
     @EnvironmentObject var authStore: AuthStore
     
-    @StateObject var commentStore = CommentStore()
+    @StateObject var photoCommentStore = PhotoCommentStore()
     
     var body: some View {
         List {
@@ -28,7 +28,7 @@ struct ContentView: View {
             
             ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { post in
                 NavigationLink {
-                    PhotoPostView(commentStore: commentStore, photoPost: post)
+                    PhotoPostView(photoCommentStore: photoCommentStore, photoPost: post)
                 } label: {
                     Text("\(post.title)")
                 }

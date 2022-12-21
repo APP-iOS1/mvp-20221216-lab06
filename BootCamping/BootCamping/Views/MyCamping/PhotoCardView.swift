@@ -18,7 +18,7 @@ struct PhotoCardView: View {
             HStack {
                 ForEach(listStore.listData, id: \.id) { item in
                     NavigationLink {
-                        ArticleDetailView(listStruct: item)
+//                        ArticleDetailView()
                     } label: {
                         ZStack(alignment: .leading) {
                             item.image.first?.image

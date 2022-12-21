@@ -50,6 +50,7 @@ struct LoginView: View {
                         if await authStore.signIn() {
                             isFirstLaunching = false
                         }
+//                        await authStore.signIn()
                     }
                 } label: {
                     LoginButton

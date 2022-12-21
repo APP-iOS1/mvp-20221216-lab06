@@ -6,29 +6,43 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SquareView: View {
-    var homeImage = ["photoCard1", "photoCard2", "photoCard3", "1", "2", "3", "4", "5", "6", "7"]
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+    @StateObject var photoPostStore: PhotoPostStore
+    @StateObject var photoCommentStore: PhotoCommentStore = PhotoCommentStore()
+
     
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(0..<homeImage.count, id: \.self) { index in
-                        Image(homeImage[index])
-                                .resizable()
-                                .frame(width: 198, height: 198)
-                            .padding(.bottom, -9)
+
+                   ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { photo in
+                    if photo.photos.count == 0 {
+                        EmptyPostView()
+                    } else {
+                        NavigationLink(destination: ArticleDetailView(photoPost: photo, photoCommentStore: photoCommentStore)) {
+                            AsyncImage(url: URL(string: photo.photos.first ?? "")) { image in
+                                image
+                                    .resizable()
+                                    .frame(width: 198, height: 198)
+                            } placeholder: {
+                                ProgressView()
+                        }.padding(.bottom, -9)
+                        }
+                    }
                 }
             }
-            .padding(.bottom)
-            
         }
+        .padding(.bottom)
     }
 }
 
+
+
 struct SquareView_Previews: PreviewProvider {
     static var previews: some View {
-        SquareView()
+        SquareView(photoPostStore: PhotoPostStore())
     }
 }
