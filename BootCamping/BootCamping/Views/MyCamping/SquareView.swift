@@ -17,8 +17,8 @@ struct SquareView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns) {
-                
-                ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { photo in
+
+                   ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { photo in
                     if photo.photos.count == 0 {
                         EmptyPostView()
                     } else {

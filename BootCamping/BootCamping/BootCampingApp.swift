@@ -23,11 +23,9 @@ struct BootCampingApp: App {
     
     var body: some Scene {
         WindowGroup {
-            BootcampingTabView()
-                .fullScreenCover(isPresented: $isFirstLaunching) {
-                    LoginView(isFirstLaunching: $isFirstLaunching)
-                }
-                .environmentObject(AuthStore())
-        }
+            LoginView(isFirstLaunching: $isFirstLaunching)
+                    .environmentObject(AuthStore())
+                    .environmentObject(PlaceStore())
+            }
     }
 }
