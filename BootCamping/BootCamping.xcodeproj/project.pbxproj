@@ -27,6 +27,11 @@
 		63361B58294C5EDC00D3AFF5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63361B57294C5EDC00D3AFF5 /* ContentView.swift */; };
 		63361B5A294C5EDD00D3AFF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63361B59294C5EDD00D3AFF5 /* Assets.xcassets */; };
 		63361B5D294C5EDD00D3AFF5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63361B5C294C5EDD00D3AFF5 /* Preview Assets.xcassets */; };
+		6EB683592952A62B003A8BE9 /* PhotoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB683582952A62B003A8BE9 /* PhotoCardView.swift */; };
+		6EB6835B2952A7C0003A8BE9 /* ListStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB6835A2952A7C0003A8BE9 /* ListStruct.swift */; };
+		6EB6835D2952A8DA003A8BE9 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB6835C2952A8DA003A8BE9 /* SquareView.swift */; };
+		6EB6835F2952A8F1003A8BE9 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB6835E2952A8F1003A8BE9 /* RectangleView.swift */; };
+		6EB683612952A900003A8BE9 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB683602952A900003A8BE9 /* ListView.swift */; };
 		634FD3AB2952AB53005E9862 /* AddCommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634FD3AA2952AB53005E9862 /* AddCommunityView.swift */; };
 		7C00CE1029514AA800A38560 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C00CE0F29514AA800A38560 /* ImagePicker.swift */; };
 		7C00CE1329514B5900A38560 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 7C00CE1229514B5900A38560 /* FirebaseStorage */; };
@@ -68,6 +73,11 @@
 		63361B57294C5EDC00D3AFF5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		63361B59294C5EDD00D3AFF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63361B5C294C5EDD00D3AFF5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6EB683582952A62B003A8BE9 /* PhotoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCardView.swift; sourceTree = "<group>"; };
+		6EB6835A2952A7C0003A8BE9 /* ListStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStruct.swift; sourceTree = "<group>"; };
+		6EB6835C2952A8DA003A8BE9 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		6EB6835E2952A8F1003A8BE9 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
+		6EB683602952A900003A8BE9 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		634FD3AA2952AB53005E9862 /* AddCommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommunityView.swift; sourceTree = "<group>"; };
 		7C00CE0F29514AA800A38560 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		7C03FC202951F1B7006BEC2E /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
@@ -110,6 +120,7 @@
 				632BF00829503E300074719A /* Comment.swift */,
 				632BF00E29503E570074719A /* PhotoPost.swift */,
 				632BF00929503E300074719A /* Users.swift */,
+				6EB6835A2952A7C0003A8BE9 /* ListStruct.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -223,9 +234,13 @@
 		7CA57C7E29528B1800560DEA /* MyCamping */ = {
 			isa = PBXGroup;
 			children = (
+				7CA57C8129528B2A00560DEA /* MyCampingView.swift */,
 				7CA57C7F29528B2A00560DEA /* EmptyFavoriteView.swift */,
 				7CA57C8029528B2A00560DEA /* EmptyPostView.swift */,
-				7CA57C8129528B2A00560DEA /* MyCampingView.swift */,
+				6EB6835C2952A8DA003A8BE9 /* SquareView.swift */,
+				6EB6835E2952A8F1003A8BE9 /* RectangleView.swift */,
+				6EB683582952A62B003A8BE9 /* PhotoCardView.swift */,
+				6EB683602952A900003A8BE9 /* ListView.swift */,
 			);
 			path = MyCamping;
 			sourceTree = "<group>";
@@ -233,12 +248,12 @@
 		7CA57C8529528B3000560DEA /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
-				7CA57C8B29528B3C00560DEA /* ArticleDetailView.swift */,
-				7CA57C8829528B3C00560DEA /* FollowerPhotoList.swift */,
-				7CA57C8629528B3C00560DEA /* FollowersPhoto.swift */,
-				7CA57C8929528B3C00560DEA /* FollowListView.swift */,
 				7CA57C8729528B3C00560DEA /* HomeView.swift */,
 				7CA57C8A29528B3C00560DEA /* TodaysCamping.swift */,
+				7CA57C8629528B3C00560DEA /* FollowersPhoto.swift */,
+				7CA57C8829528B3C00560DEA /* FollowerPhotoList.swift */,
+				7CA57C8929528B3C00560DEA /* FollowListView.swift */,
+				7CA57C8B29528B3C00560DEA /* ArticleDetailView.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -329,15 +344,20 @@
 				7CA57C8E29528B3C00560DEA /* FollowerPhotoList.swift in Sources */,
 				7CA57C8229528B2A00560DEA /* EmptyFavoriteView.swift in Sources */,
 				7C03FC2929520A25006BEC2E /* PlaceListView.swift in Sources */,
+				6EB683592952A62B003A8BE9 /* PhotoCardView.swift in Sources */,
 				63361B58294C5EDC00D3AFF5 /* ContentView.swift in Sources */,
 				7CA57C7D29528AC500560DEA /* BootcampingTabView.swift in Sources */,
 				7C03FC2729520476006BEC2E /* HashTagPlaceView.swift in Sources */,
 				631C09C929516E8D00A0B692 /* CommentStore.swift in Sources */,
+				6EB683612952A900003A8BE9 /* ListView.swift in Sources */,
+				6EB6835D2952A8DA003A8BE9 /* SquareView.swift in Sources */,
 				632BF01829503E920074719A /* ButtonFrame.swift in Sources */,
 				632BF00729503E1C0074719A /* AuthStore.swift in Sources */,
+				6EB6835F2952A8F1003A8BE9 /* RectangleView.swift in Sources */,
 				7C03FC252951FC9C006BEC2E /* SelectPlaceView.swift in Sources */,
 				7CA57C8F29528B3C00560DEA /* FollowListView.swift in Sources */,
 				7CA57C9529528CF300560DEA /* CommunityView.swift in Sources */,
+				6EB6835B2952A7C0003A8BE9 /* ListStruct.swift in Sources */,
 				7C03FC232951F4AB006BEC2E /* SearchView.swift in Sources */,
 				632BF01929503E920074719A /* TextFieldFrame.swift in Sources */,
 				63361B56294C5EDC00D3AFF5 /* BootCampingApp.swift in Sources */,

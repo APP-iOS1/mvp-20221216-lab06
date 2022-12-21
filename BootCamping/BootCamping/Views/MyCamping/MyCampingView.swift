@@ -51,12 +51,14 @@ struct MyCampingView: View {
                         } label: {
                             Text("팔로워 4")
                                 .font(.subheadline)
+                                .foregroundColor(.black)
                         }
                         
                         Button {
                         } label: {
                             Text("팔로잉 2")
                                 .font(.subheadline)
+                                .foregroundColor(.black)
                         }
                     }
                 }
@@ -139,14 +141,15 @@ struct MyCampingView: View {
                 }
             }.padding(.trailing)
             
+            // 버튼인데???
             if isSquare {
-                EmptyView()
+                SquareView()
             } else if isRectangle {
-                EmptyView()
+                FollowerPhotoList()
             } else if isPhotoCard {
-                EmptyView()
+                PhotoCardView()
             } else if isList {
-                EmptyView()
+                EmptyView() // 리스트 아직 없음
             }
             
         }
@@ -157,15 +160,16 @@ struct MyCampingView: View {
 
 
 
+// 여긴 탭뷰
 struct myPageTapView : View {
     var myTap : tapMypage
     var body: some View {
         VStack {
             switch myTap {
             case .myCamping:
-                EmptyPostView()
-                    .padding(.bottom, 250)
-//                  TodaysCamping()
+//                EmptyPostView()
+//                    .padding(.bottom, 250)
+                  SquareView()
 
             case .likeFeed:
                 FollowerPhotoList()
@@ -180,6 +184,8 @@ struct myPageTapView : View {
 
 struct MyCampingView_Previews: PreviewProvider {
     static var previews: some View {
-        MyCampingView()
+        NavigationStack {
+            MyCampingView()
+        }
     }
 }
