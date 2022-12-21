@@ -21,9 +21,6 @@ struct LoginView: View {
     
     var body: some View {
         VStack{
-//            AsyncImage(url: URL(string: "http://firebasestorage.googleapis.com/v0/b/bucket%20object/o/images/12C307D4-F153-421C-90B7-C518D1637777.jpg?alt=media"))
-                
-            
             Spacer()
             Image(systemName:"apple.logo")          //앱 로고
                 .resizable()

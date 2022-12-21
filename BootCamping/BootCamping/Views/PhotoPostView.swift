@@ -19,9 +19,26 @@ struct PhotoPostView: View {
             Text("\(photoPost.content)")
             Divider()
             
+            ForEach(photoPost.photos, id: \.self) {photo in
+                AsyncImage(url: URL(string: photo)) { image in
+                                  image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 150, height: 150)
+                .onAppear {
+                    print(photo)
+                }
+            }
             
-//            ForEach
             Divider()
+            
+            ForEach(commentStore.comments) { comment in
+                Text(comment.content)
+            }
+            
             HStack {
                 TextField("comment", text: $content)
                 Button {
@@ -32,13 +49,20 @@ struct PhotoPostView: View {
                     Text("add")
                 }
             }
+        }.onAppear {
+            commentStore.postId = photoPost.id
+            commentStore.fetchComment()
         }
+        
     }
 }
-//
+
+
 //struct PhotoPostView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        PhotoPostView(photoPost: PhotoPost().photos.first!)
 ////            .environmentObject(PhotoPostStore())
 //    }
 //}
+
+
