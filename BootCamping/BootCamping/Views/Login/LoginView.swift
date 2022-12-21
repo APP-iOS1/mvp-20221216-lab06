@@ -16,7 +16,7 @@ struct LoginView: View {
             return isAlert ? "아이디 또는 비밀번호가 잘못되었습니다!" : ""
         }
     }
-    
+    @Binding var isFirstLaunching: Bool
     @EnvironmentObject var authStore: AuthStore
     
     var body: some View {
@@ -45,17 +45,16 @@ struct LoginView: View {
                     .font(.callout)
                 
                 
-                NavigationLink {
-                    BootcampingTabView()
+                Button {
+                    Task {
+                        if await authStore.signIn() {
+                            isFirstLaunching = false
+                        }
+                    }
                 } label: {
                     LoginButton
                         .padding(.top, 60)
                         .padding(.bottom)
-                }.task {
-                    Task {
-                        await authStore.signIn()
-                    }
-                        
                 }
                 
                 
@@ -93,7 +92,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(isFirstLaunching: .constant(false))
             .environmentObject(AuthStore())
     }
 }
