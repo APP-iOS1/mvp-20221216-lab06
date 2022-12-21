@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PlaceView: View {
     
-    @Environment(\.colorScheme) var scheme
     @EnvironmentObject var placeStore: PlaceStore
     var fecthData: FetchData = FetchData()
     
@@ -37,7 +36,7 @@ struct PlaceView: View {
                 Button { placeStore.selectedCategory = "카라반" } label: {
                     Text("#카라반").padding(7).font(.subheadline)
                 }
-
+                
                 .cornerRadius(10)
                 
                 Button { placeStore.selectedCategory = "글램핑" } label: {
@@ -69,6 +68,7 @@ struct PlaceView: View {
                     ProgressView().frame(height: 100)
                 }
             }
+            
             .onAppear {
                 Task {
                     isLoading = true
@@ -93,12 +93,12 @@ struct PlaceView: View {
         }
     }
 }
-    
-    struct PlaceView_Previews: PreviewProvider {
-        static var previews: some View {
-            NavigationStack {
-                PlaceView()
-                    .environmentObject(PlaceStore())
-            }
+
+struct PlaceView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            PlaceView()
+                .environmentObject(PlaceStore())
         }
     }
+}

@@ -16,26 +16,31 @@ struct BootcampingTabView: View {
             NavigationStack {
                 HomeView()
             }.tabItem {
-                Text("홈")
+                Image(systemName: "flame.fill")
+                Text("메인")
             }.tag(1)
             NavigationStack {
                 NewPlaceView().environmentObject(PlaceStore())
             }.tabItem {
+                Image(systemName: "mappin.and.ellipse")
                 Text("플레이스")
             }.tag(2)
             NavigationStack {
                 AddView(photoPostStore: photoPostStore, tabSelection: $tabSelection)
             }.tabItem {
+                Image(systemName: "plus")
                 Text("글쓰기")
             }.tag(3)
             NavigationStack {
              CommunityView()
             }.tabItem {
-                Text("커뮤니티")
+                Image(systemName: "person.3")
+                Text("캠핑생활")
             }.tag(4)
             NavigationStack {
                 MyCampingView()
             }.tabItem {
+                Image(systemName: "person")
                 Text("마이캠핑")
             }.tag(5)
             

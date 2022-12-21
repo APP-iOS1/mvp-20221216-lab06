@@ -124,6 +124,8 @@ struct AddView: View {
                     try await photoPostStore.addPhotoPost(PhotoPost(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.uid ?? ""), title: title, content: content, createdDate: Timestamp(),  photos: []), selectedImages: selectedImages)
                     selectedImages = []
                     content = ""
+                    photoPostStore.fetchPhotoPost()
+                    photoPostStore.retrievePhotos()
                     tabSelection = 5
                 }
             } label: {

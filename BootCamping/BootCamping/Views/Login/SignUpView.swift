@@ -264,6 +264,8 @@ struct SignUpView: View {
 
 // 회원가입 완료 뷰
 struct SignUpCompleteView: View {
+    @EnvironmentObject var authStore: AuthStore
+    
     @Binding var isSignUp: Bool
     
     var body: some View {
@@ -285,6 +287,10 @@ struct SignUpCompleteView: View {
             } label: {
                 signupButtonFrame(title: "시작하기")
                     .foregroundColor(.red)
+            }.task {
+                Task{
+                    await authStore.signUp()
+                }
             }
             
         }
