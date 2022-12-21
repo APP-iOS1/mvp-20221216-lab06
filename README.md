@@ -13,7 +13,7 @@
 ## 앱 기능 설명
 기획 이미지를 첨부합니다. 
 
-<img src="readmeimg/0. 회원가입">
+<img src="readmeimg/sample1.png">
 0.로그인/회원가입 
 
 1. 홈 - 메인
