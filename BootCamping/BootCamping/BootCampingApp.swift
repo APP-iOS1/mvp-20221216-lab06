@@ -23,8 +23,9 @@ struct BootCampingApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                LoginView()
-                    .environmentObject(AuthStore())
+                MyCampingView()
+//                LoginView()
+//                    .environmentObject(AuthStore())
                 
             }
         }

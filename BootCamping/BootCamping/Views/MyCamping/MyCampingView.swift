@@ -51,12 +51,14 @@ struct MyCampingView: View {
                         } label: {
                             Text("팔로워 4")
                                 .font(.subheadline)
+                                .foregroundColor(.black)
                         }
                         
                         Button {
                         } label: {
                             Text("팔로잉 2")
                                 .font(.subheadline)
+                                .foregroundColor(.black)
                         }
                     }
                 }
@@ -140,13 +142,13 @@ struct MyCampingView: View {
             }.padding(.trailing)
             
             if isSquare {
-                EmptyView()
+                SquareView()
             } else if isRectangle {
-                EmptyView()
+                RectangleView()
             } else if isPhotoCard {
-                EmptyView()
+                PhotoCardView()
             } else if isList {
-                EmptyView()
+                ListView()
             }
             
         }
