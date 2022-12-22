@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     @EnvironmentObject var authStore: AuthStore
+    @State var isPresented: Bool = false
     
     var body: some View {
         List{
@@ -27,13 +28,22 @@ struct SettingView: View {
             Text("회원탈퇴")
             Text("앱 관리")
             Button {
-                Task {
-                    await authStore.signOut()
+                if authStore.currentUser != nil {
+                    authStore.signOut()
+                } else {
+                    isPresented = true
                 }
             } label: {
-                Text("로그아웃")
+                if authStore.currentUser != nil {
+                    Text("로그아웃")
+                } else {
+                    Text("로그인")
+                }
             }
-
+            .fullScreenCover(isPresented: $isPresented) {
+                LoginView(isPresented: $isPresented)
+            }
+            
         }
         .listStyle(.plain)
         .toolbar {
