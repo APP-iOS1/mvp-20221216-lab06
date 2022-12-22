@@ -179,9 +179,12 @@ struct TermsView: View {
 struct SignUpView: View {
     @EnvironmentObject var authStore: AuthStore
     @Binding var isSignUp: Bool
+    @State var userNickName: String = ""
     @State var email: String = ""
     @State var password: String = ""
     @State var confirmPassword: String = ""
+    @State private var isPickerShowing = false
+    @State var profileImage: UIImage?
     
     var body: some View {
         Group{
@@ -191,18 +194,18 @@ struct SignUpView: View {
                     Text("회원정보를\n입력해주세요.")
                         .font(.largeTitle.bold())
                     Spacer()
-//                    HStack {
-//                        Text("이름")
-//                        Text("*")
-//                            .foregroundColor(.red)
-//                    }
-//
-//                    TextFieldFrameSignUp
-//                        .overlay{
-//                            TextField("이름", text: $authStore.email)
-//                            //이거 일단 email로 해뒀는데 음,,, 이름 필요한가요??
-//                        }
-//                        .padding(.bottom ,5)
+                    HStack {
+                        Text("이름")
+                        Text("*")
+                            .foregroundColor(.red)
+                    }
+
+                    TextFieldFrameSignUp
+                        .overlay{
+                            TextField("이름", text: $userNickName)
+                            //이거 일단 email로 해뒀는데 음,,, 이름 필요한가요??
+                        }
+                        .padding(.bottom ,5)
                     
                     Group{ //이메일
                         HStack {
@@ -276,18 +279,40 @@ struct SignUpView: View {
                     
                     
                     Text("프로필 사진 (선택)")
-                    Image(systemName: "square.fill")
-                        .resizable()
-                        .frame(width: 60, height: 60)
+                    if profileImage == nil {
+                        Button {
+                            isPickerShowing = true
+                        } label: {
+                            VStack {
+                                Image(systemName: "person.crop.circle").font(.title)
+                            }
+                            .frame(width: 60, height: 60)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(.gray, lineWidth: 1)
+                            )
+                            .foregroundColor(.gray)
+                            
+                        }
+                        .sheet(isPresented: $isPickerShowing) {
+                            //이미지 피커, UIImagePickerController, UIKit과 연동 필요
+                            ImagePicker(selectedImage: $profileImage, isPickerShowing: $isPickerShowing)
+                        }
+                    } else {
+                        Image(uiImage: profileImage!)
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(15)
+                    }
                     //일단 네모로 자리만 잡아둘게용
                     Spacer()
-
+                    
                     
                 }
                 // 버튼, 내용이 전부 채워져있어야 활성화.
                 VStack(alignment: .center){
-                    if !authStore.email.isEmpty && !authStore.password.isEmpty && !authStore.confirmPassword.isEmpty {
-                        NavigationLink(destination: SignUpCompleteView(isSignUp: $isSignUp)){
+                    if !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty {
+                        NavigationLink(destination: SignUpCompleteView(userNickName: userNickName, email: email, password: password, confirmPassword: confirmPassword, profileImage: profileImage, isSignUp: $isSignUp)){
                             signupButtonFrame(title: "다음")
                                 .foregroundColor(.red)
                         }
@@ -313,6 +338,11 @@ struct SignUpView: View {
 struct SignUpCompleteView: View {
     @EnvironmentObject var authStore: AuthStore
     
+    var userNickName: String
+    var email: String
+    var password: String
+    var confirmPassword: String
+    var profileImage: UIImage?
     @Binding var isSignUp: Bool
     
     var body: some View {
@@ -336,7 +366,13 @@ struct SignUpCompleteView: View {
                     .foregroundColor(.red)
             }.task {
                 Task{
+                    authStore.email = self.email
+                    authStore.password = self.password
+                    authStore.confirmPassword = self.confirmPassword
+                    authStore.userNickName = self.userNickName
+                    authStore.profileImage = self.profileImage
                     await authStore.signUp()
+                    try await authStore.signIn()
                 }
             }
             
