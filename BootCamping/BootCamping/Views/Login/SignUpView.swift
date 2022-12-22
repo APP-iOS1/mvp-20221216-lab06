@@ -179,6 +179,9 @@ struct TermsView: View {
 struct SignUpView: View {
     @EnvironmentObject var authStore: AuthStore
     @Binding var isSignUp: Bool
+    @State var email: String = ""
+    @State var password: String = ""
+    @State var confirmPassword: String = ""
     
     var body: some View {
         Group{
@@ -187,54 +190,98 @@ struct SignUpView: View {
                 VStack(alignment: .leading){
                     Text("회원정보를\n입력해주세요.")
                         .font(.largeTitle.bold())
-                        .padding(.bottom)
-                    HStack {
-                        Text("이름")
-                        Text("*")
-                            .foregroundColor(.red)
+                    Spacer()
+//                    HStack {
+//                        Text("이름")
+//                        Text("*")
+//                            .foregroundColor(.red)
+//                    }
+//
+//                    TextFieldFrameSignUp
+//                        .overlay{
+//                            TextField("이름", text: $authStore.email)
+//                            //이거 일단 email로 해뒀는데 음,,, 이름 필요한가요??
+//                        }
+//                        .padding(.bottom ,5)
+                    
+                    Group{ //이메일
+                        HStack {
+                            Text("이메일")
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
+                        TextFieldFrameSignUp
+                            .overlay{
+                                TextField("이메일", text: $email)
+                            }
+                        
+                        if !email.isEmpty && !(email.range(of: #"^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]{2,3}+$"#, options: .regularExpression) != nil) {
+                            Text("이메일 형식이 맞지 않습니다")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                                .padding(.bottom)
+                        } else if !email.isEmpty && (email.range(of: #"^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]{2,3}+$"#, options: .regularExpression) != nil) {
+                            Text("사용가능한 이메일입니다")
+                                .font(.caption)
+                                .foregroundColor(.green)
+                                .padding(.bottom)
+                        }
                     }
                     
-                    TextFieldFrameSignUp
-                        .overlay{
-                            TextField("이름", text: $authStore.email)
-                            //이거 일단 email로 해뒀는데 음,,, 이름 필요한가요??
+                    //비밀번호
+                    Group{
+                        HStack {
+                            Text("비밀번호")
+                            Text("*")
+                                .foregroundColor(.red)
                         }
-                        .padding(.bottom ,5)
-                    
-                    HStack {
-                        Text("이메일")
-                        Text("*")
-                            .foregroundColor(.red)
+                        TextFieldFrameSignUp
+                            .overlay{
+                                SecureField("8자 이상, 숫자/영문/특수문자 필수 포함", text: $password)
+                            }
+                            .padding(.bottom ,5)
+                        if !password.isEmpty && !(password.range(of: "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&()_+=-]).{8,50}$", options: .regularExpression) != nil) {
+                            Text("비밀번호 형식이 맞지 않습니다")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                                .padding(.bottom)
+                        } else if !password.isEmpty && (password.range(of: "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&()_+=-]).{8,50}$", options: .regularExpression) != nil) {
+                            Text("사용가능한 비밀번호입니다")
+                                .font(.caption)
+                                .foregroundColor(.green)
+                                .padding(.bottom)
+                        }
                     }
                     
-                    TextFieldFrameSignUp
-                        .overlay{
-                            TextField("이메일", text: $authStore.email)
+                    //비밀번호 확인
+                    Group{
+                        TextFieldFrameSignUp
+                            .overlay{
+                                SecureField("비밀번호 확인", text: $confirmPassword)
+                            }
+                            .padding(.bottom ,5)
+                        if !confirmPassword.isEmpty && password != confirmPassword {
+                            Text("비밀번호가 일치하지 않습니다")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                                .padding(.bottom)
+                        } else if !confirmPassword.isEmpty && password == confirmPassword {
+                            Text("비밀번호가 일치합니다")
+                                .font(.caption)
+                                .foregroundColor(.green)
+                                .padding(.bottom)
                         }
-                        .padding(.bottom ,5)
-                    
-                    HStack {
-                        Text("비밀번호")
-                        Text("*")
-                            .foregroundColor(.red)
                     }
-                    TextFieldFrameSignUp
-                        .overlay{
-                            SecureField("8자 이상, 숫자/영문/특수문자 필수 포함", text: $authStore.password)
-                        }
-                        .padding(.bottom ,5)
-                    TextFieldFrameSignUp
-                        .overlay{
-                            SecureField("비밀번호 확인", text: $authStore.confirmPassword)
-                        }
-                        .padding(.bottom ,5)
+                    
+                    
                     
                     Text("프로필 사진 (선택)")
                     Image(systemName: "square.fill")
                         .resizable()
                         .frame(width: 60, height: 60)
                     //일단 네모로 자리만 잡아둘게용
-                    
+                    Spacer()
+
                     
                 }
                 // 버튼, 내용이 전부 채워져있어야 활성화.
@@ -310,7 +357,7 @@ struct SignUpCompleteView: View {
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            SignUpCompleteView(isSignUp:.constant(false))
+            SignUpView(isSignUp:.constant(false))
                 .environmentObject(AuthStore())
         }
     }
