@@ -8,9 +8,11 @@
 import SwiftUI
 import FirebaseAuth
 import Firebase
+import SDWebImageSwiftUI
 
 struct AddView: View {
-    @StateObject var photoPostStore: PhotoPostStore
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var photoPostStore: PhotoPostStore
     @State private var title: String = ""
     @State private var hashTag: String = ""
     @State private var location: String = ""
@@ -120,12 +122,18 @@ struct AddView: View {
             }
             
             Button {
-                Task {
-                    try await photoPostStore.addPhotoPost(PhotoPost(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.uid ?? ""), title: title, content: content, createdDate: Timestamp(),  photos: []), selectedImages: selectedImages)
-                    selectedImages = []
-                    content = ""
-                    photoPostStore.fetchPhotoPost()
-                    photoPostStore.retrievePhotos()
+                photoPostStore.uploadPhoto()
+                    dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        photoPostStore.content = ""
+                        photoPostStore.postImageUrls = nil
+                        selectedImages = []
+                        
+//                    try await photoPostStore.addPhotoPost(PhotoPost(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.uid ?? ""), title: title, content: content, createdDate: Timestamp(),  photos: []), selectedImages: selectedImages)
+//                    selectedImages = []
+//                    content = ""
+//                    photoPostStore.fetchPhotoPost()
+//                    photoPostStore.retrievePhotos()
                     tabSelection = 5
                 }
             } label: {
@@ -163,7 +171,8 @@ struct AddView: View {
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            AddView(photoPostStore: PhotoPostStore(), tabSelection: .constant(1))
+            AddView(tabSelection: .constant(1))
+                .environmentObject(PhotoPostStore())
         }
     }
 }

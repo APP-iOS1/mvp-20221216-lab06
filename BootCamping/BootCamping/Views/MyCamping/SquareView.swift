@@ -7,10 +7,11 @@
 
 import SwiftUI
 import FirebaseAuth
+import SDWebImageSwiftUI
 
 struct SquareView: View {
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
-    @StateObject var photoPostStore: PhotoPostStore
+    @EnvironmentObject var photoPostStore: PhotoPostStore
     @StateObject var photoCommentStore: PhotoCommentStore = PhotoCommentStore()
 
     
@@ -37,7 +38,7 @@ struct SquareView: View {
             }
             .onAppear{
                 photoPostStore.fetchPhotoPost()
-                photoPostStore.retrievePhotos()
+//                photoPostStore.retrievePhotos()
             }
         }
         .padding(.bottom)
@@ -48,6 +49,6 @@ struct SquareView: View {
 
 struct SquareView_Previews: PreviewProvider {
     static var previews: some View {
-        SquareView(photoPostStore: PhotoPostStore())
+        SquareView().environmentObject(PhotoPostStore())
     }
 }

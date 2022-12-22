@@ -8,6 +8,15 @@
 import Foundation
 import Firebase
 
+//struct PhotoPost {
+//    var id: String
+//    var userID: String
+//    var title: String
+//    var content: String
+//    var createdDate: Timestamp
+//    var photos: [String]
+//}
+
 struct PhotoPost {
     var id: String
     var userID: String
@@ -15,6 +24,9 @@ struct PhotoPost {
     var content: String
     var createdDate: Timestamp
     var photos: [String]
+    
+    var currentUser: String
+    var postImageUrl : String
 }
 
 

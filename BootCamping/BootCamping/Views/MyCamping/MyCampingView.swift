@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import SDWebImageSwiftUI
 
 enum tapMypage : String, CaseIterable {
     case myCamping = "나의 캠핑 이야기"
@@ -16,7 +17,7 @@ enum tapMypage : String, CaseIterable {
 
 struct MyCampingView: View {
     
-    @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
+    @EnvironmentObject var photoPostStore: PhotoPostStore
     
     @EnvironmentObject var authStore: AuthStore
     
@@ -26,8 +27,6 @@ struct MyCampingView: View {
     @Namespace private var animation
     
     
-    
-    
     var body: some View {
         ScrollView {
             animate()
@@ -35,11 +34,11 @@ struct MyCampingView: View {
         }
         .onAppear{
             photoPostStore.fetchPhotoPost()
-            photoPostStore.retrievePhotos()
+//            photoPostStore.retrievePhotos()
         }
         .refreshable {
             photoPostStore.fetchPhotoPost()
-            photoPostStore.retrievePhotos()
+//            photoPostStore.retrievePhotos()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -200,7 +199,7 @@ struct ViewChangeButton: View {
             }.padding(.trailing)
             // 버튼인데???
             if isSquare {
-                SquareView(photoPostStore: photoPostStore)
+                SquareView()
             } else if isRectangle {
                 FollowerPhotoList()
             } else if isPhotoCard {

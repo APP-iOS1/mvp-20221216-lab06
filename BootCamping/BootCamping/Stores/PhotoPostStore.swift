@@ -17,11 +17,33 @@ class PhotoPostStore: ObservableObject {
     
     @Published private var selectedImage: UIImage?
     @Published var retrievedImages = [UIImage]() //검색된 이미지들 배열로
+    
+
+    @Published var postImageUrls: UIImage?
     @Published var photoPost: [PhotoPost] = []
     
-    init() {
-        photoPost = []
-    }
+    @Published var userID: String = ""
+    
+    @Published var title: String = ""
+    @Published var content: String = ""
+    @Published var photos: String = ""
+    @Published var createdDate: Timestamp = Timestamp(date: Date())
+    
+    /*
+     let postData = ["id": uid, "userID": photoPost.userID, "title": photoPost.title, "content": content, "createdDate": photoPost.createdDate, "photos": photoPost.photos, "currentUser": Auth.auth().currentUser?.uid, "postImageUrl": imageProfileUrl.absoluteString]
+     
+     struct PhotoPost {
+         var id: String
+         var userID: String
+         var title: String
+         var content: String
+         var createdDate: Timestamp
+         var photos: [String]
+         
+         var currentUser: String
+         var postImageUrl : String
+     }
+     */
     
     func fetchPhotoPost() {
         database.collection("PhotoPost")
@@ -33,14 +55,17 @@ class PhotoPostStore: ObservableObject {
                     for document in snapshot.documents {
                         let id: String = document.documentID
                         let docData = document.data()
+                        
                         let userID: String = docData["userID"] as? String ?? ""
                         let title: String = docData["title"] as? String ?? ""
                         let content: String = docData["content"] as? String ?? ""
-                        //                        let createdDate: Timestamp = docData["createdDate"] as? Timestamp ?? Timestamp(date: Date())
                         let createdDate: Timestamp = docData["createdDate"] as? Timestamp ?? Timestamp(date: Date())
                         let photos: [String] = docData["photos"] as? [String] ?? []
                         
-                        let photoPost: PhotoPost = PhotoPost(id: id, userID: userID, title: title, content: content, createdDate: createdDate, photos: photos)
+                        let currentUser: String = docData["currentUser"] as? String ?? ""
+                        let postImageUrl: String = docData["postImageUrl"] as? String ?? ""
+                        
+                        let photoPost: PhotoPost = PhotoPost(id: id, userID: userID, title: title, content: content, createdDate: createdDate, photos: photos, currentUser: currentUser, postImageUrl: postImageUrl)
                         
                         self.photoPost.append(photoPost)
                     }
@@ -48,116 +73,165 @@ class PhotoPostStore: ObservableObject {
             }
     }
     
-    
-    func addPhotoPost(_ photoPost: PhotoPost, selectedImages: [UIImage?]) async throws {
-        do {
-            let uploadedPhotos = try await uploadPhoto(selectedImages: selectedImages)
-            try await database.collection("PhotoPost")
-                .document(photoPost.id)
-                .setData(["userID": photoPost.userID,
-                          "title": photoPost.title,
-                          "content": photoPost.content,
-                          "createdDate": photoPost.createdDate,
-                          "photos": uploadedPhotos,
-                         ])
-            fetchPhotoPost()
-        } catch {
-            print(error)
-        }
-    }
+//    //업로드
+//    func storeImageToStorage() {
+//        let uid = UUID().uuidString
+//        let ref = Storage.storage().reference(withPath: uid)
+//
+//        guard let imageData = postImageUrls?.jpegData(compressionQuality: 0.5) else {
+//            return
+//        }
+//
+//        ref.putData(imageData) { metadata, error in
+//            if let error = error {
+//                print("\(error)")
+//                return
+//            }
+//
+//            ref.downloadURL() { url, error in
+//                if let error = error {
+//                    print(error)
+//                    return
+//                }
+//                print(url?.absoluteString ?? "망함")
+//
+//                guard let url = url else { return }
+//
+//                self.postToStore(imageProfileUrl: url, uid: uid)
+//            }
+//        }
+//    }
+//
+//    func postToStore(imageProfileUrl: URL, uid: String) {
+//
+//        let uid = uid
+//
+//        let dateFormatter: DateFormatter = {
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+//
+//            return dateFormatter
+//        }()
+//
+//
+//        // model을 쓰면 쉽게 구조화할 수 있음
+//        let postData = ["id": uid, "postImageUrl" : imageProfileUrl.absoluteString, "bodyText" : bodyTexts, "currentUser" : Auth.auth().currentUser?.uid, "date" : dateFormatter.string(from: Date.now)]
+//
+//        Firestore.firestore().collection("post").document(uid).setData(postData as [String : Any]) { error in
+//            if let error = error {
+//                print(error)
+//                return
+//            }
+//
+//            print("success")
+//        }
+//
+//        fetchPost()
+//    }
     
     //사진 스토리지
-    func uploadPhoto(selectedImages: [UIImage?]) async -> [String] {
-        //이미지 프로퍼티가 nil인지 확인
-        var photos: [String] = []
-        
-        for selectedImage in selectedImages {
-            guard selectedImage != nil else {
-                return []
+    func uploadPhoto() {
+            let uid = UUID().uuidString
+            let ref = Storage.storage().reference(withPath: uid)
+            
+            guard let imageData = postImageUrls?.jpegData(compressionQuality: 0.5) else {
+                return
             }
             
-            //storage ref 만듬
-            let storageRef = Storage.storage().reference()
-            //이미지를 데이터로 전활할 수 있는지 확인
-            let imageData = selectedImage!.jpegData(compressionQuality: 0.5) //압축품질 0.8로
-            
-            //이미지를 데이터로 전환할수 있는지 확인, 확인했으므로 밑에 putData는 !로 간편하게 언래핑
-            guard imageData != nil else {
-                return []
-            }
-            
-            //파일 경로, 이름 지정, image 폴더에 접근
-            let uuid = UUID().uuidString
-            let path = "image/\(uuid).jpg"
-            
-            let fileRef = storageRef.child(path)
-            photos.append("https://firebasestorage.googleapis.com/v0/b/todokoonsapp.appspot.com/o/image%2F\(uuid).jpg?alt=media")
-            
-            //데이터 업로드
-            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            ref.putData(imageData) { metadata, error in
+                if let error = error {
+                    print("\(error)")
+                    return
+                }
                 
-                
-                //에러 체크
-    //            if error == nil && metadata != nil {
-    //                //ref 파이어스토어 db에 저장
-    //                let db = Firestore.firestore()
-    //                db.collection("images").document().setData(["url":path]) { error in
-    //                        //에러 없을때 새 이미지 표시
-    //                        if error == nil {
-    //                            //UI업데이트하므로 디스패치큐
-    //                            DispatchQueue.main.async {
-    //                        }
-    //                    }
-    //                }
-    //            }
-                
+                ref.downloadURL() { url, error in
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                    print(url?.absoluteString ?? "망함")
+                    
+                    guard let url = url else { return }
+                    //스토어에 올림
+                    self.addPhotoPost(imageProfileUrl: url, uid: uid)
+                }
             }
         }
-        return photos
-        
+    
+    func addPhotoPost(imageProfileUrl: URL, uid: String) {
+        let uid = uid
+
+        let postData = ["id": uid, "userID": userID, "title": title, "content": content, "createdDate": createdDate, "photos": photos, "currentUser": Auth.auth().currentUser?.uid, "postImageUrl": imageProfileUrl.absoluteString] as [String : Any]
+                            
+        Firestore.firestore().collection("photoPost").document(uid).setData(postData as [String : Any]) { error in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            print("success")
+        }
+            fetchPhotoPost()
     }
     
-    func retrievePhotos() {
-        //데이터베이스에서 데이터 가져옴
-        let db = Firestore.firestore()
+    func postUpdate(photoPost: PhotoPost, content: String) {
+        var selectedPost = photoPost
         
-        db.collection("images").getDocuments { snapshot, error in
-            
-            if error == nil && snapshot != nil {
-                
-                var paths = [String]()
-                
-                //반환된 모든 문서
-                for doc in snapshot!.documents { //snapshot nil아니므로 강제언래핑 해도 괜찮음
-                    //파일 경로 추출하고 paths 배열에 경로 추가
-                    paths.append(doc["url"] as! String)
-                }
-                //파일 경로 반복하고, 스토리지에서 데이터 가져옴
-                for path in paths {
-                    //스토리지에서 참조 얻기
-                    let storageRef = Storage.storage().reference()
-                    
-                    //경로지정
-                    let fileRef = storageRef.child(path)
-                    
-                    //데이터 검색 /데이터 최대 크기 지정,(5메가)
-                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                        //에러 체크
-                        if error == nil && data != nil {
-                            //UIImage생성해서 배열에 넣음
-                            if let image = UIImage(data: data!) {
-                                
-                                DispatchQueue.main.async {
-//                                    retrievedImages.append(image)
-                                }
-                            }
-                        }
-                    }
-                }
-                
+        selectedPost.content = content
+        
+        let postData = ["id": selectedPost.id, "userID": selectedPost.userID, "title": selectedPost.title, "content": content, "createdDate": selectedPost.createdDate, "photos": selectedPost.photos, "currentUser": Auth.auth().currentUser?.uid, "postImageUrl": selectedPost.postImageUrl] as [String : Any]
+        
+        Firestore.firestore().collection("photoPost").document(selectedPost.id).setData(postData as [String : Any]) { error in
+            if let error = error {
+                print(error)
+                return
             }
+            self.fetchPhotoPost()
         }
     }
+
+    
+//    func retrievePhotos() {
+//        //데이터베이스에서 데이터 가져옴
+//        let db = Firestore.firestore()
+//        
+//        db.collection("images").getDocuments { snapshot, error in
+//            
+//            if error == nil && snapshot != nil {
+//                
+//                var paths = [String]()
+//                
+//                //반환된 모든 문서
+//                for doc in snapshot!.documents { //snapshot nil아니므로 강제언래핑 해도 괜찮음
+//                    //파일 경로 추출하고 paths 배열에 경로 추가
+//                    paths.append(doc["url"] as! String)
+//                }
+//                //파일 경로 반복하고, 스토리지에서 데이터 가져옴
+//                for path in paths {
+//                    //스토리지에서 참조 얻기
+//                    let storageRef = Storage.storage().reference()
+//                    
+//                    //경로지정
+//                    let fileRef = storageRef.child(path)
+//                    
+//                    //데이터 검색 /데이터 최대 크기 지정,(5메가)
+//                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+//                        //에러 체크
+//                        if error == nil && data != nil {
+//                            //UIImage생성해서 배열에 넣음
+//                            if let image = UIImage(data: data!) {
+//                                
+//                                DispatchQueue.main.async {
+////                                    retrievedImages.append(image)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                
+//            }
+//        }
+//    }
     
     func removePhotoPost(_ photoPostID : String) {
         database.collection("PhotoPost")
