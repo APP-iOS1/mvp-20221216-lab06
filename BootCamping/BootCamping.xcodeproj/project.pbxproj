@@ -24,6 +24,7 @@
 		63361B56294C5EDC00D3AFF5 /* BootCampingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63361B55294C5EDC00D3AFF5 /* BootCampingApp.swift */; };
 		63361B5A294C5EDD00D3AFF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63361B59294C5EDD00D3AFF5 /* Assets.xcassets */; };
 		63361B5D294C5EDD00D3AFF5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63361B5C294C5EDD00D3AFF5 /* Preview Assets.xcassets */; };
+		6339A07C295473CE00F16FFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339A07B295473CE00F16FFC /* ContentView.swift */; };
 		634FD3AB2952AB53005E9862 /* AddCommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634FD3AA2952AB53005E9862 /* AddCommunityView.swift */; };
 		636D852629530E2E00A579E2 /* NewPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636D852329530E2E00A579E2 /* NewPlaceView.swift */; };
 		636D852729530E2E00A579E2 /* HashTagPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636D852429530E2E00A579E2 /* HashTagPlaceView.swift */; };
@@ -81,6 +82,7 @@
 		63361B55294C5EDC00D3AFF5 /* BootCampingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootCampingApp.swift; sourceTree = "<group>"; };
 		63361B59294C5EDD00D3AFF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63361B5C294C5EDD00D3AFF5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6339A07B295473CE00F16FFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		634FD3AA2952AB53005E9862 /* AddCommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommunityView.swift; sourceTree = "<group>"; };
 		636D852329530E2E00A579E2 /* NewPlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlaceView.swift; sourceTree = "<group>"; };
 		636D852429530E2E00A579E2 /* HashTagPlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashTagPlaceView.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				79BF1CDD2952F8AD00EC8E8E /* Setting */,
 				632BF01A29503E950074719A /* Login */,
 				636D852A29530E6E00A579E2 /* CampingLife */,
+				6339A07B295473CE00F16FFC /* ContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				632BF01929503E920074719A /* TextFieldFrame.swift in Sources */,
 				63361B56294C5EDC00D3AFF5 /* BootCampingApp.swift in Sources */,
 				7CA57C8D29528B3C00560DEA /* HomeView.swift in Sources */,
+				6339A07C295473CE00F16FFC /* ContentView.swift in Sources */,
 				7CA57C9129528B3C00560DEA /* ArticleDetailView.swift in Sources */,
 				79BF1CE32952F8C800EC8E8E /* SettingView.swift in Sources */,
 				7CA57C8429528B2A00560DEA /* MyCampingView.swift in Sources */,

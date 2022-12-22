@@ -16,8 +16,8 @@ struct LoginView: View {
             return isAlert ? "아이디 또는 비밀번호가 잘못되었습니다!" : ""
         }
     }
-    @Binding var isFirstLaunching: Bool
     @EnvironmentObject var authStore: AuthStore
+    @Binding var isPresented: Bool
     
     var body: some View {
         VStack{
@@ -47,10 +47,8 @@ struct LoginView: View {
                 
                 Button {
                     Task {
-                        if await authStore.signIn() {
-                            isFirstLaunching = false
-                        }
-//                        await authStore.signIn()
+                            try await authStore.signIn()
+                            isPresented = false
                     }
                 } label: {
                     LoginButton
@@ -93,7 +91,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(isFirstLaunching: .constant(false))
+        LoginView(isPresented: .constant(false))
             .environmentObject(AuthStore())
     }
 }
