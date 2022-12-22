@@ -6,12 +6,18 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseAuth
 
 class AuthStore: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var confirmPassword = ""
+    @Published var currentUser: Firebase.User?
+    
+    init() {
+        currentUser = Auth.auth().currentUser
+    }
     
     // 체크용 - 이메일 형식 맞는지 Mr. 정
     func checkAuthFormat() -> Bool {
@@ -32,31 +38,27 @@ class AuthStore: ObservableObject {
         }
         
     }
-
+    
     
     //로그인
-    func signIn() async -> Bool{
-        do {
-            try await Auth.auth().signIn(withEmail: email, password: password)
-            return true
-        }
-        catch {
-            print(error)
-            return false
+    func signIn() async throws {
+        
+        try await Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("Failed to login user:", error)
+                return
+            }
+            print("Successfully logged in as user: \(result?.user.uid ?? "")")
+            self.currentUser = result?.user
         }
     }
     
     
     //로그아웃
-    func signOut() async -> Bool {
-        do {
-            try await Auth.auth().signOut()
-            return true
-        }
-        catch {
-            print(#function, error)
-            return false
-        }
+    func signOut() {
+        self.currentUser = nil
+        try? Auth.auth().signOut()
+        print(currentUser)
     }
     
     
