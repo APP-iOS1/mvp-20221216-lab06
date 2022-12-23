@@ -50,13 +50,14 @@ struct CommunityView: View {
                          ScrollView(.horizontal){
                                 HStack{
                                     Button {
-                                        //글 종류 선택 모달 나오게 (기획 중)
+                                        //글 종류 선택 모달 나오게
                                     } label: {
                                         HStack{
                                             Image(systemName: "line.3.horizontal" )
-                                                .font(.footnote)
+                                                .font(.subheadline)
                                                 .padding(.trailing,-3)
                                             Text("글 종류")
+                                                .font(.subheadline)
                                         }
 
                                         .font(.caption2)
@@ -66,7 +67,7 @@ struct CommunityView: View {
                                         .padding(.horizontal,8)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 30)
-                                                .stroke(Color.gray, lineWidth: 0.5)
+                                                .stroke(Color.gray, lineWidth: 1)
                                             )
                                     } //글 종류 버튼
 
@@ -74,26 +75,27 @@ struct CommunityView: View {
                                                 destination: CommunityCategoryView(),
                                                 label: {
                                                     Text("캠핑 꿀팁")
-                                                        .font(.footnote)
+                                                        .font(.subheadline)
                                                         .foregroundColor(.gray)
                                                         .padding(.vertical,5)
                                                         .padding(.horizontal,8)
                                                         .overlay(
                                                             RoundedRectangle(cornerRadius: 30)
                                                                 .stroke(Color.gray, lineWidth: 0.8))
-                                                }) //캠핑 꿀팁
+                                                })
+                                    //캠핑 꿀팁
                                     NavigationLink(
                                                 destination: CommunityCategoryView(),
                                                 label: {
                                                     Text("질문")
-                                                        .font(.footnote)
+                                                        .font(.subheadline)
                                                         .foregroundColor(.gray)
                                                         .padding(.vertical,5)
                                                         .padding(.horizontal,8)
                                                         .overlay(
                                                             RoundedRectangle(cornerRadius: 30)
                                                                 .stroke(Color.gray, lineWidth: 0.8))
-                                                }) //질문
+                                                })//질문
                                 }
                             }
                         }.padding(.horizontal,20) // 카테고리 선택
@@ -102,11 +104,11 @@ struct CommunityView: View {
                         
                         VStack{
                             
-                            NavigationLink(destination: Text("기획전~")) {
+                            NavigationLink(destination: CommunityPostDetailWithCommentView()) {
                                                     CommunityPostView()
-                                            }
+                            }
                             
-                            NavigationLink(destination: Text("기획전~")) {
+                            NavigationLink(destination: CommunityPostDetailWithCommentView()) {
                                                     CommunityPostView()
                                             }
 
