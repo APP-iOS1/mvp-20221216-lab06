@@ -1,41 +1,42 @@
-////
-////  AddCommunityView.swift
-////  BootCamping
-////
-////  Created by Donghoon Bae on 2022/12/21.
-////
 //
-//import SwiftUI
-//import FirebaseAuth
-//import Firebase
+//  AddCommunityView.swift
+//  BootCamping
 //
-//struct AddCommunityView: View {
+//  Created by Donghoon Bae on 2022/12/21.
+//
+
+import SwiftUI
+import FirebaseAuth
+import Firebase
+
+struct AddCommunityView: View {
 //    @StateObject var photoPostStore: PhotoPostStore
 //    @State private var title: String = ""
 //    @State private var hashTag: String = ""
 //    @State private var location: String = ""
 //    @State private var content: String = ""
-//    
+//
 //    //storage, fireStore연동
 //    @State private var isPickerShowing = false
 //    //선택된 이미지를 바인딩으로 이미지 피커에 전달
 //    @State private var selectedImage: UIImage?
 //    @State var selectedImages: [UIImage?] = []
-//    
+//
 //    var body: some View {
 //        @StateObject var photoPostStore: PhotoPostStore
 //        @State private var title: String = ""
 //        @State private var hashTag: String = ""
 //        @State private var location: String = ""
 //        @State private var content: String = ""
-//        
+//
 //        //storage, fireStore연동
 //        @State private var isPickerShowing = false
 //        //선택된 이미지를 바인딩으로 이미지 피커에 전달
 //        @State private var selectedImage: UIImage?
 //        @State var selectedImages: [UIImage?] = []
-//        
-//        var body: some View {
+        
+        var body: some View {
+            Text("")
 //            VStack {
 //    //            HStack {
 //    //                Button {
@@ -74,9 +75,9 @@
 //                                        .stroke(.gray, lineWidth: 1)
 //                                )
 //                                .foregroundColor(.gray)
-//                            
+//
 //                        }
-//                        
+//
 //                        ForEach(selectedImages, id: \.self) { image in
 //                            Image(uiImage: image!)
 //                                .resizable()
@@ -86,7 +87,7 @@
 //                    }
 //                }
 //
-//                
+//
 //                VStack(alignment: .leading) {
 //                    Text("부트캠핑 해시태그").bold()
 //                    ZStack(alignment: .leading) {
@@ -129,7 +130,7 @@
 //                            .foregroundColor(.gray)
 //                            .padding(.top)
 //                            .padding(.horizontal)
-//                            
+//
 //                        }
 //                    }
 //                    .overlay(
@@ -147,7 +148,7 @@
 //                            }
 //                    }
 //                }
-//                
+//
 //                Button {
 //                    Task {
 //                        try await photoPostStore.addPhotoPost(PhotoPost(id: UUID().uuidString, userID: String(Auth.auth().currentUser?.uid ?? ""), title: title, content: content, createdDate: Timestamp(),  photos: []), selectedImages: selectedImages)
@@ -155,43 +156,45 @@
 //                } label: {
 //                    AddButton
 //                }
-//                
-//                
+//
+//
 //            }.padding()
 //                .navigationTitle("글쓰기")
 //                .navigationBarTitleDisplayMode(.inline)
 //                .toolbar {
 //                    ToolbarItem(placement: .navigationBarLeading) {
 //                        Button {
-//                            
+//
 //                        } label: {
 //                            Text("X").foregroundColor(.black)
 //                        }
 //                    }
 //                    ToolbarItem(placement: .navigationBarTrailing) {
 //                        Button {
-//                            
+//
 //                        } label: {
 //                            Text("미리보기").foregroundColor(.black)
 //                        }
 //                    }
 //                }
 //        }
-//        
+//
 //        private var AddButton: some View {
 //            loginButtonFrame(title: "등록 하기")
 //        }
 //
 //    }
-//    
+//
 //    private var AddButton: some View {
 //        loginButtonFrame(title: "등록 하기")
-//    }
-//    
-//}
-//
-//struct AddCommunityView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddCommunityView(photoPostStore: PhotoPostStore())
-//    }
-//}
+                .navigationTitle("캠핑생활 글쓰기")
+                .navigationBarTitleDisplayMode(.inline)
+        }
+    
+}
+
+struct AddCommunityView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddCommunityView()
+    }
+}

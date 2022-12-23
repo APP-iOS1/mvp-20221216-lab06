@@ -67,46 +67,25 @@ struct AddView: View {
                 VStack(alignment: .leading) {
                     Text("캠핑 피드 제목 ").font(.title3).fontWeight(.semibold)
                     ZStack(alignment: .leading) {
-                        TextField("", text: $hashTag)
+                        TextField("제목을 입력해주세요", text: $hashTag)
                             .frame(height: 70)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color("lightGray")))
-                        if hashTag.isEmpty {
-                            Text("제목을 입력해주세요. ")
-                                .padding(.horizontal)
-                                .foregroundColor(.gray)
-                        }
                     }
                     Text("").bold()
                     ZStack(alignment: .leading) {
-                        TextField("", text: $location)
+                        TextField("위치 등록 하기 (선택)", text: $location)
                             .frame(height: 40)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color("lightGray")))
-                        if location.isEmpty {
-                            Text("위치 등록 하기 (선택)")
-                                .padding(.horizontal)
-                                .foregroundColor(.gray)
-                            
-                        }
                     }
                     
                     Text("캠핑 이야기를 공유해주세요").padding(.top,10).font(.title3).fontWeight(.semibold)
                     ZStack(alignment: .topLeading) {
                         TextEditor(text: $content)
                             .scrollContentBackground(.hidden)
-                        if content.isEmpty {
-                            VStack(alignment: .leading) {
-                                Text("어떤 캠핑을 다녀오셨나요? 경험을 공유해주세요")
-                                    .foregroundColor(.gray)
-                            }
-                            
-                            .padding(.top)
-                            .padding(.horizontal)
-                            
-                        }
                     }.overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color("lightGray"))
@@ -145,10 +124,10 @@ struct AddView: View {
                     print(AuthStore().userList)
                 }
                 
-                
-            }.padding()
-                .navigationTitle("글쓰기")
+                .navigationTitle("마이캠핑 글쓰기")
                 .navigationBarTitleDisplayMode(.inline)
+            }.padding()
+
         }
     }
     
