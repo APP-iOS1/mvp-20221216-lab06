@@ -51,17 +51,27 @@ class CommunityPostStore: ObservableObject {
             }
     }
     
+    /*var id: String
+     var userID: String
+     var userNickName: String
+     var title: String
+     var content: String
+     var createdDate: Timestamp
+     var photos: [String]
+     var category: [String]*/
     
-    func addCommunityPost(_ communityPost: CommunityPost, selectedImages: [UIImage?]) async throws {
+    func addCommunityPost(communityPost: CommunityPost, selectedImages: [UIImage?]) async throws {
         do {
             let uploadedCommunitys = try await uploadCommunity(selectedImages: selectedImages)
             try await database.collection("CommunityPost")
                 .document(communityPost.id)
                 .setData(["userID": communityPost.userID,
+                          "userNickName": communityPost.userNickName,
                           "title": communityPost.title,
                           "content": communityPost.content,
                           "createdDate": communityPost.createdDate,
-                          "communitys": uploadedCommunitys,
+                          "photos": uploadedCommunitys,
+                          "category": communityPost.category
                          ])
             fetchCommunityPost()
         } catch {

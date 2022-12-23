@@ -12,6 +12,7 @@ struct AddChoiceView: View {
     @State var isPresented: Bool = false
     @Binding var tabSelection: Int
     @StateObject var photoPostStore: PhotoPostStore
+    @StateObject var communityPostStore: CommunityPostStore
     
     var body: some View {
         VStack {
@@ -23,7 +24,7 @@ struct AddChoiceView: View {
                 if addCategory == "photo" {
                     AddView(photoPostStore: photoPostStore, tabSelection: $tabSelection)
                 } else if addCategory == "community" {
-                    AddCommunityView()
+                    AddCommunityView(communityPostStore: communityPostStore)
                 }
         }
 
@@ -60,6 +61,6 @@ struct CategoryModalView: View {
 
 struct AddChoiceView_Previews: PreviewProvider {
     static var previews: some View {
-        AddChoiceView(tabSelection: .constant(3), photoPostStore: PhotoPostStore())
+        AddChoiceView(tabSelection: .constant(3), photoPostStore: PhotoPostStore(), communityPostStore: CommunityPostStore())
     }
 }
