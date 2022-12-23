@@ -8,8 +8,8 @@
 import SwiftUI
 
 enum tapInfo : String, CaseIterable {
-    case top = "오늘의 캠핑"
-    case follow = "캠핑 피드"
+    case top = "주간 인기 캠핑"
+    case follow = "실시간 캠핑"
 }
 
 struct HomeView: View {
@@ -59,7 +59,7 @@ struct HomeView: View {
                     }
                     .frame(width: 90)
                     .onTapGesture {
-                        withAnimation(.easeInOut) {
+                        withAnimation(.easeInOut(duration: 0.1)) {
                             self.selectedPicker = item
                         }
                     }
@@ -88,12 +88,12 @@ struct mainTapView : View {
         VStack {
             switch mainTap {
             case .top:
-                TodaysCamping()
+                NavigationStack {
+                    PhotoCardView()
+                        .padding(.bottom, 50)
+                }
             case .follow:
-                FollowersPhoto()
-                Divider()
-                FollowerPhotoList()
-                
+                        FollowerPhotoList()
             }
         }
     }
@@ -101,6 +101,8 @@ struct mainTapView : View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        NavigationStack {
+            HomeView()
+        }
     }
 }

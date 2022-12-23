@@ -36,13 +36,14 @@ class CommunityPostStore: ObservableObject {
                         let docData = document.data()
                         let userID: String = docData["userID"] as? String ?? ""
                         let title: String = docData["title"] as? String ?? ""
+                        let userNickName: String = docData["userNickName"] as? String ?? ""
                         let content: String = docData["content"] as? String ?? ""
                         //                        let createdDate: Timestamp = docData["createdDate"] as? Timestamp ?? Timestamp(date: Date())
                         let createdDate: Timestamp = docData["createdDate"] as? Timestamp ?? Timestamp(date: Date())
                         let photos: [String] = docData["photos"] as? [String] ?? []
                         let category: [String] = docData["category"] as? [String] ?? []
                         
-                        let communityPost: CommunityPost = CommunityPost(id: id, userID: userID, title: title, content: content, createdDate: createdDate, photos: photos, category: category)
+                        let communityPost: CommunityPost = CommunityPost(id: id, userID: userID, userNickName: userNickName, title: title, content: content, createdDate: createdDate, photos: photos, category: category)
                         
                         self.communityPost.append(communityPost)
                     }
