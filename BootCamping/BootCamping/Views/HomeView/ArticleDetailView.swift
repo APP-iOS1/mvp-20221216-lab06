@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 import Firebase
 
+// TODO: 사용자 이름 및 프로필사진 게시자로 변경
 struct ArticleDetailView: View {
     
     @State private var isGood: Bool = false
@@ -18,18 +19,7 @@ struct ArticleDetailView: View {
     var photoPost: PhotoPost
     @StateObject var photoCommentStore: PhotoCommentStore
     @Environment(\.presentationMode) var postingRemove
-
-    
-
-    
-    // 작성시간
-    //        var createdDate: String {
-    //        let dateFormatter = DateFormatter()
-    //        dateFormatter.locale = Locale(identifier: "ko_kr")
-    //        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
-    //        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-    //        let dateCreatedAt = Date()
-    //        return dateFormatter.string(from: dateCreatedAt)
+    var user: Users
 
     var body: some View {
         // 해시태그, 타이틀, 작성날짜
@@ -96,11 +86,16 @@ struct ArticleDetailView: View {
                     HStack {
                         Button {
                         } label: {
-                            Image("thekoon_")
-                                .resizable()
-                                .frame(width: 30,height: 30)
-                                .cornerRadius(50)
-                            Text(photoPost.userID)
+                            AsyncImage(url: URL(string: user.profileImage)) { image in
+                                image
+                                    .resizable()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 30,height: 30)
+                            .cornerRadius(50)
+                                
+                            Text(user.userNickName)
                         }
                         
                         Spacer()
@@ -153,7 +148,7 @@ struct ArticleDetailView: View {
                 
                 // 댓글
                 ForEach(photoCommentStore.photocomments, id: \.id){ comment in
-                    Comments(photoComments: comment)
+                    Comments(photoComments: comment, user: user)
                 }
             }
             .padding()
@@ -172,9 +167,12 @@ struct ArticleDetailView: View {
             }
             
             HStack {
-                Image("thekoon_")
-                    .resizable()
-                    .frame(width: 25,height: 25)
+                AsyncImage(url: URL(string: user.profileImage)) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    ProgressView()
+                }   .frame(width: 25,height: 25)
                     .cornerRadius(50)
                 
                 TextField("댓글을 남겨보세요!", text: $commentText)
@@ -200,6 +198,7 @@ struct ArticleDetailView: View {
         .onAppear{
             photoCommentStore.postId = photoPost.id
             photoCommentStore.fetchPhotoComment()
+            AuthStore().fetchUserList()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -218,6 +217,7 @@ struct ArticleDetailView: View {
 
 struct Comments: View {
     var photoComments: PhotoComments
+    var user: Users
 
     
     var body: some View {
@@ -225,11 +225,16 @@ struct Comments: View {
         VStack(alignment: .leading) {
            
             HStack {
-                Image("thekoon_")
-                    .resizable()
-                    .frame(width: 30,height: 30)
-                    .cornerRadius(50)
-                Text(photoComments.userID)
+                AsyncImage(url: URL(string: user.profileImage)) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 30,height: 30)
+                .cornerRadius(50)
+ 
+                Text(user.userNickName)
                     .font(.subheadline)
             }
             .padding(.bottom, -5)
@@ -257,7 +262,7 @@ struct OvalTextFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
             .padding(10)
-            .background(Color.gray)
+            .background(Color("lightGray"))
             .cornerRadius(20)
 
     }
@@ -267,6 +272,6 @@ struct OvalTextFieldStyle: TextFieldStyle {
 
 struct ArticleDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleDetailView(photoPost: PhotoPostStore().photoPost.first!, photoCommentStore: PhotoCommentStore())
+        ArticleDetailView(photoPost: PhotoPostStore().photoPost.first!, photoCommentStore: PhotoCommentStore(), user: AuthStore().userList.first!)
     }
 }

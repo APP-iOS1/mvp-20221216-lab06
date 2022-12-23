@@ -44,8 +44,8 @@ struct SearchView: View {
           .background(
               RoundedRectangle(cornerRadius: 20)
                   .foregroundColor(.white)
-                  .shadow(color: .gray, radius: 4)
-                  .opacity(1)
+                  .shadow(color: .black, radius: 1)
+                  .opacity(0.4)
           )
           .padding(.vertical, 5)
     }

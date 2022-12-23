@@ -9,27 +9,22 @@ import SwiftUI
 import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
 }
 
 @main
 struct BootCampingApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     
     var body: some Scene {
         WindowGroup {
-            BootcampingTabView()
-                .environmentObject(PlaceStore())
-                .environmentObject(PhotoPostStore())
-                .fullScreenCover(isPresented: $isFirstLaunching) {
-                    LoginView(isFirstLaunching: $isFirstLaunching)
-                        .environmentObject(AuthStore())
-                }
-            }
+ //           MyCampingView()
+            ContentView()
+                .environmentObject(AuthStore())
+        }
     }
 }

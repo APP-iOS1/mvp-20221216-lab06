@@ -16,8 +16,8 @@ struct LoginView: View {
             return isAlert ? "아이디 또는 비밀번호가 잘못되었습니다!" : ""
         }
     }
-    @Binding var isFirstLaunching: Bool
     @EnvironmentObject var authStore: AuthStore
+    @Binding var isPresented: Bool
     
     var body: some View {
         VStack{
@@ -31,7 +31,7 @@ struct LoginView: View {
             VStack {
                 TextFieldFrame
                     .overlay{
-                        TextField(" 이메일", text: $authStore.email)
+                        TextField(" 이메일", text: $authStore.userEmail)
                     }
                 
                 TextFieldFrame
@@ -47,10 +47,8 @@ struct LoginView: View {
                 
                 Button {
                     Task {
-                        if await authStore.signIn() {
-                            isFirstLaunching = false
-                        }
-//                        await authStore.signIn()
+                            try await authStore.signIn()
+                            isPresented = false
                     }
                 } label: {
                     LoginButton
@@ -64,7 +62,7 @@ struct LoginView: View {
                         isSignUp.toggle()
                     }) {
                         Text("회원가입하기")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("mediumGray"))
                             .underline()
                     }
                     .padding(.horizontal)
@@ -72,7 +70,7 @@ struct LoginView: View {
                         //이건 어떡하징
                     }) {
                         Text("아이디 / 비밀번호 찾기")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("mediumGray"))
                             .underline()
                     }
                 }
@@ -93,7 +91,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(isFirstLaunching: .constant(false))
+        LoginView(isPresented: .constant(false))
             .environmentObject(AuthStore())
     }
 }

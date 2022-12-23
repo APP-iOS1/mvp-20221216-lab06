@@ -23,9 +23,10 @@ struct SelectPlaceView: View {
         VStack {
             HStack {
                 Text("지역 선택")
-                    .font(.title2)
-                    .bold()
-                    .padding()
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal,20)
+                    
                 Spacer()
             }
             
@@ -35,7 +36,7 @@ struct SelectPlaceView: View {
                         NavigationLink {
                             PlaceListView().environmentObject(PlaceStore())
                         } label: {
-                            VStack {
+                            VStack (spacing:7){
                                 Image("\(local.regionImage[i])")
                                     .resizable()
                                     .cornerRadius(50)
@@ -45,14 +46,14 @@ struct SelectPlaceView: View {
                                 Text("\(local.placeName[i])")
                                     .foregroundColor(.gray)
                                     .font(.subheadline)
-                            }
+                            }.padding(.top,10)
                         }
                     }
                 }
                 
             }
         }
-        .padding(.vertical, 5)
+        
     }
 }
 

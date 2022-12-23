@@ -25,8 +25,15 @@ struct MyCampingView: View {
     @State private var selectedPicker2: tapMypage = .myCamping
     @Namespace private var animation
     
-    
-    
+    var user: Users {
+        get {
+            if authStore.currentUser?.uid != nil {
+                return authStore.userList.filter { $0.userID == String(authStore.currentUser!.uid) }.first!
+            } else {
+                return Users(id: "", userID: "", userNickName: "", userEmail: "", profileImage: "")
+            }
+        }
+    }
     
     var body: some View {
         ScrollView {
@@ -56,18 +63,36 @@ struct MyCampingView: View {
     private func animate() -> some View {
         VStack {
             HStack {
-                Image("thekoon_")
-                    .resizable()
-                    .frame(width: 80, height: 80)
-                    .cornerRadius(50)
-                    .padding()
+                AsyncImage(url: URL(string: user.profileImage)) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 60, height: 60)
+                .cornerRadius(50)
+                .padding()
                 
                 VStack(alignment: .leading) {
-                    Text("CampingUser")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .padding(.bottom, 3)
-                    
+                    HStack {
+                        Text("\(user.userNickName)")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .padding(.bottom, 3)
+                        Spacer()
+                        Button {
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.black)
+                                    .frame(width: 80, height: 30)
+                                Text("팔로우")
+                                    .font(.footnote)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        .padding(.trailing, 10)
+                    }
                     HStack {
                         Button {
                             // FollowListView()
@@ -85,19 +110,6 @@ struct MyCampingView: View {
                         }
                     }
                 }
-                Button {
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(.brown)
-                            .frame(width: 80, height: 30)
-                        Text("팔로우")
-                            .font(.footnote)
-                            .foregroundColor(.white)
-                    }
-                }
-                .padding(.trailing, 10)
-                Spacer()
             }
             .padding()
             
@@ -120,7 +132,7 @@ struct MyCampingView: View {
                     }
                     .frame(width: 100)
                     .onTapGesture {
-                        withAnimation(.easeInOut) {
+                        withAnimation(.easeInOut(duration: 0.1)) {
                             self.selectedPicker2 = item
                         }
                     }
@@ -128,17 +140,11 @@ struct MyCampingView: View {
             }
             Divider()
             
-            ViewChangeButton(photoPostStore: photoPostStore)
-            
-            
+            ViewChangeButton(photoPostStore: photoPostStore, user: user)
         }
-        
         Spacer()
     }
 }
-
-
-
 
 struct ViewChangeButton: View {
     @State private var isSquare: Bool = true
@@ -146,6 +152,7 @@ struct ViewChangeButton: View {
     @State private var isPhotoCard: Bool = false
     @State private var isList: Bool = false
     @StateObject var photoPostStore: PhotoPostStore
+    var user: Users
     
     var body: some View {
         VStack {
@@ -200,7 +207,7 @@ struct ViewChangeButton: View {
             }.padding(.trailing)
             // 버튼인데???
             if isSquare {
-                SquareView(photoPostStore: photoPostStore)
+                SquareView(photoPostStore: photoPostStore, user: user)
             } else if isRectangle {
                 FollowerPhotoList()
             } else if isPhotoCard {
