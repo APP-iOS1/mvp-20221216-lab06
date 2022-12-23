@@ -53,7 +53,7 @@ struct TermsView: View {
                             }
                         } label: {
                             Image(systemName: isAllCheck ? "checkmark.square.fill" : "checkmark.square.fill")
-                                .foregroundColor(isAllCheck ? .red : .gray)
+                                .foregroundColor(isAllCheck ? .red : Color("mediumGray"))
                         }
                         Text("전체동의")
                     }
@@ -64,7 +64,7 @@ struct TermsView: View {
                                 isCheck1.toggle()
                             } label: {
                                 Image(systemName: isCheck1 ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isCheck1 ? .red : .gray)
+                                    .foregroundColor(isCheck1 ? .red : Color("mediumGray"))
                                 
                             }
                             HStack {
@@ -79,7 +79,7 @@ struct TermsView: View {
                                 isCheck2.toggle()
                             } label: {
                                 Image(systemName: isCheck2 ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isCheck2 ? .red : .gray)
+                                    .foregroundColor(isCheck2 ? .red : Color("mediumGray"))
                             }
                             HStack {
                                 Text("개인 정보 수집 및 이용 동의")
@@ -94,7 +94,7 @@ struct TermsView: View {
                                 isCheck3.toggle()
                             } label: {
                                 Image(systemName: isCheck3 ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isCheck3 ? .red : .gray)
+                                    .foregroundColor(isCheck3 ? .red : Color("mediumGray"))
                             }
                             HStack {
                                 Text("개인정보 제 3자 제공 동의")
@@ -109,7 +109,7 @@ struct TermsView: View {
                                 isCheck4.toggle()
                             } label: {
                                 Image(systemName: isCheck4 ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isCheck4 ? .red : .gray)
+                                    .foregroundColor(isCheck4 ? .red : Color("mediumGray"))
                             }
                             VStack {
                                 HStack {
@@ -130,7 +130,7 @@ struct TermsView: View {
                                 isCheck5.toggle()
                             } label: {
                                 Image(systemName: isCheck5 ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isCheck5 ? .red : .gray)
+                                    .foregroundColor(isCheck5 ? .red : Color("mediumGray"))
                             }
                             Text("개인정보 수집 및 이용 동의 (선택)")
                         }
@@ -141,7 +141,7 @@ struct TermsView: View {
                                 isCheck6.toggle()
                             } label: {
                                 Image(systemName: isCheck6 ? "checkmark.square.fill" : "checkmark.square.fill")
-                                    .foregroundColor(isCheck6 ? .red : .gray)
+                                    .foregroundColor(isCheck6 ? .red : Color("mediumGray"))
                             }
                             Text("이벤트/마케팅 수신 동의(선택)")
                         }
@@ -160,7 +160,7 @@ struct TermsView: View {
                         }
                     }else{
                         signupButtonFrame(title: "다음")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("mediumGray"))
                     }
                 }
                 .padding(.top, 30)
@@ -299,7 +299,7 @@ struct SignUpView: View {
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(.gray, lineWidth: 1)
                             )
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("mediumGray"))
                             
                         }
                         .sheet(isPresented: $isPickerShowing) {

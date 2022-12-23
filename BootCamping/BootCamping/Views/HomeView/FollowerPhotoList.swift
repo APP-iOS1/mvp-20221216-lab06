@@ -24,7 +24,11 @@ struct FollowerPhotoList: View {
                 FollowersPhoto()
 
                 ForEach (articles, id: \.self) { article in
-                    ListCell(articles: article)
+                    ListCell(articles: article)                     
+                        .listRowSeparator(.hidden)
+                        .padding(.bottom, -10)
+                        .listRowBackground(Color("lightGray"))
+
                 }
                 .padding(.bottom, 5)
             }

@@ -43,7 +43,8 @@ struct HomeView: View {
                 ForEach(tapInfo.allCases, id: \.self) { item in
                     VStack {
                         Text(item.rawValue)
-                            .font(.callout)
+                            .font(.body)
+                            .fontWeight(.semibold)
                             .kerning(-1)
                             .frame(maxWidth: 200, maxHeight: 20)
                             .foregroundColor(selectedPicker == item ? .black : .gray)

@@ -17,6 +17,7 @@ struct PlaceCardView: View {
             Image("jeju1")
                 .resizable()
                 .frame(width: 150, height: 150)
+                .padding(.trailing,10)
             VStack(alignment: .leading, spacing: 5) {
                 Group {
                     //제목
@@ -28,7 +29,7 @@ struct PlaceCardView: View {
                         Image(systemName: "bookmark")
                             .font(.body)
                             .foregroundColor(.secondary)
-                            .padding(.trailing, 3)
+                            
                     }
                     
                     //정보
@@ -49,7 +50,7 @@ struct PlaceCardView: View {
                     Spacer()
                     
                     Text("\(Image(systemName: "star.fill").renderingMode(.original)) 5.0점 (후기 4개)")
-                        .font(.caption2)
+                        .font(.footnote)
                     
                     HStack {
                         Text("\(Image(systemName: "mappin.circle.fill")) \(places.addr1)")
@@ -60,6 +61,7 @@ struct PlaceCardView: View {
                 }
             }
             .padding(.vertical, 10)
+            .padding(.trailing, 30)
             .frame(width: 235, height: 150)
 
         }

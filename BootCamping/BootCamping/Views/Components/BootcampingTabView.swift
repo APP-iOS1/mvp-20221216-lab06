@@ -34,7 +34,7 @@ struct BootcampingTabView: View {
             NavigationStack {
                 CommunityView()
             }.tabItem {
-                Image(systemName: "person.3")
+                Image(systemName: "tent")
                 Text("캠핑생활")
             }.tag(4)
             NavigationStack {
