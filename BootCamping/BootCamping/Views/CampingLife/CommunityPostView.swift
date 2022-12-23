@@ -14,9 +14,6 @@ struct CommunityPostView: View {
     var body: some View {
         
         VStack{
-            
-            ScrollView(){
-                
                 VStack{
                     
                     VStack(alignment:.leading){
@@ -135,9 +132,6 @@ struct CommunityPostView: View {
                     
 
                 } //커뮤니티 게시글 전체
-                
-                
-            }
 
         }
         
