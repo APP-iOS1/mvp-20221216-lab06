@@ -127,7 +127,7 @@ struct PlaceListView: View {
                     }
                     .frame(width: 55)
                     .onTapGesture {
-                        withAnimation(.easeInOut) {
+                        withAnimation(.easeInOut(duration: 0.1)) {
                             self.selectedPicker = item
                         }
                     }

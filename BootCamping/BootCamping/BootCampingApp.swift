@@ -22,6 +22,7 @@ struct BootCampingApp: App {
     
     var body: some Scene {
         WindowGroup {
+ //           MyCampingView()
             ContentView()
                 .environmentObject(AuthStore())
         }
