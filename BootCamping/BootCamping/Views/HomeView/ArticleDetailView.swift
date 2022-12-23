@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import Firebase
+import SDWebImageSwiftUI
 
 struct ArticleDetailView: View {
     
@@ -51,15 +52,17 @@ struct ArticleDetailView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach (photoPost.photos, id: \.self) { photo in
-                            AsyncImage(url: URL(string: photo)) { image in
-                                image
-                                    .resizable()
-                                    .frame(width: 360, height: 360)
-                                    .aspectRatio(contentMode: .fit)
-                                    .padding(.vertical, 5)
-                            } placeholder: {
-                                ProgressView()
-                            }
+                            WebImage(url: URL(string: photo))
+                        
+//                            { image in
+//                                image
+//                                    .resizable()
+//                                    .frame(width: 360, height: 360)
+//                                    .aspectRatio(contentMode: .fit)
+//                                    .padding(.vertical, 5)
+//                            } placeholder: {
+//                                ProgressView()
+//                            }
                         }
                     }
                 }

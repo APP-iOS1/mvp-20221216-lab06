@@ -123,6 +123,7 @@ struct AddView: View {
             
             Button {
                 photoPostStore.uploadPhoto()
+                photoPostStore.fetchPhotoPost()
                     dismiss()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         photoPostStore.content = ""
