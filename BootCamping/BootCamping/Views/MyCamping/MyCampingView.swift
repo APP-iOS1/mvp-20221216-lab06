@@ -26,7 +26,13 @@ struct MyCampingView: View {
     @Namespace private var animation
     
     var user: Users {
-        authStore.userList.first!
+        get {
+            if authStore.currentUser?.uid != nil {
+                return authStore.userList.filter { $0.userID == String(authStore.currentUser!.uid) }.first!
+            } else {
+                return Users(id: "", userID: "", userNickName: "", userEmail: "", profileImage: "")
+            }
+        }
     }
     
     

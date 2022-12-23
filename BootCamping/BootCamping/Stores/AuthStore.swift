@@ -33,7 +33,6 @@ class AuthStore: ObservableObject {
     
     func fetchUserList() {
         database.collection("UserList")
-//            .whereField("userID", isEqualTo: String(currentUser?.uid!))
             .getDocuments { (snapshot, error) in
                 self.userList.removeAll()
                 
