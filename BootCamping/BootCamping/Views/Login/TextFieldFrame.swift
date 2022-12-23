@@ -10,7 +10,7 @@ import SwiftUI
 
 var TextFieldFrame: some View {
     Rectangle()
-        .stroke(.gray)
+        .stroke(Color("lightGray"))
         .frame(width: 270, height: 1)
         .padding(.top, 40)
 }
@@ -19,7 +19,7 @@ var TextFieldFrame: some View {
 
 var TextFieldFrameSignUp: some View {
     Rectangle()
-        .stroke(.gray)
+        .stroke(Color("lightGray"))
         .frame(width: 300, height: 1)
         .padding(.top, 40)
 }

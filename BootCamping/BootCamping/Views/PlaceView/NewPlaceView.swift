@@ -16,14 +16,16 @@ struct NewPlaceView: View {
             
             VStack{
                 ScrollView {
-                    Image("camp")
+                    Image("campingAd")
                         .resizable()
-                        .frame(width: 393, height: 100)
+                        .frame(width: 393, height: 180)
                         .padding(.top, -40)
                     SearchView()
-                        .padding(.top, 10)
+                        .padding(.vertical, 20)
+                        
                     SelectPlaceView()
                     HashTagPlaceView()
+                        .padding(.top, 20)
                 }
                 Spacer()
             }
@@ -37,7 +39,7 @@ struct NewPlaceView: View {
                     Button {
                         isFavorite.toggle()
                     } label: {
-                        Text("북마크").font(.caption).bold()
+                        Text("북마크").font(.headline).bold()
                     }
                 }
             }

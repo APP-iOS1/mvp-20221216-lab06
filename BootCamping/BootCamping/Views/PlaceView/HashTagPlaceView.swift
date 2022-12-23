@@ -25,10 +25,10 @@ struct HashTagPlaceView: View {
         
         VStack {
             HStack {
-                Text("#불멍 캠핑 성지")
-                    .font(.title2)
-                    .bold()
-                    .padding()
+                Text("🔥불멍 캠핑 성지")
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal,20)
                 Spacer()
             }
             
@@ -48,14 +48,17 @@ struct HashTagPlaceView: View {
                                 Text("\(hashTagPlace.stars[i])")
                                     .font(.footnote)
                                     .padding(.leading, -4)
-                                Text("(후기4개)").font(.caption)
-                            }
+                                Text("( + 25 )").font(.caption).padding(.leading, -4)
+                            }.padding(.vertical,1)
+                                
                             
                             Text("\(hashTagPlace.placeName[i])")
-                                .font(.subheadline)
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                
 
                             Text("\(hashTagPlace.address[i])")
-                                .font(.caption2)
+                                .font(.caption)
                                 .foregroundColor(.gray)
                                 .padding(.bottom, 15)
                         }

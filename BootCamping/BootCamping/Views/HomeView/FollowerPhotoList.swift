@@ -26,7 +26,7 @@ struct FollowerPhotoList: View {
                         
                         .listRowSeparator(.hidden)
                         .padding(.bottom, -10)
-                        .listRowBackground(Color.gray)
+                        .listRowBackground(Color("lightGray"))
                 }
             }
 
