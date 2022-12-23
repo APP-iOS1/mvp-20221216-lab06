@@ -187,27 +187,28 @@ struct SignUpView: View {
     @State var profileImage: UIImage?
     
     var body: some View {
-        Group{
+        VStack{
             VStack(alignment: .center) {
                 
                 VStack(alignment: .leading){
                     Text("회원정보를\n입력해주세요.")
-                        .font(.largeTitle.bold())
+                        .font(.title.bold())
+                        .padding(.top, -40)
+                        .padding(.bottom)
                     Spacer()
                     HStack {
                         Text("이름")
                         Text("*")
                             .foregroundColor(.red)
                     }
-
                     TextFieldFrameSignUp
                         .overlay{
                             TextField("이름", text: $userNickName)
-                            //이거 일단 email로 해뒀는데 음,,, 이름 필요한가요??
                         }
-                        .padding(.bottom ,5)
-                    
-                    Group{ //이메일
+                        .padding(.bottom)
+
+                    //이메일
+                    VStack(alignment: .leading){
                         HStack {
                             Text("이메일")
                             Text("*")
@@ -228,11 +229,14 @@ struct SignUpView: View {
                                 .font(.caption)
                                 .foregroundColor(.green)
                                 .padding(.bottom)
+                        }else if email.isEmpty{
+                            Text(" ").font(.caption)
+                                .padding(.bottom)
                         }
                     }
                     
                     //비밀번호
-                    Group{
+                    VStack(alignment: .leading){
                         HStack {
                             Text("비밀번호")
                             Text("*")
@@ -247,17 +251,18 @@ struct SignUpView: View {
                             Text("비밀번호 형식이 맞지 않습니다")
                                 .font(.caption)
                                 .foregroundColor(.red)
-                                .padding(.bottom)
                         } else if !password.isEmpty && (password.range(of: "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&()_+=-]).{8,50}$", options: .regularExpression) != nil) {
                             Text("사용가능한 비밀번호입니다")
                                 .font(.caption)
                                 .foregroundColor(.green)
-                                .padding(.bottom)
+                        } else if password.isEmpty{
+                            Text(" ").font(.caption)
                         }
                     }
+
                     
                     //비밀번호 확인
-                    Group{
+                    VStack(alignment: .leading){
                         TextFieldFrameSignUp
                             .overlay{
                                 SecureField("비밀번호 확인", text: $confirmPassword)
@@ -273,9 +278,12 @@ struct SignUpView: View {
                                 .font(.caption)
                                 .foregroundColor(.green)
                                 .padding(.bottom)
+                        }else if confirmPassword.isEmpty{
+                            Text(" ").font(.caption)
+                                .padding(.bottom)
                         }
                     }
-                    
+
                     
                     
                     Text("프로필 사진 (선택)")
@@ -309,10 +317,10 @@ struct SignUpView: View {
                     
                     
                 }
-                // 버튼, 내용이 전부 채워져있어야 활성화.
+                // 버튼, 내용이 전부 채워져있고 형식에 맞아야 활성화.
                 VStack(alignment: .center){
-                    if !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty {
-                        NavigationLink(destination: SignUpCompleteView(userNickName: userNickName, email: email, password: password, confirmPassword: confirmPassword, profileImage: profileImage, isSignUp: $isSignUp)){
+                    if !userNickName.isEmpty && !confirmPassword.isEmpty && password == confirmPassword && !password.isEmpty && (password.range(of: "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&()_+=-]).{8,50}$", options: .regularExpression) != nil) && !email.isEmpty && (email.range(of: #"^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]{2,3}+$"#, options: .regularExpression) != nil){
+                        NavigationLink(destination: SignUpCompleteView(profileImage: profileImage, userNickName: userNickName, email: email, password: password, confirmPassword: confirmPassword, isSignUp: $isSignUp)){
                             signupButtonFrame(title: "다음")
                                 .foregroundColor(.red)
                         }
@@ -321,7 +329,7 @@ struct SignUpView: View {
                             .foregroundColor(.gray)
                     }
                 }
-                .padding(.top, 60)
+                .padding(.top, 10)
             }
         }
         .toolbar {
@@ -338,20 +346,28 @@ struct SignUpView: View {
 struct SignUpCompleteView: View {
     @EnvironmentObject var authStore: AuthStore
     
+    @State var profileImage: UIImage?
     var userNickName: String
     var email: String
     var password: String
     var confirmPassword: String
-    var profileImage: UIImage?
     @Binding var isSignUp: Bool
     
     var body: some View {
         VStack{
+            // 프로필사진 선택했으면 그 사진, 안했으면 기본 아이콘
             VStack(alignment: .leading) {
-                Image("_chasomin") // 프로필사진
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .padding(.bottom)
+                if profileImage != nil{
+                    Image(uiImage: profileImage!)
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .padding(.bottom)
+                } else {
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .padding(.bottom)
+                }
                 Text("회원가입 완료!")
                     .font(.title.bold())
                 Text("부트캠핑에 오신 것을 환영합니다!")
@@ -359,6 +375,7 @@ struct SignUpCompleteView: View {
             }
             .padding(.bottom,100)
             
+            //시작하기 버튼
             Button {
                 isSignUp = false
             } label: {
@@ -392,9 +409,9 @@ struct SignUpCompleteView: View {
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack{
-            SignUpView(isSignUp:.constant(false))
+//        NavigationStack{
+            SignUpCompleteView(userNickName: "", email: "", password: "", confirmPassword: "", isSignUp: .constant(false))
                 .environmentObject(AuthStore())
-        }
+//        }
     }
 }
