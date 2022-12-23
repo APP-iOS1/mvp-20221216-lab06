@@ -16,7 +16,7 @@ struct AddView: View {
     @State private var location: String = ""
     @State private var content: String = ""
     @Binding var tabSelection: Int
-    @State private var isDoneResister: Bool = false
+    @State private var isDoneRegister: Bool = false
     
     //storage, fireStore연동
     @State private var isPickerShowing = false
@@ -25,7 +25,7 @@ struct AddView: View {
     @State var selectedImages: [UIImage?] = []
     
     var body: some View {
-        if isDoneResister{
+        if isDoneRegister{
             ProgressView()
         } else {
             
@@ -132,9 +132,10 @@ struct AddView: View {
                         content = ""
                         photoPostStore.fetchPhotoPost()
                         photoPostStore.retrievePhotos()
-                        isDoneResister = true
-                        try await Task.sleep(nanoseconds: 1_000_000_000)
+                        isDoneRegister = true
+                        try await Task.sleep(nanoseconds: 2_000_000_000)
                         tabSelection = 5
+                        isDoneRegister = false
                     }
                 } label: {
                     AddButton

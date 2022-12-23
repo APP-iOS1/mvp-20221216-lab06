@@ -17,40 +17,33 @@ struct SquareView: View {
 
     
     var body: some View {
-        VStack {
-            LazyVGrid(columns: columns) {
-                
-                ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { photo in
-                    if photo.photos.count == 0 {
-                        EmptyPostView()
-                    } else {
-                        NavigationLink(destination: ArticleDetailView(photoPost: photo, photoCommentStore: photoCommentStore, user: user)) {
-                            AsyncImage(url: currentURL) { image in
-                                image
-                                    .resizable()
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 198, height: 198)
-                            .padding(.bottom, -9)
-                            .onAppear {
-                                if currentURL == nil {
-                                    DispatchQueue.main.async {
-                                        currentURL = URL(string: photo.photos.first!)
-                                    }
+            VStack {
+                LazyVGrid(columns: columns) {
+                    
+                    ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { photo in
+                        if photo.photos.count == 0 {
+                            EmptyPostView()
+                        } else {
+                            NavigationLink(destination: ArticleDetailView(photoPost: photo, photoCommentStore: photoCommentStore, user: user)) {
+                                AsyncImage(url: URL(string: photo.photos.first ?? "")) { image in
+                                    image
+                                        .resizable()
+                                } placeholder: {
+                                    ProgressView()
                                 }
+                                .frame(width: 198, height: 198)
+                                .padding(.bottom, -9)
                             }
                         }
                     }
                 }
+                .onAppear{
+                    photoPostStore.fetchPhotoPost()
+                    photoPostStore.retrievePhotos()
+                }
             }
-            .onAppear{
-                photoPostStore.fetchPhotoPost()
-                photoPostStore.retrievePhotos()
-            }
+            .padding(.bottom)
         }
-        .padding(.bottom)
-    }
 }
 
 
