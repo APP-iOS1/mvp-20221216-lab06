@@ -201,14 +201,14 @@ struct SignUpView: View {
                         Text("*")
                             .foregroundColor(.red)
                     }
-
                     TextFieldFrameSignUp
                         .overlay{
                             TextField("이름", text: $userNickName)
                         }
                         .padding(.bottom)
 
-                    VStack(alignment: .leading){ //이메일
+                    //이메일
+                    VStack(alignment: .leading){
                         HStack {
                             Text("이메일")
                             Text("*")
@@ -355,14 +355,15 @@ struct SignUpCompleteView: View {
     
     var body: some View {
         VStack{
+            // 프로필사진 선택했으면 그 사진, 안했으면 기본 아이콘
             VStack(alignment: .leading) {
                 if profileImage != nil{
-                    Image(uiImage: profileImage!) // 프로필사진
+                    Image(uiImage: profileImage!)
                         .resizable()
                         .frame(width: 100, height: 100)
                         .padding(.bottom)
                 } else {
-                    Image(systemName: "person.crop.circle") // 프로필사진
+                    Image(systemName: "person.crop.circle")
                         .resizable()
                         .frame(width: 100, height: 100)
                         .padding(.bottom)
@@ -374,6 +375,7 @@ struct SignUpCompleteView: View {
             }
             .padding(.bottom,100)
             
+            //시작하기 버튼
             Button {
                 isSignUp = false
             } label: {
