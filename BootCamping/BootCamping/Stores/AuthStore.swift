@@ -15,7 +15,7 @@ import SwiftUI
 
 class AuthStore: ObservableObject {
     @Published var userNickName: String = ""
-    @Published var email: String = ""
+    @Published var userEmail: String = ""
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     @Published var profileImage: UIImage?
@@ -33,6 +33,7 @@ class AuthStore: ObservableObject {
     
     func fetchUserList() {
         database.collection("UserList")
+//            .whereField("userID", isEqualTo: String(currentUser?.uid!))
             .getDocuments { (snapshot, error) in
                 self.userList.removeAll()
                 
@@ -40,11 +41,12 @@ class AuthStore: ObservableObject {
                     for document in snapshot.documents {
                         let id: String = document.documentID
                         let docData = document.data()
+                        let userID: String = docData["userID"] as? String ?? ""
                         let userNickName: String = docData["userNickName"] as? String ?? ""
-                        let email: String = docData["email"] as? String ?? ""
+                        let email: String = docData["userEmail"] as? String ?? ""
                         let profileImage: String = docData["profileImage"] as? String ?? ""
                         
-                        let nowUser: Users = Users(id: id, userNickName: userNickName, userEmail: email, profileImage: profileImage)
+                        let nowUser: Users = Users(id: id, userID: userID, userNickName: userNickName, userEmail: email, profileImage: profileImage)
                         
                         self.userList.append(nowUser)
                     }
@@ -53,14 +55,15 @@ class AuthStore: ObservableObject {
     }
     
     func addUserList(_ nowUser: Users, profileImage: UIImage?) async throws {
-            let uploadedPhotos = try await uploadPhoto(selectedImage: profileImage)
-            try await database.collection("UserList")
-                .document(nowUser.id)
-                .setData(["userNickName": nowUser.userNickName,
-                          "email": nowUser.profileImage,
-                          "profileImage": uploadedPhotos,
-                         ])
-            fetchUserList()
+        let uploadedPhotos = try await uploadPhoto(selectedImage: profileImage)
+        try await database.collection("UserList")
+            .document(nowUser.id)
+            .setData(["userID": nowUser.userID,
+                      "userNickName": nowUser.userNickName,
+                      "userEmail": nowUser.userEmail,
+                      "profileImage": uploadedPhotos,
+                     ])
+        fetchUserList()
     }
     
     func uploadPhoto(selectedImage: UIImage?) async -> String {
@@ -99,7 +102,7 @@ class AuthStore: ObservableObject {
     // 체크용 - 이메일 형식 맞는지 Mr. 정
     func checkAuthFormat() -> Bool {
         let emailRegex = "^([a-zA-Z0-9._-])+@[a-zA-Z0-9.-]+.[a-zA-Z]{3,20}$"
-        return email.range(of: emailRegex, options: .regularExpression) != nil
+        return userEmail.range(of: emailRegex, options: .regularExpression) != nil
         
     }
     
@@ -120,7 +123,7 @@ class AuthStore: ObservableObject {
     //로그인
     func signIn() async throws {
         
-        try await Auth.auth().signIn(withEmail: email, password: password) { result, error in
+        try await Auth.auth().signIn(withEmail: userEmail, password: password) { result, error in
             if let error = error {
                 print("Failed to login user:", error)
                 return
@@ -143,7 +146,7 @@ class AuthStore: ObservableObject {
         if checkPasswordFormat() && checkAuthFormat(){
             
             do {
-                try await Auth.auth().createUser(withEmail: email, password: password)
+                try await Auth.auth().createUser(withEmail: userEmail, password: password)
                 return true
             }
             catch {
@@ -153,7 +156,7 @@ class AuthStore: ObservableObject {
             }
             
         } else {
-            print("password: \(password), confirmPassword: \(confirmPassword), email: \(email)")
+            print("password: \(password), confirmPassword: \(confirmPassword), email: \(userEmail)")
             return false
         }
         

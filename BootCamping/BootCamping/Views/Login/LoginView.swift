@@ -31,7 +31,7 @@ struct LoginView: View {
             VStack {
                 TextFieldFrame
                     .overlay{
-                        TextField(" 이메일", text: $authStore.email)
+                        TextField(" 이메일", text: $authStore.userEmail)
                     }
                 
                 TextFieldFrame
