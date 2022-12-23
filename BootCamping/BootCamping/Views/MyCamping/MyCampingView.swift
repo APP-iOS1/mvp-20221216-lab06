@@ -35,9 +35,6 @@ struct MyCampingView: View {
         }
     }
     
-    
-    
-    
     var body: some View {
         ScrollView {
             animate()
@@ -72,16 +69,30 @@ struct MyCampingView: View {
                 } placeholder: {
                     ProgressView()
                 }
-                .frame(width: 80, height: 80)
+                .frame(width: 60, height: 60)
                 .cornerRadius(50)
                 .padding()
                 
                 VStack(alignment: .leading) {
-                    Text("\(user.userNickName)")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .padding(.bottom, 3)
-                    
+                    HStack {
+                        Text("\(user.userNickName)")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .padding(.bottom, 3)
+                        Spacer()
+                        Button {
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.black)
+                                    .frame(width: 80, height: 30)
+                                Text("팔로우")
+                                    .font(.footnote)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        .padding(.trailing, 10)
+                    }
                     HStack {
                         Button {
                             // FollowListView()
@@ -99,19 +110,6 @@ struct MyCampingView: View {
                         }
                     }
                 }
-                Button {
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(.brown)
-                            .frame(width: 80, height: 30)
-                        Text("팔로우")
-                            .font(.footnote)
-                            .foregroundColor(.white)
-                    }
-                }
-                .padding(.trailing, 10)
-                Spacer()
             }
             .padding()
             
@@ -134,7 +132,7 @@ struct MyCampingView: View {
                     }
                     .frame(width: 100)
                     .onTapGesture {
-                        withAnimation(.easeInOut) {
+                        withAnimation(.easeInOut(duration: 0.1)) {
                             self.selectedPicker2 = item
                         }
                     }
@@ -143,16 +141,10 @@ struct MyCampingView: View {
             Divider()
             
             ViewChangeButton(photoPostStore: photoPostStore, user: user)
-            
-            
         }
-        
         Spacer()
     }
 }
-
-
-
 
 struct ViewChangeButton: View {
     @State private var isSquare: Bool = true

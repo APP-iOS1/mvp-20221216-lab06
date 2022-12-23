@@ -42,7 +42,7 @@ struct AddView: View {
                         } label: {
                             VStack {
                                 Image(systemName: "photo").font(.title)
-                                Text("\(selectedImages.count) / 10").font(.subheadline)
+                                Text("\(selectedImages.count) / 10").font(.subheadline).padding(.top,8)
                             }
                             .frame(width: 100, height: 100)
                             .overlay(
@@ -60,20 +60,20 @@ struct AddView: View {
                                 .cornerRadius(15)
                         }
                     }
+                    .padding(.bottom,10)
                 }
                 
                 
                 VStack(alignment: .leading) {
-                    Text("부트캠핑 해시태그").bold()
+                    Text("캠핑 피드 제목 ").font(.title3).fontWeight(.semibold)
                     ZStack(alignment: .leading) {
                         TextField("", text: $hashTag)
-                            .frame(height: 40)
+                            .frame(height: 70)
                             .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(.gray, lineWidth: 1)
-                            )
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color("lightGray")))
                         if hashTag.isEmpty {
-                            Text("캠핑의 해시태그를 적어주세요! (최대 3개)")
+                            Text("제목을 입력해주세요. ")
                                 .padding(.horizontal)
                                 .foregroundColor(.gray)
                         }
@@ -83,34 +83,35 @@ struct AddView: View {
                         TextField("", text: $location)
                             .frame(height: 40)
                             .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(.gray, lineWidth: 1)
-                            )
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color("lightGray")))
                         if location.isEmpty {
                             Text("위치 등록 하기 (선택)")
                                 .padding(.horizontal)
                                 .foregroundColor(.gray)
+                            
                         }
                     }
-                    Text("캠핑 이야기를 공유해주세요").bold()
+                    
+                    Text("캠핑 이야기를 공유해주세요").padding(.top,10).font(.title3).fontWeight(.semibold)
                     ZStack(alignment: .topLeading) {
                         TextEditor(text: $content)
                             .scrollContentBackground(.hidden)
                         if content.isEmpty {
                             VStack(alignment: .leading) {
-                                Text("\n소제목을 적어주세요")
-                                Divider()
-                                Text("어떤 캠핑을 다녀오셨나요? 경험을 공유해주세요").padding(.top)
+                                Text("어떤 캠핑을 다녀오셨나요? 경험을 공유해주세요")
+                                    .foregroundColor(.gray)
                             }
-                            .foregroundColor(.gray)
+                            
                             .padding(.top)
                             .padding(.horizontal)
                             
                         }
-                    }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(.gray, lineWidth: 1)
+                    }.overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color("lightGray"))
+                    
+                    
                     )
                 }
                 .font(.subheadline)
@@ -153,6 +154,7 @@ struct AddView: View {
     
     private var AddButton: some View {
         loginButtonFrame(title: "등록 하기")
+            
     }
 
 }

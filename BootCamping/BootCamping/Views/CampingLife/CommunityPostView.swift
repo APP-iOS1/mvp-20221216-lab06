@@ -84,11 +84,12 @@ struct CommunityPostView: View {
                                // 여러줄로 보여줄 수 있고, 옆으로 쭉 길게 보여주는건 비활성화 처리함
                                .fixedSize(horizontal: false, vertical: true)
                             
-                            Rectangle() //사진 들어갈 자리
-                                .frame(maxWidth: .infinity)
-                                .cornerRadius(10)
-                                .foregroundColor(Color("lightGray"))
-                                .frame(height:200)
+
+//                            Rectangle() //사진 들어갈 자리
+//                                .frame(maxWidth: .infinity)
+//                                .cornerRadius(10)
+//                                .foregroundColor(Color("lightGray"))
+//                                .frame(height:200)
                                 
                         } //게시글 내용
         

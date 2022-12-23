@@ -62,7 +62,7 @@ struct LoginView: View {
                         isSignUp.toggle()
                     }) {
                         Text("회원가입하기")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("mediumGray"))
                             .underline()
                     }
                     .padding(.horizontal)
@@ -70,7 +70,7 @@ struct LoginView: View {
                         //이건 어떡하징
                     }) {
                         Text("아이디 / 비밀번호 찾기")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("mediumGray"))
                             .underline()
                     }
                 }
