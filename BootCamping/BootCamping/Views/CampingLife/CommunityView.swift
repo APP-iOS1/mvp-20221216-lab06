@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CommunityView: View {
+    
+    @StateObject var communityPostStore: CommunityPostStore = CommunityPostStore()
+    
     var body: some View {
-        
-        NavigationStack{
             
             VStack{
                 
@@ -77,79 +78,80 @@ struct CommunityView: View {
 
                                     } //글 종류 버튼
 
-                                    NavigationLink(
-                                                destination: CommunityCategoryView(),
-                                                label: {
-                                                    Text("캠핑 꿀팁")
-                                                        .foregroundColor(.gray)
-                                                        .font(.headline)
-                                                        .fontWeight(.medium)
-                                                        .padding(.vertical,8)
-                                                        .padding(.horizontal,9)
-                                                        .overlay (
-                                                            RoundedRectangle(cornerRadius: 20)
-                                                                .stroke(.gray, lineWidth: 1)
-                                                        )
-                                                })//캠핑 꿀팁
-                                    NavigationLink(
-                                                destination: CommunityCategoryView(),
-                                                label: {
-                                                    Text("질문")
-                                                        .foregroundColor(.gray)
-                                                        .font(.headline)
-                                                        .fontWeight(.medium)
-                                                        .padding(.vertical,8)
-                                                        .padding(.horizontal,9)
-                                                        .overlay (
-                                                            RoundedRectangle(cornerRadius: 20)
-                                                                .stroke(.gray, lineWidth: 1)
-                                                        )
-                                                })//질문
+                                    Button {
+                                        //
+                                    } label: {
+                                        Text("캠핑 꿀팁")
+                                            .foregroundColor(.gray)
+                                            .font(.headline)
+                                            .fontWeight(.medium)
+                                            .padding(.vertical,8)
+                                            .padding(.horizontal,9)
+                                            .overlay (
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(.gray, lineWidth: 1)
+                                            )
+                                    }
+
+                                    Button {
+                                        //
+                                    } label: {
+                                        Text("질문")
+                                            .foregroundColor(.gray)
+                                            .font(.headline)
+                                            .fontWeight(.medium)
+                                            .padding(.vertical,8)
+                                            .padding(.horizontal,9)
+                                            .overlay (
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(.gray, lineWidth: 1)
+                                            )
+                                    }
                                     
-                                    NavigationLink(
-                                                destination: CommunityCategoryView(),
-                                                label: {
-                                                    Text("분실물")
-                                                        .foregroundColor(.gray)
-                                                        .font(.headline)
-                                                        .fontWeight(.medium)
-                                                        .padding(.vertical,8)
-                                                        .padding(.horizontal,9)
-                                                        .overlay (
-                                                            RoundedRectangle(cornerRadius: 20)
-                                                                .stroke(.gray, lineWidth: 1)
-                                                        )
-                                                })//분실물
+                                    Button {
+                                        //
+                                    } label: {
+                                        Text("분실물")
+                                            .foregroundColor(.gray)
+                                            .font(.headline)
+                                            .fontWeight(.medium)
+                                            .padding(.vertical,8)
+                                            .padding(.horizontal,9)
+                                            .overlay (
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(.gray, lineWidth: 1)
+                                            )
+                                    }
+
+                                    Button {
+                                        //
+                                    } label: {
+                                        Text("추천")
+                                            .foregroundColor(.gray)
+                                            .font(.headline)
+                                            .fontWeight(.medium)
+                                            .padding(.vertical,8)
+                                            .padding(.horizontal,9)
+                                            .overlay (
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(.gray, lineWidth: 1)
+                                            )
+                                    }
                                     
-                                    NavigationLink(
-                                                destination: CommunityCategoryView(),
-                                                label: {
-                                                    Text("추천")
-                                                        .foregroundColor(.gray)
-                                                        .font(.headline)
-                                                        .fontWeight(.medium)
-                                                        .padding(.vertical,8)
-                                                        .padding(.horizontal,9)
-                                                        .overlay (
-                                                            RoundedRectangle(cornerRadius: 20)
-                                                                .stroke(.gray, lineWidth: 1)
-                                                        )
-                                                })//추천
-                                    
-                                    NavigationLink(
-                                                destination: CommunityCategoryView(),
-                                                label: {
-                                                    Text("잡담")
-                                                        .foregroundColor(.gray)
-                                                        .font(.headline)
-                                                        .fontWeight(.medium)
-                                                        .padding(.vertical,8)
-                                                        .padding(.horizontal,9)
-                                                        .overlay (
-                                                            RoundedRectangle(cornerRadius: 20)
-                                                                .stroke(.gray, lineWidth: 1)
-                                                        )
-                                                })//잡담
+                                    Button {
+                                        //
+                                    } label: {
+                                        Text("잡담")
+                                            .foregroundColor(.gray)
+                                            .font(.headline)
+                                            .fontWeight(.medium)
+                                            .padding(.vertical,8)
+                                            .padding(.horizontal,9)
+                                            .overlay (
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(.gray, lineWidth: 1)
+                                            )
+                                    }
                                 }.padding(.vertical,5)
                             }
                          
@@ -157,34 +159,26 @@ struct CommunityView: View {
                         
                         Divider()
                         
-                        VStack{
-                            
-                            NavigationLink(destination: CommunityPostDetailWithCommentView()) {
-                                                    CommunityPostView()
-                            }
-                            
-                            NavigationLink(destination: CommunityPostDetailWithCommentView()) {
-                                                    CommunityPostView()
-                                            }
 
+                        VStack{
+                            ForEach(communityPostStore.communityPost, id: \.id) { post in
+                                NavigationLink(destination: CommunityPostDetailWithCommentView( communityPost: post)) {
+                                                        CommunityPostView()
+                                }
+                            }
+                           
                             
                         }
 
-                        
-                        
-                        
+
                     }
 
                 }
-                
-                
-                
-                
-                
+
             }
-            
-        }
-        
+            .onAppear {
+                communityPostStore.fetchCommunityPost()
+            }
     }
 }
 

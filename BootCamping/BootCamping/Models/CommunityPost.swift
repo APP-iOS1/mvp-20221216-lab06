@@ -11,11 +11,13 @@ import Firebase
 struct CommunityPost {
     var id: String
     var userID: String
+    var userNickName: String
     var title: String
     var content: String
     var createdDate: Timestamp
     var photos: [String]
     var category: [String]
+    
 }
 
 
