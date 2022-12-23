@@ -17,8 +17,14 @@ struct ContentView: View {
             BootcampingTabView()
                 .environmentObject(PlaceStore())
                 .environmentObject(PhotoPostStore())
+                .onAppear {
+                    authStore.fetchUserList()
+                }
         } else {
             LoginView(isPresented: .constant(false))
+                .onAppear {
+                    authStore.fetchUserList()
+                }
         }
     }
 }

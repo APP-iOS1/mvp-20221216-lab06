@@ -131,6 +131,9 @@ struct AddView: View {
             } label: {
                 AddButton
             }
+            .onAppear {
+                print(AuthStore().userList)
+            }
             
             
         }.padding()

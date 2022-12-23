@@ -12,6 +12,7 @@ struct SquareView: View {
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     @StateObject var photoPostStore: PhotoPostStore
     @StateObject var photoCommentStore: PhotoCommentStore = PhotoCommentStore()
+    var user: Users
 
     
     var body: some View {
@@ -22,7 +23,7 @@ struct SquareView: View {
                     if photo.photos.count == 0 {
                         EmptyPostView()
                     } else {
-                        NavigationLink(destination: ArticleDetailView(photoPost: photo, photoCommentStore: photoCommentStore)) {
+                        NavigationLink(destination: ArticleDetailView(photoPost: photo, photoCommentStore: photoCommentStore, user: user)) {
                             AsyncImage(url: URL(string: photo.photos.first ?? "")) { image in
                                 image
                                     .resizable()
@@ -48,6 +49,6 @@ struct SquareView: View {
 
 struct SquareView_Previews: PreviewProvider {
     static var previews: some View {
-        SquareView(photoPostStore: PhotoPostStore())
+        SquareView(photoPostStore: PhotoPostStore(), user: AuthStore().userList.first!)
     }
 }

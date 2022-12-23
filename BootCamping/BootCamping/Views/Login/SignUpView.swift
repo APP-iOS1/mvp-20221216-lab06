@@ -383,13 +383,15 @@ struct SignUpCompleteView: View {
                     .foregroundColor(.red)
             }.task {
                 Task{
-                    authStore.email = self.email
+                    authStore.userEmail = self.email
                     authStore.password = self.password
                     authStore.confirmPassword = self.confirmPassword
                     authStore.userNickName = self.userNickName
                     authStore.profileImage = self.profileImage
                     await authStore.signUp()
                     try await authStore.signIn()
+                    let userUID = String(AuthStore().currentUser!.uid)
+                    try await authStore.addUserList(Users(id: userUID, userID: userUID, userNickName: self.userNickName, userEmail: self.email, profileImage: ""), profileImage: profileImage)
                 }
             }
             
