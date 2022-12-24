@@ -89,7 +89,7 @@ struct CommunityPostDetailWithCommentView: View {
                         }// 유저 정보 + 시간 정보
                         
                         
-                        VStack{
+                        VStack(alignment: .leading) {
                             Text("\(communityPost.content)")
                                 .foregroundColor(.black)
                                 .padding(.vertical,10)
@@ -100,12 +100,19 @@ struct CommunityPostDetailWithCommentView: View {
                                // 여러줄로 보여줄 수 있고, 옆으로 쭉 길게 보여주는건 비활성화 처리함
                                .fixedSize(horizontal: false, vertical: true)
                             
-//                            Rectangle() //사진 들어갈 자리
-//                                .frame(maxWidth: .infinity)
-//                                .cornerRadius(10)
-//                                .foregroundColor(Color("lightGray"))
-//                                .frame(height:200)
-                                
+                            ForEach(communityPost.photos, id: \.self) { photo in
+                                AsyncImage(url: URL(string: photo)) { image in
+                                    image
+                                        .resizable()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(maxWidth: .infinity)
+                                .cornerRadius(10)
+                                .frame(height:200)
+                            }
+                            
+                            
                         } //게시글 내용
         
                     } //게시글
