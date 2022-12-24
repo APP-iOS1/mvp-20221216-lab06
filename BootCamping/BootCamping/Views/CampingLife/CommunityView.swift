@@ -163,7 +163,7 @@ struct CommunityView: View {
                         VStack{
                             ForEach(communityPostStore.communityPost, id: \.id) { post in
                                 NavigationLink(destination: CommunityPostDetailWithCommentView( communityPost: post)) {
-                                                        CommunityPostView()
+                                                        CommunityPostRow(communityPost: post)
                                 }
                             }
                            

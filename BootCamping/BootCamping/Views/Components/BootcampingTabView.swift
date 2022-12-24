@@ -10,6 +10,7 @@ import SwiftUI
 struct BootcampingTabView: View {
     @State var tabSelection = 1
     @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
+    @StateObject var communityPostStore: CommunityPostStore = CommunityPostStore()
     
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -26,7 +27,7 @@ struct BootcampingTabView: View {
                 Text("플레이스")
             }.tag(2)
             NavigationStack {
-                AddView(photoPostStore: photoPostStore, tabSelection: $tabSelection)
+                AddChoiceView(tabSelection: $tabSelection, photoPostStore: photoPostStore, communityPostStore: CommunityPostStore())
             }.tabItem {
                 Image(systemName: "plus")
                 Text("글쓰기")
