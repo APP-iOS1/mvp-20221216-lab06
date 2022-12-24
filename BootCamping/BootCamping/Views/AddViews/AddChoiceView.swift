@@ -24,7 +24,7 @@ struct AddChoiceView: View {
                 if addCategory == "photo" {
                     AddView(photoPostStore: photoPostStore, tabSelection: $tabSelection)
                 } else if addCategory == "community" {
-                    AddCommunityView(communityPostStore: communityPostStore)
+                    AddCommunityView(communityPostStore: communityPostStore, tabSelection: $tabSelection)
                 }
         }
 

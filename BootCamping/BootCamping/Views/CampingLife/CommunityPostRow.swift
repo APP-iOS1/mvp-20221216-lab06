@@ -27,17 +27,20 @@ struct CommunityPostRow: View {
                         
                         if communityPost.category.count != 0 {
                             if communityPost.category.first != "" {
-                                
-                                ForEach(communityPost.category, id: \.self) { category in
-                                    Text("\(category)")
-                                        .font(.subheadline)
-                                        .padding(.vertical,5)
-                                        .padding(.horizontal,10)
-                                        .background(Color("lightGray"))
-                                        .foregroundColor(.gray)
-                                } //게시글 글 종류 해시태그
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                                .padding(.vertical,15)
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                        ForEach(communityPost.category, id: \.self) { category in
+                                            Text("\(category)")
+                                                .font(.subheadline)
+                                                .padding(.vertical,5)
+                                                .padding(.horizontal,10)
+                                                .background(Color("lightGray"))
+                                                .foregroundColor(.gray)
+                                        } //게시글 글 종류 해시태그
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                        .padding(.vertical,15)
+                                    }
+                                }
                             }
                         }
                         
