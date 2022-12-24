@@ -207,8 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				63361B55294C5EDC00D3AFF5 /* BootCampingApp.swift */,
-				632BF00529503E120074719A /* Stores */,
 				632BF00429503E0B0074719A /* Models */,
+				632BF00529503E120074719A /* Stores */,
 				63361B63294C5EE900D3AFF5 /* Views */,
 				63361B59294C5EDD00D3AFF5 /* Assets.xcassets */,
 				7C9E2F6C2952CBCD00527E14 /* Info.plist */,
@@ -230,13 +230,13 @@
 			isa = PBXGroup;
 			children = (
 				636D852929530E6200A579E2 /* Components */,
+				632BF01A29503E950074719A /* Login */,
+				7CA57C8529528B3000560DEA /* HomeView */,
 				7C03FC1F2951F0EF006BEC2E /* PlaceView */,
 				634FD3A729529D00005E9862 /* AddViews */,
-				7CA57C8529528B3000560DEA /* HomeView */,
+				636D852A29530E6E00A579E2 /* CampingLife */,
 				7CA57C7E29528B1800560DEA /* MyCamping */,
 				79BF1CDD2952F8AD00EC8E8E /* Setting */,
-				632BF01A29503E950074719A /* Login */,
-				636D852A29530E6E00A579E2 /* CampingLife */,
 				6339A07B295473CE00F16FFC /* ContentView.swift */,
 			);
 			path = Views;
