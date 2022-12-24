@@ -10,6 +10,7 @@ import FirebaseAuth
 import Firebase
 
 struct AddCommunityView: View {
+    @EnvironmentObject var authStore: AuthStore
     @StateObject var communityPostStore: CommunityPostStore
     @State private var title: String = ""
     @State private var category: String = ""
@@ -21,7 +22,7 @@ struct AddCommunityView: View {
     var user: Users {
         get {
             if Auth.auth().currentUser?.uid != nil {
-                return AuthStore().userList.filter { $0.userID == String(Auth.auth().currentUser!.uid) }.first!
+                return authStore.userList.filter { $0.userID == String(Auth.auth().currentUser!.uid) }.first!
             } else {
                 return Users(id: "", userID: "", userNickName: "", userEmail: "", profileImage: "")
             }
@@ -65,7 +66,7 @@ struct AddCommunityView: View {
             VStack(alignment: .leading) {
                 Text("캠핑생활 카테고리").bold()
                 ZStack(alignment: .leading) {
-                    TextField("카테고리를 선택해주세요", text: $category)
+                    TextField("카테고리를 선택해주세요 ", text: $category)
                         .frame(height: 40)
                         .overlay(
                             RoundedRectangle(cornerRadius: 5)
@@ -118,5 +119,6 @@ struct AddCommunityView: View {
 struct AddCommunityView_Previews: PreviewProvider {
     static var previews: some View {
         AddCommunityView(communityPostStore: CommunityPostStore())
+            .environmentObject(AuthStore())
     }
 }
