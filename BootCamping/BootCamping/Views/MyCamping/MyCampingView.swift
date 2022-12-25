@@ -216,7 +216,7 @@ struct ViewChangeButton: View {
             if isSquare {
                 SquareView(photoPostStore: photoPostStore, tabSelection: $tabSelection, user: user)
             } else if isRectangle {
-                FollowerPhotoList()
+              RectangleView()
             } else if isPhotoCard {
                 PhotoCardView()
             }
