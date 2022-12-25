@@ -53,7 +53,7 @@ struct PlaceListView: View {
                     ProgressView().frame(height: 100)
                 }
             }
-            .padding(.bottom, 10)
+            .padding(.bottom, 1)
             .onAppear {
                 Task {
                     isLoading = true

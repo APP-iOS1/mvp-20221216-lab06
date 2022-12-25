@@ -24,15 +24,14 @@ struct PhotoCardView: View {
                             item.image.first?.image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 300, height: 600)
+                                .frame(width: 300, height: 620)
                                 .cornerRadius(20)
                             LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.3), Color.clear]), startPoint: .top, endPoint: .bottom)
                                 .cornerRadius(20)
                             PhotoMainStory(listStruct: item)
                                 .offset(y: -150)
                         }
-                        .frame(width: 300, height: 600)
-                       
+                        .frame(width: 300, height: 620)
                         .shadow(radius: 3)
                         .padding(10)
                     }
