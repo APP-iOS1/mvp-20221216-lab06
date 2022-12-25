@@ -34,7 +34,6 @@ struct HashTagPlaceView: View {
             
             LazyVGrid(columns: columns) {
                 ForEach(0..<5) { i in
-             
                     VStack(alignment: .leading) {
                         Image("\(hashTagPlace.placeImage[i])")
                             .resizable()

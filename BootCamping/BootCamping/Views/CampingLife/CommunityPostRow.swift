@@ -125,7 +125,6 @@ struct CommunityPostRow: View {
                                 } label: {
                                     Image(systemName:"heart")
                                     Text("좋아요")
-                                    
                                 }
                                 Text("12")
                                 Button {
@@ -138,21 +137,14 @@ struct CommunityPostRow: View {
                             } // 좋아요, 댓글 버튼
                             .font(.subheadline).foregroundColor(.gray)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                            
-                            .padding(.vertical,5)
-
-                            
-                        } //댓글 칸
-                        
-                     
-                    }.padding(.horizontal,20)
                     
-
-                } //커뮤니티 게시글 전체
-
-        }
-        
+                            .padding(.vertical,5)
        
+                        } //댓글 칸
+             
+                    }.padding(.horizontal,20)
+                } //커뮤니티 게시글 전체
+        }
     }
 }
 
