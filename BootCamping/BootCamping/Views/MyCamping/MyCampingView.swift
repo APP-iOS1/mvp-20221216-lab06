@@ -88,8 +88,8 @@ struct MyCampingView: View {
                             .padding(.bottom, 3)
                         Spacer()
                     }
+                    
                     HStack {
-                        
                         NavigationLink {
                             FollowListView()
                         } label: {
@@ -214,7 +214,11 @@ struct ViewChangeButton: View {
             }.padding(.trailing)
             // 버튼인데???
             if isSquare {
-                SquareView(photoPostStore: photoPostStore, tabSelection: $tabSelection, user: user)
+                if photoPostStore.photoPost.count == 0 {
+                    EmptyPostView(tabSelection: $tabSelection)
+                } else {
+                    SquareView(photoPostStore: photoPostStore, tabSelection: $tabSelection, user: user)
+                }
             } else if isRectangle {
               RectangleView()
             } else if isPhotoCard {
@@ -243,13 +247,10 @@ struct myPageTapView : View {
 
             case .bookmarkPlace:
                 EmptyView()
-                
-                
             }
         }
     }
 }
-
 
 
 struct MyCampingView_Previews: PreviewProvider {

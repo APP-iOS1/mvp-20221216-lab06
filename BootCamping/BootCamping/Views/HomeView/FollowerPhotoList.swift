@@ -22,6 +22,7 @@ struct FollowerPhotoList: View {
         NavigationStack {
             ScrollView {
                 FollowersPhoto()
+                    .padding(.top, 10)
 
                 ForEach (articles, id: \.self) { article in
                     ListCell(articles: article)                     

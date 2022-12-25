@@ -28,7 +28,6 @@ struct AddView: View {
         if isDoneRegister{
             ProgressView()
         } else {
-            
             VStack {
                 ScrollView(.horizontal) {
                     //검색된 이미지들 UI에 보여줌
@@ -67,13 +66,12 @@ struct AddView: View {
                 VStack(alignment: .leading) {
                     Text("캠핑 피드 제목 ").font(.title3).fontWeight(.semibold)
                     ZStack(alignment: .leading) {
-                        TextField("제목을 입력해주세요", text: $hashTag)
+                        TextField("제목을 입력해주세요", text: $title)
                             .frame(height: 70)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color("lightGray")))
                     }
-                    Text("").bold()
                     ZStack(alignment: .leading) {
                         TextField("위치 등록 하기 (선택)", text: $location)
                             .frame(height: 40)

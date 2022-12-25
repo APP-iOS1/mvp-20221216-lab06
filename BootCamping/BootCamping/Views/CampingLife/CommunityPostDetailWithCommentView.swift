@@ -6,16 +6,20 @@
 //
 
 import SwiftUI
+import Foundation
+import Firebase
 
 struct CommunityPostDetailWithCommentView: View {
 
-    @State var commentText:String=""
+    @State var commentText: String = ""
     
     @StateObject var communutyPostStore: CommunityPostStore = CommunityPostStore()
+    @StateObject var communityCommentStore: CommunityCommentStore = CommunityCommentStore()
     
     @EnvironmentObject var authStore: AuthStore
     
     var communityPost: CommunityPost
+    
     var user: Users {
         authStore.userList.filter { $0.userID == communityPost.userID }.first!
     }
@@ -258,6 +262,10 @@ struct CommunityPostDetailWithCommentView: View {
                     
                     Button {
                         //댓글 등록하기 버튼
+                        let communityComment: CommunityComments = CommunityComments(id: UUID().uuidString, userID: user.userID, communityCommentContent: commentText, communityCommentCreatedDate: Timestamp())
+
+                        communityCommentStore.addCommunityComment(communityComment)
+
                         commentText = ""
                         
                     } label: {
@@ -270,6 +278,11 @@ struct CommunityPostDetailWithCommentView: View {
                 }
                 .padding(.horizontal,20)
                 .padding(.top,10)
+                .onAppear{
+                    communityCommentStore.postId = communityPost.id
+                    communityCommentStore.fetchCommunityComment()
+                    AuthStore().fetchUserList()
+                }
 
             } //댓글 창
             .background(Color.white)
