@@ -123,9 +123,14 @@ struct AddView: View {
                 .onAppear {
                     print(AuthStore().userList)
                 }
-                
-                .navigationTitle("마이캠핑 글쓰기")
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("마이캠핑 글쓰기")
+                            .modifier(TitleViewModifier())
+                    }
+                }
                 .navigationBarTitleDisplayMode(.inline)
+
             }.padding()
 
         }

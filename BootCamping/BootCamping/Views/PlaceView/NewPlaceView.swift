@@ -21,26 +21,20 @@ struct NewPlaceView: View {
                         .frame(width: 393, height: 180)
                         .padding(.top, -40)
                     SearchView()
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 10)
                         
                     SelectPlaceView()
+                        .padding(.vertical, 10)
+                        .padding(.bottom, 10)
                     HashTagPlaceView()
-                        .padding(.top, 20)
+                        .padding(.bottom, 20)
                 }
                 Spacer()
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("플레이스")
-                        .font(.title2).bold()
-                        .accessibilityAddTraits(.isHeader)
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        isFavorite.toggle()
-                    } label: {
-                        Text("북마크").font(.headline).bold()
-                    }
+                        .modifier(TitleViewModifier())
                 }
             }
         }

@@ -23,7 +23,7 @@ struct SelectPlaceView: View {
         VStack {
             HStack {
                 Text("지역 선택")
-                    .font(.title)
+                    .font(.title3)
                     .fontWeight(.semibold)
                     .padding(.horizontal,20)
                     
@@ -46,7 +46,7 @@ struct SelectPlaceView: View {
                                 Text("\(local.placeName[i])")
                                     .foregroundColor(.gray)
                                     .font(.subheadline)
-                            }.padding(.top,10)
+                            }
                         }
                     }
                 }

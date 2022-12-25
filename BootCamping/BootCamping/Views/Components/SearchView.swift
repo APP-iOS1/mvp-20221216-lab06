@@ -9,8 +9,9 @@ import SwiftUI
 
 struct SearchView: View {
     @State private var searchText: String = ""
+    
     var body: some View {
-
+        
           HStack {
             Image(systemName: "magnifyingglass")
                 .font(.title3)

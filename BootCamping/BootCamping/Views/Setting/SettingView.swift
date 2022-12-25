@@ -25,7 +25,6 @@ struct SettingView: View {
             NavigationLink(destination: LicenseView()) {
                 Text("라이선스")
             }
-            Text("회원탈퇴")
             Text("앱 관리")
             Button {
                 if authStore.currentUser != nil {

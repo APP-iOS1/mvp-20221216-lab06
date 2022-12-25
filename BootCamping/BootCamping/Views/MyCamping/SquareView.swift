@@ -13,6 +13,7 @@ struct SquareView: View {
     @StateObject var photoPostStore: PhotoPostStore
     @StateObject var photoCommentStore: PhotoCommentStore = PhotoCommentStore()
     @State private var currentURL: URL?
+    @Binding var tabSelection: Int
     var user: Users
 
     
@@ -22,7 +23,7 @@ struct SquareView: View {
                     
                     ForEach(photoPostStore.photoPost.filter { $0.userID == Auth.auth().currentUser?.uid }, id: \.id) { photo in
                         if photo.photos.count == 0 {
-                            EmptyPostView()
+                            EmptyPostView(tabSelection: $tabSelection)
                         } else {
                             NavigationLink(destination: ArticleDetailView(photoPost: photo, photoCommentStore: photoCommentStore, user: user)) {
                                 AsyncImage(url: URL(string: photo.photos.first ?? "")) { image in
@@ -50,6 +51,6 @@ struct SquareView: View {
 
 struct SquareView_Previews: PreviewProvider {
     static var previews: some View {
-        SquareView(photoPostStore: PhotoPostStore(), user: AuthStore().userList.first!)
+        SquareView(photoPostStore: PhotoPostStore(), tabSelection: .constant(3), user: AuthStore().userList.first!)
     }
 }

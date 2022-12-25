@@ -11,179 +11,75 @@ struct CommunityView: View {
     
     @StateObject var communityPostStore: CommunityPostStore = CommunityPostStore()
     
+    struct CommunityButtons {
+        var communityButtons = ["캠핑 꿀팁", "중고거래", "질문", "추천", "분실물",  "잡담"]
+    }
+    
+    var communityButtons = CommunityButtons()
+    
     var body: some View {
-            
-            VStack{
-                
-                VStack{
-                    
-                    HStack(alignment: .center){
-                        
-                        Image(systemName: "magnifyingglass")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                        
-                        Spacer()
-                        
-                        Text("캠핑 생활")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        
-                        Spacer()
-                        
-                        NavigationLink(destination: SearchSomethingView() ) {
-                                    Image(systemName: "magnifyingglass")
-                                    .font(.title2)
+        VStack{
+            ScrollView(.horizontal,showsIndicators: false){
+                HStack {
+                    Button {
+                        //TODO: 글 종류 선택 모달 나오게
+                    } label: {
+                        HStack{
+                            Image(systemName: "line.3.horizontal" )
+                                .padding(.trailing,-3)
+                            Text("글 종류")
                         }
-                        
+                        .modifier(CommunityButtonViewModifier())
                     }
-                    .padding(.top,20)
-                    .padding(.horizontal,20)
-                        
                     
-                } //타이틀
+                    ForEach(communityButtons.communityButtons, id: \.self) { button in
+                        Button {
+                            //
+                        } label: {
+                            Text("\(button)")
+                                .modifier(CommunityButtonViewModifier())
 
-                
-                Rectangle()
-                    .frame(height: 1.0, alignment: .bottom)
-                    .foregroundColor(Color("lightGray")) //타이틀 구분선
-
-                ScrollView(){
+                        }
+                    }
+                }.padding()
+            }
+            
+            ScrollView {
+                VStack{
+                    Divider()
                     
                     VStack{
-
-                        VStack{
-                         ScrollView(.horizontal,showsIndicators: false){
-                                HStack{
-                                    Button {
-                                        //글 종류 선택 모달 나오게
-                                    } label: {
-
-                                        HStack{
-                                            Image(systemName: "line.3.horizontal" )
-                                                .padding(.trailing,-3)
-                                            
-                                            Text("글 종류")
-                                                
-                                        }
-                                        .font(.headline)
-                                        .foregroundColor(.gray)
-                                        .fontWeight(.medium)
-                                        .padding(.vertical,8)
-                                        .padding(.horizontal,9)
-                                        .overlay (
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(.gray, lineWidth: 1)
-                                        )
-
-                                    } //글 종류 버튼
-
-                                    Button {
-                                        //
-                                    } label: {
-                                        Text("캠핑 꿀팁")
-                                            .foregroundColor(.gray)
-                                            .font(.headline)
-                                            .fontWeight(.medium)
-                                            .padding(.vertical,8)
-                                            .padding(.horizontal,9)
-                                            .overlay (
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .stroke(.gray, lineWidth: 1)
-                                            )
-                                    }
-
-                                    Button {
-                                        //
-                                    } label: {
-                                        Text("질문")
-                                            .foregroundColor(.gray)
-                                            .font(.headline)
-                                            .fontWeight(.medium)
-                                            .padding(.vertical,8)
-                                            .padding(.horizontal,9)
-                                            .overlay (
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .stroke(.gray, lineWidth: 1)
-                                            )
-                                    }
-                                    
-                                    Button {
-                                        //
-                                    } label: {
-                                        Text("분실물")
-                                            .foregroundColor(.gray)
-                                            .font(.headline)
-                                            .fontWeight(.medium)
-                                            .padding(.vertical,8)
-                                            .padding(.horizontal,9)
-                                            .overlay (
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .stroke(.gray, lineWidth: 1)
-                                            )
-                                    }
-
-                                    Button {
-                                        //
-                                    } label: {
-                                        Text("추천")
-                                            .foregroundColor(.gray)
-                                            .font(.headline)
-                                            .fontWeight(.medium)
-                                            .padding(.vertical,8)
-                                            .padding(.horizontal,9)
-                                            .overlay (
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .stroke(.gray, lineWidth: 1)
-                                            )
-                                    }
-                                    
-                                    Button {
-                                        //
-                                    } label: {
-                                        Text("잡담")
-                                            .foregroundColor(.gray)
-                                            .font(.headline)
-                                            .fontWeight(.medium)
-                                            .padding(.vertical,8)
-                                            .padding(.horizontal,9)
-                                            .overlay (
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .stroke(.gray, lineWidth: 1)
-                                            )
-                                    }
-                                }.padding(.vertical,5)
+                        ForEach(communityPostStore.communityPost, id: \.id) { post in
+                            NavigationLink(destination: CommunityPostDetailWithCommentView( communityPost: post)) {
+                                CommunityPostRow(communityPost: post)
                             }
-                         
-                        }.padding(.leading,20) // 카테고리 선택
-                        
-                        Divider()
-                        
-
-                        VStack{
-                            ForEach(communityPostStore.communityPost, id: \.id) { post in
-                                NavigationLink(destination: CommunityPostDetailWithCommentView( communityPost: post)) {
-                                                        CommunityPostRow(communityPost: post)
-                                }
-                            }
-                           
-                            
                         }
-
-
                     }
-
                 }
-
+                .onAppear {
+                    communityPostStore.fetchCommunityPost()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("캠핑생활")
+                            .modifier(TitleViewModifier())
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: SearchSomethingView() ) {
+                            Image(systemName: "magnifyingglass")
+                                .font(.headline)
+                        }
+                    }
+                }
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .onAppear {
-                communityPostStore.fetchCommunityPost()
-            }
+        }
     }
 }
 
-struct CommunityView_Previews: PreviewProvider {
-    static var previews: some View {
-        CommunityView()
-    }
-}
+
+//struct CommunityView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CommunityView()
+//    }
+//}

@@ -19,8 +19,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct BootCampingApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
+
     var body: some Scene {
+        
         WindowGroup {
  //           MyCampingView()
             ContentView()

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EmptyPostView: View {
+    @Binding var tabSelection: Int
+    
     var body: some View {
         VStack {
             Text("나의 캠핑 이야기를")
@@ -20,6 +22,7 @@ struct EmptyPostView: View {
                 .padding(.bottom, 10)
             
             Button {
+                tabSelection = 3
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 25)
@@ -31,11 +34,12 @@ struct EmptyPostView: View {
                 }
             }
         }
+        .frame(width: 198, height: 198)
     }
 }
 
 struct EmptyPostView_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyPostView()
+        EmptyPostView(tabSelection: .constant(3))
     }
 }
