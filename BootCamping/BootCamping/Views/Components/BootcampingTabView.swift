@@ -39,7 +39,7 @@ struct BootcampingTabView: View {
                 Text("캠핑생활")
             }.tag(4)
             NavigationStack {
-                MyCampingView(photoPostStore: photoPostStore)
+                MyCampingView(photoPostStore: photoPostStore, communityPostStore: communityPostStore, tabSelection: $tabSelection)
             }.tabItem {
                 Image(systemName: "person")
                 Text("마이캠핑")

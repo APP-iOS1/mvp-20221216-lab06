@@ -116,9 +116,15 @@ struct AddCommunityView: View {
                 }
                 
                 
-            }.padding()
-                .navigationTitle("캠핑생활 글쓰기")
-                .navigationBarTitleDisplayMode(.inline)
+            }
+            .padding()
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("캠핑생활 글쓰기")
+                        .modifier(TitleViewModifier())
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
         }
         
     }

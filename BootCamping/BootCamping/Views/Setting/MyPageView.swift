@@ -90,10 +90,20 @@ struct MyPageView: View {
                 }
                 .padding(10)
                 
-                
+                HStack{
+                    Spacer()
+                        .frame(width: 30)
+                    NavigationLink("탈퇴하기") {
+                        Text("탈퇴하기")
+                    }.padding(10)
+                    Spacer()
+                        .frame(width: 30)
+                }.padding(.vertical, 10)
+
                 
                 //버튼
                 HStack {
+                    
                     Spacer()
                     
                     Button {
@@ -111,6 +121,7 @@ struct MyPageView: View {
                 }
                 .padding(.horizontal, 34)
                 Spacer()
+
             }// 전체 VStack 끝
             .padding(5)
             .toolbar {

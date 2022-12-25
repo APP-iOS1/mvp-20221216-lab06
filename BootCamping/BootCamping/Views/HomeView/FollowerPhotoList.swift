@@ -19,7 +19,7 @@ struct FollowerPhotoList: View {
     ]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 FollowersPhoto()
 
