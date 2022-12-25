@@ -18,9 +18,31 @@ struct HomeView: View {
     
     var body: some View {
         VStack{
-            animate()
             mainTapView(mainTap: selectedPicker)
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Image("logo1")          //앱 로고
+                    .resizable()
+                    .frame(width: 30, height: 30)
+            }
+            
+            ToolbarItem(placement: .principal) {
+                animate()
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    isSheeting.toggle()
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.black)
+                        .font(.headline)
+                }
+                .padding(.leading, 5)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     @State private var isSheeting: Bool = false
@@ -29,57 +51,42 @@ struct HomeView: View {
     private func animate() -> some View {
         VStack {
             HStack {
-                Button {
-                    isSheeting.toggle()
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.black)
-                        .font(.title3)
-                }
-                .padding(.leading, 5)
-                
                 Spacer()
                 
                 ForEach(tapInfo.allCases, id: \.self) { item in
                     VStack {
                         Text(item.rawValue)
-                            .font(.body)
-                            .fontWeight(.semibold)
+                            .modifier(TitleViewModifier())
                             .kerning(-1)
-                            .frame(maxWidth: 200, maxHeight: 20)
+                            .frame(maxWidth: 200, maxHeight: 30)
                             .foregroundColor(selectedPicker == item ? .black : .gray)
+                            .padding(.top, 10)
                         
                         if selectedPicker == item {
                             Capsule()
                                 .foregroundColor(.black)
                                 .frame(height: 2)
                                 .matchedGeometryEffect(id: "info", in: animation)
+                        } else if selectedPicker != item {
+                            Capsule()
+                                .foregroundColor(.white)
+                                .frame(height: 2)
                         }
-                        
                     }
-                    .frame(width: 90)
+                    .frame(width: 110)
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 0.1)) {
                             self.selectedPicker = item
                         }
                     }
                 }
-                
                 Spacer()
-                
-                Button {
-                    isSheeting.toggle()
-                } label: {
-                    Image(systemName: "person.fill")
-                        .foregroundColor(.black)
-                        .font(.title3)
-                }
-                .padding(.trailing, 5)
-                
             }
             .padding(15)
         }
+
     }
+
 }
 
 struct mainTapView : View {
@@ -90,10 +97,9 @@ struct mainTapView : View {
             case .top:
                 NavigationStack {
                     PhotoCardView()
-                        .padding(.bottom, 50)
                 }
             case .follow:
-                        FollowerPhotoList()
+                 FollowerPhotoList()
             }
         }
     }

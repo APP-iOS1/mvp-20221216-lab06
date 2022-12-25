@@ -26,11 +26,11 @@ struct HashTagPlaceView: View {
         VStack {
             HStack {
                 Text("🔥불멍 캠핑 성지")
-                    .font(.title)
+                    .font(.title3)
                     .fontWeight(.semibold)
                     .padding(.horizontal,20)
                 Spacer()
-            }
+            }.padding(.bottom, -10)
             
             LazyVGrid(columns: columns) {
                 ForEach(0..<5) { i in
@@ -64,14 +64,10 @@ struct HashTagPlaceView: View {
                         }
                         .padding(.horizontal, 10)
                     }
-    
-
                 }
-
             }
             .padding()
         }
-        .padding(.vertical, 5)
     }
 }
 

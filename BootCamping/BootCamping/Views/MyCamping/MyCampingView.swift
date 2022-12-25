@@ -21,9 +21,11 @@ struct MyCampingView: View {
     @EnvironmentObject var authStore: AuthStore
     
     @StateObject var photoCommentStore = PhotoCommentStore()
+    @StateObject var communityPostStore: CommunityPostStore
     
     @State private var selectedPicker2: tapMypage = .myCamping
     @Namespace private var animation
+    @Binding var tabSelection: Int
     
     var user: Users {
         get {
@@ -49,6 +51,10 @@ struct MyCampingView: View {
             photoPostStore.retrievePhotos()
         }
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("마이캠핑")
+                    .modifier(TitleViewModifier())
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
                     SettingView().environmentObject(AuthStore())
@@ -57,6 +63,7 @@ struct MyCampingView: View {
                 }
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     @ViewBuilder
@@ -69,7 +76,7 @@ struct MyCampingView: View {
                 } placeholder: {
                     ProgressView()
                 }
-                .frame(width: 60, height: 60)
+                .frame(width: 50, height: 50)
                 .cornerRadius(50)
                 .padding()
                 
@@ -80,29 +87,19 @@ struct MyCampingView: View {
                             .fontWeight(.bold)
                             .padding(.bottom, 3)
                         Spacer()
-                        Button {
-                        } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.black)
-                                    .frame(width: 80, height: 30)
-                                Text("팔로우")
-                                    .font(.footnote)
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        .padding(.trailing, 10)
                     }
                     HStack {
-                        Button {
-                            // FollowListView()
+                        
+                        NavigationLink {
+                            FollowListView()
                         } label: {
                             Text("팔로워 4")
                                 .font(.subheadline)
                                 .foregroundColor(.black)
                         }
-                        
-                        Button {
+                        Text("|")
+                        NavigationLink {
+                            FollowListView()
                         } label: {
                             Text("팔로잉 2")
                                 .font(.subheadline)
@@ -110,6 +107,7 @@ struct MyCampingView: View {
                         }
                     }
                 }
+                .frame(minHeight: 50)
             }
             .padding()
             
@@ -128,7 +126,12 @@ struct MyCampingView: View {
                                 .foregroundColor(.black)
                                 .frame(height: 2)
                                 .matchedGeometryEffect(id: "info", in: animation)
+                        } else if selectedPicker2 != item {
+                            Capsule()
+                                .foregroundColor(.white)
+                                .frame(height: 2)
                         }
+                        
                     }
                     .frame(width: 100)
                     .onTapGesture {
@@ -140,7 +143,7 @@ struct MyCampingView: View {
             }
             Divider()
             
-            ViewChangeButton(photoPostStore: photoPostStore, user: user)
+            ViewChangeButton(photoPostStore: photoPostStore, communityPostStore: communityPostStore, tabSelection: $tabSelection, user: user)
         }
         Spacer()
     }
@@ -152,6 +155,9 @@ struct ViewChangeButton: View {
     @State private var isPhotoCard: Bool = false
     @State private var isList: Bool = false
     @StateObject var photoPostStore: PhotoPostStore
+    @StateObject var communityPostStore: CommunityPostStore
+    @Binding var tabSelection: Int
+    
     var user: Users
     
     var body: some View {
@@ -193,28 +199,31 @@ struct ViewChangeButton: View {
                         .font(.headline)
                 }
                 
-                Button {
-                    isSquare = false
-                    isRectangle = false
-                    isPhotoCard = false
-                    isList = true
-                } label: {
-                    Image(systemName: "list.bullet")
-                        .foregroundColor(isList ? .accentColor : .gray)
-                        .font(.headline).bold()
-                }
+                //리스트 일단 뺌
+//                Button {
+//                    isSquare = false
+//                    isRectangle = false
+//                    isPhotoCard = false
+//                    isList = true
+//                } label: {
+//                    Image(systemName: "list.bullet")
+//                        .foregroundColor(isList ? .accentColor : .gray)
+//                        .font(.headline).bold()
+//                }
                 
             }.padding(.trailing)
             // 버튼인데???
             if isSquare {
-                SquareView(photoPostStore: photoPostStore, user: user)
+                SquareView(photoPostStore: photoPostStore, tabSelection: $tabSelection, user: user)
             } else if isRectangle {
                 FollowerPhotoList()
             } else if isPhotoCard {
                 PhotoCardView()
-            } else if isList {
-                EmptyView() // 리스트 아직 없음
             }
+            //리스트뷰 일단 뺌
+//           else if isList {
+//                EmptyView() // 리스트 아직 없음
+//            }
         }
     }
 }
@@ -227,15 +236,11 @@ struct myPageTapView : View {
         VStack {
             switch myTap {
             case .myCamping:
-                //                EmptyPostView()
-                //                    .padding(.bottom, 250)
-                //                  SquareView()
                 EmptyView()
                 
             case .likeFeed:
                 EmptyView()
-                
-                //                FollowerPhotoList()
+
             case .bookmarkPlace:
                 EmptyView()
                 
@@ -250,7 +255,7 @@ struct myPageTapView : View {
 struct MyCampingView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyCampingView()
+            MyCampingView(communityPostStore: CommunityPostStore(), tabSelection: .constant(3))
                 .environmentObject(AuthStore())
         }
     }

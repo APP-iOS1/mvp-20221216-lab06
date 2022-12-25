@@ -43,6 +43,7 @@ struct FollowersPhoto: View {
                     }
                 }
             }
+            .padding(.top, 10)
             .padding(.bottom,10)
         }
         .frame(width: 393)

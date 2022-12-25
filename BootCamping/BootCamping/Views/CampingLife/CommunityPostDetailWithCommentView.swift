@@ -89,8 +89,8 @@ struct CommunityPostDetailWithCommentView: View {
                         }// 유저 정보 + 시간 정보
                         
                         
-                        VStack{
-                            Text(" 강아지 산책은 역시 남의 강아지가 최고! 요즘 반려동물 동반이 가능한 캠핑장이 많더라구요! 남의 강아지도 구경하면서 캠핑 즐기면 참 재미있더라구요^^* ")
+                        VStack(alignment: .leading) {
+                            Text("\(communityPost.content)")
                                 .foregroundColor(.black)
                                 .padding(.vertical,10)
                                 .font(.body)
@@ -100,12 +100,19 @@ struct CommunityPostDetailWithCommentView: View {
                                // 여러줄로 보여줄 수 있고, 옆으로 쭉 길게 보여주는건 비활성화 처리함
                                .fixedSize(horizontal: false, vertical: true)
                             
-//                            Rectangle() //사진 들어갈 자리
-//                                .frame(maxWidth: .infinity)
-//                                .cornerRadius(10)
-//                                .foregroundColor(Color("lightGray"))
-//                                .frame(height:200)
-                                
+                            ForEach(communityPost.photos, id: \.self) { photo in
+                                AsyncImage(url: URL(string: photo)) { image in
+                                    image
+                                        .resizable()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(maxWidth: .infinity)
+                                .cornerRadius(10)
+                                .frame(height:200)
+                            }
+                            
+                            
                         } //게시글 내용
         
                     } //게시글
@@ -172,60 +179,60 @@ struct CommunityPostDetailWithCommentView: View {
                             
                         } //댓글 칸
                         
-                        VStack(alignment: .leading){
-                            
-                            HStack{
-                                
-                                Image("thekoon_")
-                                    .resizable()
-                                    .frame(width: 30,height: 30)
-                                    .cornerRadius(50)
-                                Text("hyehyehye99")
-                                    .foregroundColor(.black)
-                                    .font(.callout)
-                                    .fontWeight(.semibold)
-                                
-                                Spacer()
-                                
-                                Text("2022-12-23")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                                
-                            } //댓글 프로필
-                            
-                            VStack(alignment:.leading){
-                                
-                                Text("헐 진짜 재밌겠당!!! ")
-                                    .padding(.bottom,3)//댓글 내용
-                            
-                                HStack{
-                                    
-                                    Text("10분전") //몇분전
-                                    
-                                    HStack{
-                                        
-                                        Button {
-                                            //댓글 좋아요
-                                        } label: {
-                                            Text("좋아요")
-                                        }
-                                        
-                                        Text("1")
-                                        
-                                    } //댓글 좋아요 버튼
-                                    
-                                    Button {
-                                        //답글달기
-                                    } label: {
-                                        Text("답글달기")
-                                    }
-                                }
-                                .foregroundColor(.gray)
-                                .font(.callout)
-                                
-                            } //댓글 내용 ,정보
-                            .padding(.horizontal,30)
-                        } //댓글
+//                        VStack(alignment: .leading){
+//
+//                            HStack{
+//
+//                                Image("thekoon_")
+//                                    .resizable()
+//                                    .frame(width: 30,height: 30)
+//                                    .cornerRadius(50)
+//                                Text("hyehyehye99")
+//                                    .foregroundColor(.black)
+//                                    .font(.callout)
+//                                    .fontWeight(.semibold)
+//
+//                                Spacer()
+//
+//                                Text("2022-12-23")
+//                                    .font(.subheadline)
+//                                    .foregroundColor(.gray)
+//
+//                            } //댓글 프로필
+//
+//                            VStack(alignment:.leading){
+//
+//                                Text("헐 진짜 재밌겠당!!! ")
+//                                    .padding(.bottom,3)//댓글 내용
+//
+//                                HStack{
+//
+//                                    Text("10분전") //몇분전
+//
+//                                    HStack{
+//
+//                                        Button {
+//                                            //댓글 좋아요
+//                                        } label: {
+//                                            Text("좋아요")
+//                                        }
+//
+//                                        Text("1")
+//
+//                                    } //댓글 좋아요 버튼
+//
+//                                    Button {
+//                                        //답글달기
+//                                    } label: {
+//                                        Text("답글달기")
+//                                    }
+//                                }
+//                                .foregroundColor(.gray)
+//                                .font(.callout)
+//
+//                            } //댓글 내용 ,정보
+//                            .padding(.horizontal,30)
+//                        } //댓글
                         .padding(.bottom,15)
 
                     }.padding(.horizontal,20)

@@ -122,6 +122,10 @@ struct PlaceListView: View {
                                 .foregroundColor(.black)
                                 .frame(height: 2)
                                 .matchedGeometryEffect(id: "info", in: animation)
+                        } else if selectedPicker != item {
+                            Capsule()
+                                .foregroundColor(.white)
+                                .frame(height: 2)
                         }
                         
                     }
