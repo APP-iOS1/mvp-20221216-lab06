@@ -33,7 +33,7 @@ struct SearchView: View {
             }
             
             NavigationLink {
-                NewPlaceView()
+                //TODO: 검색완료 뷰 연결하기
             } label: {
                 Image(systemName: "arrow.right.circle")
                     .font(.title3)

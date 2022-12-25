@@ -26,11 +26,11 @@ struct ArticleDetailView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Group {
-                    Text("#불멍 #추워 #더포레")
-                        .font(.title2)
-                        .fontWeight(.bold)
+//                    Text("#불멍 #추워 #더포레")
+//                        .font(.title2)
+//                        .fontWeight(.bold)
                     Text(photoPost.title) // 제목
-                        .font(.headline)
+                        .font(.system(.title3, weight: .semibold))
                         .kerning(-1)
                     Text("\(TimestampToString.dateString(photoPost.createdDate)) 전") // 작성시간
                         .font(.footnote)
