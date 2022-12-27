@@ -20,7 +20,7 @@ struct AddCommunityView: View {
     @State private var selectedImage: UIImage?
     @State var selectedImages: [UIImage?] = []
     @State private var isDoneRegister: Bool = false
-    @Binding var tabSelection: Int
+    @Binding var tabSelection: Tab
     
     var user: Users {
         get {
@@ -106,8 +106,8 @@ struct AddCommunityView: View {
                         category = ""
                         selectedImages = []
                         isDoneRegister = true
-                        try await Task.sleep(nanoseconds: 2_000_000_000)
-                        tabSelection = 4
+                        try await Task.sleep(nanoseconds: 1_000_000_000)
+                        tabSelection = .forth
                         isDoneRegister = false
                         
                     }
@@ -138,7 +138,7 @@ struct AddCommunityView: View {
 
 struct AddCommunityView_Previews: PreviewProvider {
     static var previews: some View {
-        AddCommunityView(communityPostStore: CommunityPostStore(), tabSelection: .constant(3))
+        AddCommunityView(communityPostStore: CommunityPostStore(), tabSelection: .constant(.third))
             .environmentObject(AuthStore())
     }
 }

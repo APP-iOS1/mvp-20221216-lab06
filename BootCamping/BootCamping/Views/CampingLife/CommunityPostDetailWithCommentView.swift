@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import Firebase
+import SDWebImageSwiftUI
 
 struct CommunityPostDetailWithCommentView: View {
     
@@ -60,14 +61,19 @@ struct CommunityPostDetailWithCommentView: View {
                                     
                                 } label: {
                                     
-                                    AsyncImage(url: URL(string: user.profileImage)) { image in
-                                        image
-                                            .resizable()
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
-                                    .frame(width: 30,height: 30)
-                                    .cornerRadius(50)
+                                    WebImage(url: URL(string: user.profileImage))
+                                        .resizable()
+                                        .frame(width: 30,height: 30)
+                                        .cornerRadius(50)
+                                    
+//                                    AsyncImage(url: URL(string: user.profileImage)) { image in
+//                                        image
+//                                            .resizable()
+//                                    } placeholder: {
+//                                        ProgressView()
+//                                    }
+//                                    .frame(width: 30,height: 30)
+//                                    .cornerRadius(50)
                                     
                                     Text(communityPost.userNickName)
                                         .foregroundColor(.black)
@@ -105,15 +111,22 @@ struct CommunityPostDetailWithCommentView: View {
                                 .fixedSize(horizontal: false, vertical: true)
                             
                             ForEach(communityPost.photos, id: \.self) { photo in
-                                AsyncImage(url: URL(string: photo)) { image in
-                                    image
-                                        .resizable()
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .frame(maxWidth: .infinity)
-                                .cornerRadius(10)
-                                .frame(height:200)
+                                WebImage(url: URL(string: photo))
+                                    .resizable()
+                                    .frame(maxWidth: .infinity)
+                                    .cornerRadius(10)
+                                    .frame(height:200)
+                                
+                                
+//                                AsyncImage(url: URL(string: photo)) { image in
+//                                    image
+//                                        .resizable()
+//                                } placeholder: {
+//                                    ProgressView()
+//                                }
+//                                .frame(maxWidth: .infinity)
+//                                .cornerRadius(10)
+//                                .frame(height:200)
                             }
                             
                             
@@ -249,14 +262,19 @@ struct CommunityCommentsView: View {
         VStack(alignment: .leading) {
             
             HStack {
-                AsyncImage(url: URL(string: user.profileImage)) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 30,height: 30)
-                .cornerRadius(50)
+                WebImage(url: URL(string: user.profileImage))
+                    .resizable()
+                    .frame(width: 30,height: 30)
+                    .cornerRadius(50)
+                
+//                AsyncImage(url: URL(string: user.profileImage)) { image in
+//                    image
+//                        .resizable()
+//                } placeholder: {
+//                    ProgressView()
+//                }
+//                .frame(width: 30,height: 30)
+//                .cornerRadius(50)
                 
                 Text(user.userNickName)
                     .font(.subheadline)

@@ -5,6 +5,11 @@
 //  Created by Deokhun KIM on 2022/12/21.
 //
 
+import Foundation
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
+import FirebaseStorage
 import SwiftUI
 
 enum Tab {
@@ -33,15 +38,21 @@ struct BootcampingTabView: View {
                 }
             case .third:
                 NavigationStack {
-                    AddChoiceView(tabSelection: .constant(3), photoPostStore: photoPostStore, communityPostStore: CommunityPostStore())
+                    AddChoiceView(tabSelection: $tabSelection, photoPostStore: photoPostStore, communityPostStore: CommunityPostStore())
                 }
             case .forth:
                 NavigationStack {
                     CommunityView()
                 }
+                .onAppear {
+                    communityPostStore.fetchCommunityPost()
+                }
             case .fifth:
                 NavigationStack {
-                    MyCampingView(photoPostStore: photoPostStore, communityPostStore: communityPostStore, tabSelection: .constant(5))
+                    MyCampingView(photoPostStore: photoPostStore, communityPostStore: communityPostStore, tabSelection: $tabSelection)
+                        .onAppear {
+                            photoPostStore.fetchPhotoPost()
+                        }
                 }
             }
             CustomTabView(selectedTab: $tabSelection)

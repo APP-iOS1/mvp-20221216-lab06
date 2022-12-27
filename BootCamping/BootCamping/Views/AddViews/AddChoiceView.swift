@@ -10,7 +10,7 @@ import SwiftUI
 struct AddChoiceView: View {
     @State var addCategory: String = ""
     @State var isPresented: Bool = false
-    @Binding var tabSelection: Int
+    @Binding var tabSelection: Tab
     @StateObject var photoPostStore: PhotoPostStore
     @StateObject var communityPostStore: CommunityPostStore
     
@@ -61,6 +61,6 @@ struct CategoryModalView: View {
 
 struct AddChoiceView_Previews: PreviewProvider {
     static var previews: some View {
-        AddChoiceView(tabSelection: .constant(3), photoPostStore: PhotoPostStore(), communityPostStore: CommunityPostStore())
+        AddChoiceView(tabSelection: .constant(.third), photoPostStore: PhotoPostStore(), communityPostStore: CommunityPostStore())
     }
 }
