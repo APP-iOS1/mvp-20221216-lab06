@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import Firebase
+import SDWebImageSwiftUI
 
 // TODO: 사용자 이름 및 프로필사진 게시자로 변경
 struct ArticleDetailView: View {
@@ -41,15 +42,22 @@ struct ArticleDetailView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach (photoPost.photos, id: \.self) { photo in
-                            AsyncImage(url: URL(string: photo)) { image in
-                                image
-                                    .resizable()
-                                    .frame(width: 360, height: 360)
-                                    .aspectRatio(contentMode: .fit)
-                                    .padding(.vertical, 5)
-                            } placeholder: {
-                                ProgressView()
-                            }
+                            
+                            WebImage(url: URL(string: photo))
+                                .resizable()
+                                .frame(width: 360, height: 360)
+                                .aspectRatio(contentMode: .fit)
+                                .padding(.vertical, 5)
+                            
+//                            AsyncImage(url: URL(string: photo)) { image in
+//                                image
+//                                    .resizable()
+//                                    .frame(width: 360, height: 360)
+//                                    .aspectRatio(contentMode: .fit)
+//                                    .padding(.vertical, 5)
+//                            } placeholder: {
+//                                ProgressView()
+//                            }
                         }
                     }
                 }
@@ -86,14 +94,20 @@ struct ArticleDetailView: View {
                     HStack {
                         Button {
                         } label: {
-                            AsyncImage(url: URL(string: user.profileImage)) { image in
-                                image
-                                    .resizable()
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 30,height: 30)
-                            .cornerRadius(50)
+                            WebImage(url: URL(string: user.profileImage))
+                                .resizable()
+                                .frame(width: 30,height: 30)
+                                .cornerRadius(50)
+                            
+                            
+//                            AsyncImage(url: URL(string: user.profileImage)) { image in
+//                                image
+//                                    .resizable()
+//                            } placeholder: {
+//                                ProgressView()
+//                            }
+//                            .frame(width: 30,height: 30)
+//                            .cornerRadius(50)
                                 
                             Text(user.userNickName)
                         }
@@ -167,13 +181,18 @@ struct ArticleDetailView: View {
             }
             
             HStack {
-                AsyncImage(url: URL(string: user.profileImage)) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    ProgressView()
-                }   .frame(width: 25,height: 25)
-                    .cornerRadius(50)
+                WebImage(url: URL(string: user.profileImage))
+                    .resizable()
+                    .frame(width: 25,height: 25)
+                        .cornerRadius(50)
+                
+//                AsyncImage(url: URL(string: user.profileImage)) { image in
+//                    image
+//                        .resizable()
+//                } placeholder: {
+//                    ProgressView()
+//                }   .frame(width: 25,height: 25)
+//                    .cornerRadius(50)
                 
                 TextField("댓글을 남겨보세요!", text: $commentText)
                     .textFieldStyle(OvalTextFieldStyle())
@@ -225,14 +244,19 @@ struct Comments: View {
         VStack(alignment: .leading) {
            
             HStack {
-                AsyncImage(url: URL(string: user.profileImage)) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 30,height: 30)
-                .cornerRadius(50)
+                WebImage(url: URL(string: user.profileImage))
+                    .resizable()
+                    .frame(width: 30,height: 30)
+                    .cornerRadius(50)
+                
+//                AsyncImage(url: URL(string: user.profileImage)) { image in
+//                    image
+//                        .resizable()
+//                } placeholder: {
+//                    ProgressView()
+//                }
+//                .frame(width: 30,height: 30)
+//                .cornerRadius(50)
  
                 Text(user.userNickName)
                     .font(.subheadline)

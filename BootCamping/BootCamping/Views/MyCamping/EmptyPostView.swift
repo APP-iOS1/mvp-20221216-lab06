@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EmptyPostView: View {
-    @Binding var tabSelection: Int
+    @Binding var tabSelection: Tab
     
     var body: some View {
         VStack {
@@ -22,7 +22,7 @@ struct EmptyPostView: View {
                 .padding(.bottom, 10)
             
             Button {
-                tabSelection = 3
+                tabSelection = .third
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 25)
@@ -40,6 +40,6 @@ struct EmptyPostView: View {
 
 struct EmptyPostView_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyPostView(tabSelection: .constant(3))
+        EmptyPostView(tabSelection: .constant(.third))
     }
 }

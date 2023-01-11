@@ -5,45 +5,58 @@
 //  Created by Deokhun KIM on 2022/12/21.
 //
 
+import Foundation
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
+import FirebaseStorage
 import SwiftUI
 
+enum Tab {
+    case first
+    case second
+    case third
+    case forth
+    case fifth
+}
+
 struct BootcampingTabView: View {
-    @State var tabSelection = 1
+    @State private var tabSelection: Tab = .first
     @StateObject var photoPostStore: PhotoPostStore = PhotoPostStore()
     @StateObject var communityPostStore: CommunityPostStore = CommunityPostStore()
     
     var body: some View {
-        TabView(selection: $tabSelection) {
-            NavigationStack {
-                HomeView()
-            }.tabItem {
-                Image(systemName: "flame.fill")
-                Text("메인")
-            }.tag(1)
-            NavigationStack {
-                NewPlaceView().environmentObject(PlaceStore())
-            }.tabItem {
-                Image(systemName: "mappin.and.ellipse")
-                Text("플레이스")
-            }.tag(2)
-            NavigationStack {
-                AddChoiceView(tabSelection: $tabSelection, photoPostStore: photoPostStore, communityPostStore: CommunityPostStore())
-            }.tabItem {
-                Image(systemName: "plus")
-                Text("글쓰기")
-            }.tag(3)
-            NavigationStack {
-                CommunityView()
-            }.tabItem {
-                Image(systemName: "tent")
-                Text("캠핑생활")
-            }.tag(4)
-            NavigationStack {
-                MyCampingView(photoPostStore: photoPostStore, communityPostStore: communityPostStore, tabSelection: $tabSelection)
-            }.tabItem {
-                Image(systemName: "person")
-                Text("마이캠핑")
-            }.tag(5)
+        VStack {
+            switch tabSelection {
+            case .first:
+                NavigationStack {
+                    HomeView()
+                }
+            case .second:
+                NavigationStack {
+                    NewPlaceView().environmentObject(PlaceStore())
+                }
+            case .third:
+                NavigationStack {
+                    AddChoiceView(tabSelection: $tabSelection, photoPostStore: photoPostStore, communityPostStore: CommunityPostStore())
+                }
+            case .forth:
+                NavigationStack {
+                    CommunityView()
+                }
+                .onAppear {
+                    communityPostStore.fetchCommunityPost()
+                }
+            case .fifth:
+                NavigationStack {
+                    MyCampingView(photoPostStore: photoPostStore, communityPostStore: communityPostStore, tabSelection: $tabSelection)
+                        .onAppear {
+                            photoPostStore.fetchPhotoPost()
+                        }
+                }
+            }
+            CustomTabView(selectedTab: $tabSelection)
+                .frame(height: 38)
         }
     }
 }

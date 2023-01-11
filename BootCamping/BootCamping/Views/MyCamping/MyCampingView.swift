@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import SDWebImageSwiftUI
 
 enum tapMypage : String, CaseIterable {
     case myCamping = "나의 캠핑 이야기"
@@ -25,7 +26,7 @@ struct MyCampingView: View {
     
     @State private var selectedPicker2: tapMypage = .myCamping
     @Namespace private var animation
-    @Binding var tabSelection: Int
+    @Binding var tabSelection: Tab
     
     var user: Users {
         get {
@@ -70,15 +71,22 @@ struct MyCampingView: View {
     private func animate() -> some View {
         VStack {
             HStack {
-                AsyncImage(url: URL(string: user.profileImage)) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 50, height: 50)
-                .cornerRadius(50)
-                .padding()
+                WebImage(url: URL(string: user.profileImage))
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .cornerRadius(50)
+                    .padding()
+                
+                
+//                AsyncImage(url: URL(string: user.profileImage)) { image in
+//                    image
+//                        .resizable()
+//                } placeholder: {
+//                    ProgressView()
+//                }
+//                .frame(width: 50, height: 50)
+//                .cornerRadius(50)
+//                .padding()
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -156,7 +164,7 @@ struct ViewChangeButton: View {
     @State private var isList: Bool = false
     @StateObject var photoPostStore: PhotoPostStore
     @StateObject var communityPostStore: CommunityPostStore
-    @Binding var tabSelection: Int
+    @Binding var tabSelection: Tab
     
     var user: Users
     
@@ -256,7 +264,7 @@ struct myPageTapView : View {
 struct MyCampingView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyCampingView(communityPostStore: CommunityPostStore(), tabSelection: .constant(3))
+            MyCampingView(communityPostStore: CommunityPostStore(), tabSelection: .constant(.third))
                 .environmentObject(AuthStore())
         }
     }

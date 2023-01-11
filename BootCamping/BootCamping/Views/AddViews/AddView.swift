@@ -15,7 +15,7 @@ struct AddView: View {
     @State private var hashTag: String = ""
     @State private var location: String = ""
     @State private var content: String = ""
-    @Binding var tabSelection: Int
+    @Binding var tabSelection: Tab
     @State private var isDoneRegister: Bool = false
     
     //storage, fireStore연동
@@ -111,8 +111,8 @@ struct AddView: View {
                         photoPostStore.fetchPhotoPost()
                         photoPostStore.retrievePhotos()
                         isDoneRegister = true
-                        try await Task.sleep(nanoseconds: 2_000_000_000)
-                        tabSelection = 5
+                        try await Task.sleep(nanoseconds: 1_000_000_000)
+                        tabSelection = .fifth
                         isDoneRegister = false
                     }
                 } label: {
@@ -144,7 +144,7 @@ struct AddView: View {
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            AddView(photoPostStore: PhotoPostStore(), tabSelection: .constant(1))
+            AddView(photoPostStore: PhotoPostStore(), tabSelection: .constant(.third))
         }
     }
 }

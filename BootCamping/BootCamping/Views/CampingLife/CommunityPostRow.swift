@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import SDWebImageSwiftUI
 
 struct CommunityPostRow: View {
     @EnvironmentObject var authStore: AuthStore
@@ -51,14 +52,19 @@ struct CommunityPostRow: View {
                                 Button {
                                     
                                 } label: {
-                                    AsyncImage(url: URL(string: user.profileImage)) { image in
-                                        image
-                                            .resizable()
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
-                                    .frame(width: 30,height: 30)
-                                    .cornerRadius(50)
+                                    WebImage(url: URL(string: user.profileImage))
+                                        .resizable()
+                                        .frame(width: 30,height: 30)
+                                        .cornerRadius(50)
+                                    
+//                                    AsyncImage(url: URL(string: user.profileImage)) { image in
+//                                        image
+//                                            .resizable()
+//                                    } placeholder: {
+//                                        ProgressView()
+//                                    }
+//                                    .frame(width: 30,height: 30)
+//                                    .cornerRadius(50)
                                     Text("\(communityPost.userNickName)")
                                         .foregroundColor(.black)
                                         .font(.callout)
@@ -95,15 +101,21 @@ struct CommunityPostRow: View {
                                .fixedSize(horizontal: false, vertical: true)
                             
                             if communityPost.photos.count != 0 {
-                                AsyncImage(url: URL(string: communityPost.photos.first ?? "")) { image in
-                                    image
-                                        .resizable()
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .frame(maxWidth: .infinity)
-                                .cornerRadius(10)
-                                .frame(height:200)
+                                WebImage(url: URL(string: communityPost.photos.first ?? ""))
+                                    .resizable()
+                                    .frame(maxWidth: .infinity)
+                                    .cornerRadius(10)
+                                    .frame(height:200)
+                                
+//                                AsyncImage(url: URL(string: communityPost.photos.first ?? "")) { image in
+//                                    image
+//                                        .resizable()
+//                                } placeholder: {
+//                                    ProgressView()
+//                                }
+//                                .frame(maxWidth: .infinity)
+//                                .cornerRadius(10)
+//                                .frame(height:200)
                             }
 
                                 

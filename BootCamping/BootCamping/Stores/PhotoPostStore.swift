@@ -148,7 +148,7 @@ class PhotoPostStore: ObservableObject {
                             if let image = UIImage(data: data!) {
                                 
                                 DispatchQueue.main.async {
-//                                    retrievedImages.append(image)
+//                                    self.retrievedImages.append(image)
                                 }
                             }
                         }
