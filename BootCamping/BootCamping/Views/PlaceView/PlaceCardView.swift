@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct PlaceCardView: View {
     
@@ -14,10 +15,15 @@ struct PlaceCardView: View {
     
     var body: some View {
         HStack {
-            Image("jeju1")
-                .resizable()
-                .frame(width: 150, height: 150)
-                .padding(.trailing,10)
+//            Image("jeju1")
+//                .resizable()
+//                .frame(width: 150, height: 150)
+//                .padding(.trailing,10)
+            WebImage(url: URL(string: places.firstImageUrl))
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .padding(.trailing,10)
+            
             VStack(alignment: .leading, spacing: 5) {
                 Group {
                     //제목

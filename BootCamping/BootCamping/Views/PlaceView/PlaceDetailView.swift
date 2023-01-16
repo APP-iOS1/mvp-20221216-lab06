@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreLocation
 import MapKit
+import SDWebImageSwiftUI
 
 struct AnnotatedItem: Identifiable {
     let id = UUID()
@@ -37,9 +38,13 @@ struct PlaceDetailView: View {
         ZStack {
             ScrollView {
                 TabView {
-                    ForEach(images, id: \.self) { item in
-                        Image(item).resizable()
-                    }
+//                    ForEach(images, id: \.self) { item in
+//                        Image(item).resizable()
+                        
+                    WebImage(url: URL(string: places.firstImageUrl))
+                            .resizable()
+                        
+//                    }
                 }
                 .tabViewStyle(PageTabViewStyle())
                 .frame(width: 400,height: 300)
