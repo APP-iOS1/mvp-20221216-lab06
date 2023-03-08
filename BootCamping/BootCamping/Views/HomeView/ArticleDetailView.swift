@@ -268,7 +268,7 @@ struct Comments: View {
                     .kerning(-0.5)
                     .padding(.bottom, 1)
                 
-                Text("\(TimestampToString.dateString(photoComments.photoCommentCreatedDate)) 전")
+                Text("\(TimestampToString.dateString(d.photoCommentCreatedDate)) 전")
                     .font(.footnote)
                     .foregroundColor(.gray)
                     .frame(width: 80)

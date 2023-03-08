@@ -19,7 +19,8 @@ struct ContentView: View {
                 .onAppear {
                     authStore.fetchUserList()
                 }
-        } else {
+        }
+        else {
             LoginView(isPresented: .constant(false))
                 .onAppear {
                     authStore.fetchUserList()

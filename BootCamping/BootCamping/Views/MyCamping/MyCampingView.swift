@@ -30,11 +30,12 @@ struct MyCampingView: View {
     
     var user: Users {
         get {
-            if authStore.currentUser?.uid != nil {
-                return authStore.userList.filter { $0.userID == String(authStore.currentUser!.uid) }.first!
-            } else {
-                return Users(id: "", userID: "", userNickName: "", userEmail: "", profileImage: "")
-            }
+//            if authStore.currentUser?.uid != nil {
+//                return authStore.userList.filter { $0.userID == String(authStore.currentUser!.uid) }.first!
+//            } else {
+//                return
+            Users(id: "", userID: "", userNickName: "", userEmail: "", profileImage: "")
+//            }
         }
     }
     

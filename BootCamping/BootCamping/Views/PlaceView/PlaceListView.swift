@@ -41,6 +41,7 @@ struct PlaceListView: View {
                             if index == placeStore.returnPlaces().count - 1 {
                                 Task {
                                     page += 1
+                                    print("\(page)닿음")
                                     isLoading = true
                                     placeStore.places.append(contentsOf: try await fecthData.fetchData(page: page))
                                     isLoading = false
@@ -53,6 +54,7 @@ struct PlaceListView: View {
                     ProgressView().frame(height: 100)
                 }
             }
+//            .background(Color("backgroundColor"))
             .padding(.bottom, 1)
             .onAppear {
                 Task {
